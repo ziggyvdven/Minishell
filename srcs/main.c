@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/06 14:04:28 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/06 14:09:46 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int main()
 		line = (readline("Minishell: "));
 		free(line);
 		line = NULL;
-		
+		// Test Github
 	}
 }

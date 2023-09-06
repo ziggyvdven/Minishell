@@ -1,6 +1,0 @@
-he
-hello
-hello
-hi there
-eof
-hello

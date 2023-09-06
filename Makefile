@@ -1,0 +1,133 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
+#    Updated: 2023/09/06 13:50:18 by zvan-de-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+RT	= \033[0m
+G	= \033[0;32m
+B	= \033[0;34m
+R 	= \033[0;31m
+
+define HEADER
+███╗░░░███╗██╗███╗░░██╗██╗░██████╗██╗░░██╗███████╗██╗░░░░░██╗░░░░░
+████╗░████║██║████╗░██║██║██╔════╝██║░░██║██╔════╝██║░░░░░██║░░░░░
+██╔████╔██║██║██╔██╗██║██║╚█████╗░███████║█████╗░░██║░░░░░██║░░░░░
+██║╚██╔╝██║██║██║╚████║██║░╚═══██╗██╔══██║██╔══╝░░██║░░░░░██║░░░░░
+██║░╚═╝░██║██║██║░╚███║██║██████╔╝██║░░██║███████╗███████╗███████╗
+╚═╝░░░░░╚═╝╚═╝╚═╝░░╚══╝╚═╝╚═════╝░╚═╝░░╚═╝╚══════╝╚══════╝╚══════╝
+endef
+export HEADER
+
+#------------------------------------------------------------------------------#
+#                                VARIABLES                                     #
+#------------------------------------------------------------------------------#
+
+# Program name
+NAME 			= minishell
+
+# Compiler and flags
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror -g
+
+# others
+RM				= rm -f
+MAKE			= make
+
+# Objects 
+OBJS_PATH		= objs/
+OBJS			= $(addprefix $(OBJS_PATH), $(SRCS_FILES:.c=.o))
+OBJS_BONUS		= $(addprefix $(OBJS_PATH), $(SRCS_BONUS_FILES:.c=.o))
+
+# Sources
+SRCS_PATH		= srcs/
+BONUS_PATH		= srcs_bonus/
+SRCS			= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
+SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
+
+# Includes
+HEADERS			= -I $(LIBFT)/include 
+
+# library and source files
+LIBFT			= ./libs/libft
+READLINE		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+LIBS			= $(LIBFT)/libft.a
+SRCS_FILES		= main.c
+
+# Progress bar variables
+TOTAL 			= $(words $(SRCS_FILES))
+CURR  			= 0
+PERCENT 		= 0
+
+
+define update_progress
+    $(eval CURR=$(shell echo $$(($(CURR) + 1))))
+    $(if $(TOTAL), \
+        $(eval PERCENT=$(shell echo $$(($(CURR) * 100 / $(TOTAL))))) \
+    )
+    @printf "\r\\033[K$(B)Minishell: $(RT) $(PERCENT)%% ["
+    @for i in `seq 1 $(PERCENT)`; do \
+        printf "$(G)=$(RT)"; \
+    done
+	@for i in `seq $(PERCENT) 100`; do \
+        printf " "; \
+    done
+    @printf "]"
+endef
+
+define print_header
+    @echo "$$HEADER"
+endef
+
+					
+#------------------------------------------------------------------------------#
+#                                 RULES                                        #
+#------------------------------------------------------------------------------#
+
+all: $(HEAD) libft $(NAME) 
+
+$(NAME): $(OBJS_PATH) $(OBJS) $(LIBFT)
+	@$(CC) $(READLINE) $(CFLAGS) -o $@ $(OBJS) $(LIBS) $(HEADERS)
+	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
+
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c 
+	@$(CC) $(CFLAGS) -o $@ -c $< 
+	$(call update_progress)
+	
+$(OBJS_PATH):
+	@mkdir -p $(OBJS_PATH)
+	
+libft:
+	@$(call print_header)
+	@$(MAKE) -C $(LIBFT)
+
+brew:
+	brew --version || curl -fsSL https://rawgit.com/kube/42homebrew/master/install.sh
+
+glfw: brew
+	brew install glfw
+
+cmake : glfw
+	cmake --version | brew install cmake
+
+bonus: 
+	@$(MAKE) "NAME=$(NAME_BONUS)" "OBJS=$(OBJS_BONUS)" "SRCS_FILES=$(SRCS_BONUS_FILES)" "SRCS_PATH=$(BONUS_PATH)"
+
+clean:
+	@rm -rf $(OBJS) $(OBJS_PATH)
+	@$(MAKE) -C $(LIBFT) clean
+	@echo "$(R)Files succesfully cleaned 🗑$(RT)"
+
+fclean: clean
+	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT) fclean
+
+re: fclean all
+
+.PHONY:		all, clean, fclean, re, libmlx

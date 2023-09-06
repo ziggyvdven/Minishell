@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/06 17:23:43 by oroy             ###   ########.fr       */
+/*   Created: 2023/09/06 17:06:26 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/06 17:14:21 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
-#include <readline/readline.h>
+#include "../../includes/libft.h"
 
-int main()
+void	ft_free_str(char *str)
 {
-	char *line;
-	
-	printf("\x1b[31m🔥🔥🔥WELCOME TO MINIHELL🔥🔥🔥🔥\x1b[0m\n");
-	while (1)
+	if (str)
 	{
-		line = (readline("Minishell: "));
-		ft_free_str(line);
+		free(str);
+		str = NULL;
 	}
 }

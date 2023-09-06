@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/08/30 19:07:05 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:12:47 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int			ft_strisdigit(char *str);
 long int	ft_atol(const char *nptr);
 void		ft_swap(int *a, int *b);
 void		ft_free_ar(char **ar);
+void		ft_free_str(char *str);
 void		ft_printmap(char **map);
 
 /*PRINTF*********************************/

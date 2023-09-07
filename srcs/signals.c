@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:32:59 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/07 14:47:35 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:09:02 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 void	sigint_handler(int signo)
 {
 	(void) signo;
+	rl_replace_line("", 0);
+	rl_on_new_line();
 	rl_redisplay();
 	printf("\nMinishell: ");
 	return ;

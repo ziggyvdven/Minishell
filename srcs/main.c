@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/07 14:39:01 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:09:46 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int main()
 	{
 		input = readline("Minishell: ");
 		if (!input)
-			break;
+			break ;
 		add_history(input);
 		if (ft_strnstr("exit", input, 4) && !ft_strncmp(input, "exit", 4))
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		free(input);
 		input = NULL;

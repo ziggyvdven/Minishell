@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
+#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/08/30 19:06:17 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/06 17:15:02 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ utils/ft_atoi.c \
 utils/ft_atol.c \
 utils/ft_calloc.c \
 utils/ft_free_ar.c \
+utils/ft_free_str.c \
 utils/ft_itoa.c \
 utils/ft_putchar.c \
 utils/ft_putchar_fd.c \

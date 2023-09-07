@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/07 14:38:03 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:40:35 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int			ft_strisdigit(char *str);
 long int	ft_atol(const char *nptr);
 void		ft_swap(int *a, int *b);
 void		ft_free_ar(char **ar);
+void		ft_free_str(char *str);
 void		ft_printmap(char **map);
 
 /*PRINTF*********************************/

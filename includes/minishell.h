@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/06 17:13:18 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/07 13:19:21 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,23 @@
 # include	<stdbool.h>
 # include	<limits.h>
 # include	<fcntl.h>
+# include	<readline/readline.h>
+# include	<sys/wait.h>
+
+// typedef struct s_data
+// {
+// 	char	**cmd;
+// 	char	*cmdpath;
+// 	char	**pathlist;
+// 	int		files[2];
+// 	int		pipes[2];
+// }	t_data;
 
 /*CHECKS*********************************/
 
 /*INIT**********************************/
+
+char	**init_builtins(void);
 
 /*ERRORS******************************/
 

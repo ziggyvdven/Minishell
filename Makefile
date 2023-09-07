@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
+#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/06 13:50:18 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/07 13:21:46 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,8 @@ HEADERS			= -I $(LIBFT)/include
 LIBFT			= ./libs/libft
 READLINE		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
-SRCS_FILES		= main.c
+SRCS_FILES		= main.c \
+init_builtins.c
 
 # Progress bar variables
 TOTAL 			= $(words $(SRCS_FILES))

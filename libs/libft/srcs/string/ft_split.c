@@ -6,12 +6,11 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 10:15:28 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/04/24 18:32:41 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:43:32 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
-// #include "../includes/push_swap.h"
 
 int	ft_strcount(char const *str, char c)
 {

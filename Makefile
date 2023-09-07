@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/07 12:06:48 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/07 14:38:48 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ RLHEADER		= -I/Users/$(USER)/.brew/opt/readline/include
 LIBFT			= ./libs/libft
 READLINE		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
-SRCS_FILES		= main.c
+SRCS_FILES		= main.c signals.c
 
 # Progress bar variables
 TOTAL 			= $(words $(SRCS_FILES))

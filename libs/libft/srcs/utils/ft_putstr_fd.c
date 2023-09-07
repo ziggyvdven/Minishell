@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:58:11 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/04/13 18:02:29 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:37:43 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ void	ft_putstr_fd(char *s, int fd)
 		ft_putchar_fd(s[i], fd);
 		i++;
 	}
+}
+
+void	putstr_exit(char *str, int fd)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i] != '\0')
+		write(fd, &str[i], 1);
+	exit(fd);
 }
 
 // int main(int argc, char **argv)

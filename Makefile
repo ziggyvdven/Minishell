@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/06 13:50:18 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/07 12:06:48 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
+RLHEADER		= -I/Users/$(USER)/.brew/opt/readline/include
 
 # library and source files
 LIBFT			= ./libs/libft
@@ -97,7 +98,7 @@ $(NAME): $(OBJS_PATH) $(OBJS) $(LIBFT)
 	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c 
-	@$(CC) $(CFLAGS) -o $@ -c $< 
+	@$(CC) $(RLHEADER) $(CFLAGS) -o $@ -c $< 
 	$(call update_progress)
 	
 $(OBJS_PATH):

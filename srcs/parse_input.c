@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/08 12:05:34 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:28:52 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,33 @@ bool	is_whitespace(char c)
 	return (false);
 }
 
+// t_tokens	*meta_specifier()
+
 void	parse_input(char *input)
 {
-	size_t	i;
-	size_t	j;
+	t_tokens	*tokens = NULL;
+	char		*temp;
+	size_t		i;
+	size_t		j;
 
 	i = 0;
 	j = 0;
 	while (input[i])
 	{
-		if (is_meta(input[i]))
-		{
-
-		}
-		else if (ft_isalpha(input[i]))
+		// if (is_meta(input[i]))
+			// tokens = meta_specifier(input[i])
+		if (ft_isalpha(input[i]))
 		{
 			j = i;
-			while (!is_whitespace(input[j]))
+			while (input[j] && !is_whitespace(input[j]))
 				j++;
+			temp = ft_substr(input, i, j - i);
+			// printf("%s\n", temp);
+			ft_lstadd_back(tokens, ft_lstnew(get_data(temp, WORD)));
+			ft_free_str(temp);
+			i = j;
 		}
-		
 		i++;
 	}
+	ft_printlst(tokens);
 }

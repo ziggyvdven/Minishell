@@ -1,6 +1,0 @@
-hello
-Minishell:this is a test that is longer
-
-
-
-

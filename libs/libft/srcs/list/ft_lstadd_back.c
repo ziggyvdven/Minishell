@@ -6,15 +6,15 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 10:49:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/05/18 14:45:51 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:43:10 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-t_node	*ft_lstadd_back(t_node *lst, t_node *new)
+t_tokens	*ft_lstadd_back(t_tokens *lst, t_tokens *new)
 {
-	t_node	*ptr;
+	t_tokens	*ptr;
 
 	if (!lst)
 		return (NULL);

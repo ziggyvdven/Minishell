@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
+#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/06 17:15:02 by oroy             ###   ########.fr        #
+#    Updated: 2023/09/08 12:56:20 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,6 +60,7 @@ list/ft_lstiter.c \
 list/ft_lstlast.c \
 list/ft_lstnew.c \
 list/ft_lstsize.c \
+list/ft_printlst.c \
 memory/ft_bzero.c \
 memory/ft_memcpy.c \
 memory/ft_memchr.c \

@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/07 17:38:48 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/08 11:36:38 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ MAKE			= make
 
 # Objects 
 OBJS_PATH		= objs/
-OBJS			= $(addprefix $(OBJS_PATH), $(SRCS_FILES:.c=.o))
+OBJS			= $(patsubst $(SRCS_PATH)%.c, $(OBJS_PATH)%.o, $(SRCS_FILES))
 OBJS_BONUS		= $(addprefix $(OBJS_PATH), $(SRCS_BONUS_FILES:.c=.o))
 
 # Sources
@@ -59,7 +59,7 @@ RLHEADER		= -I/Users/$(USER)/.brew/opt/readline/include
 LIBFT			= ./libs/libft
 READLINE		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
-SRCS_FILES		= main.c signals.c init_builtins.c
+SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 
 # Progress bar variables
 TOTAL 			= $(words $(SRCS_FILES))

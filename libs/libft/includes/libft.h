@@ -6,30 +6,34 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:40:35 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:43:06 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include	<stdlib.h>
-# include	<string.h>
-# include	<unistd.h>
-# include	<stddef.h>
-# include	<stdarg.h>
-# include	<limits.h>
-# include	<stdint.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
+# include <stddef.h>
+# include <stdarg.h>
+# include <limits.h>
+# include <stdint.h>
 
-# define BUFFER_SIZE 100
+typedef struct s_tokens	t_tokens;
 
-typedef struct s_node	t_node;
-
-typedef struct s_node
+typedef struct s_data
 {
-	char	*str;
-	t_node	*next;
-}	t_node;
+	char		*str;
+	int			token_id;
+}	t_data;
+
+typedef struct s_tokens
+{
+	t_data		*data;
+	t_tokens	*next;
+}	t_tokens;
 
 int			ft_isalpha(int c);
 int			ft_isdigit(int c);
@@ -64,20 +68,20 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 void		ft_putchar_fd(char c, int fd);
 void		ft_putchar(char c);
 void		ft_putstr_fd(char *s, int fd);
-void		putstr_exit(char *str, int fd);
+void		ft_putstr_exit(char *str, int fd, int exit_status);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
-t_node		*ft_lstnew(char *content);
-void		ft_lstadd_front(t_node **lst, t_node *new);
-int			ft_lstsize(t_node *lst);
-void		ft_lstclear(t_node **lst, void (*del)(void *));
-t_node		*ft_lstlast(t_node *lst);
-t_node		*ft_lstadd_back(t_node *lst, t_node *new);
-void		ft_lstdelone(t_node *lst, void (*del)(void*));
-// void		ft_lstclear(t_node **lst, void (*del)(int));
-void		ft_lstiter(t_node *lst, void (*f)(void *));
-void		ft_printlst(t_node *map_lst);
-t_node		*ft_lstmap(t_node *lst, void *(*f)(int), void (*del)(int));
+t_tokens	*ft_lstnew(t_data *data);
+void		ft_lstadd_front(t_tokens **lst, t_tokens *new);
+int			ft_lstsize(t_tokens *lst);
+void		ft_lstclear(t_tokens **lst, void (*del)(void *));
+t_tokens	*ft_lstlast(t_tokens *lst);
+t_tokens	*ft_lstadd_back(t_tokens *lst, t_tokens *new);
+void		ft_lstdelone(t_tokens *lst, void (*del)(void*));
+// void		ft_lstclear(t_tokens **lst, void (*del)(int));
+void		ft_lstiter(t_tokens *lst, void (*f)(void *));
+void		ft_printlst(t_tokens *map_lst);
+t_tokens	*ft_lstmap(t_tokens *lst, void *(*f)(int), void (*del)(int));
 void		ft_putnbr_base(int nbr, char *base);
 int			ft_strisdigit(char *str);
 long int	ft_atol(const char *nptr);

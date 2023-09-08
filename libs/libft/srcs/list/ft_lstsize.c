@@ -6,16 +6,16 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 17:48:04 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/04/21 13:27:56 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:34:40 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-int	ft_lstsize(t_node *lst)
+int	ft_lstsize(t_tokens *lst)
 {
 	int		i;
-	t_node	*ptr;
+	t_tokens	*ptr;
 
 	if (!lst)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/07 17:43:04 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:55:41 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*get_input(char *cmd)
 	int		input;
 	char	*ptr;
 
+	(void)input;
 	ptr = ft_strchr(cmd, '<');
 	if (ptr)
 	{
@@ -107,7 +108,7 @@ int main(void)
 	printf("\x1b[31m🔥🔥🔥WELCOME TO MINIHELL🔥🔥🔥🔥\x1b[0m\n");
 	while (1)
 	{
-		input = readinput("Minishell: ");
+		input = readline("Minishell: ");
 		if (!input)
 			break ;
 		add_history(input);
@@ -117,12 +118,12 @@ int main(void)
 			break ;
 		}
 		cmds = ft_split(input, '|');
-		ft_free_str(input);
 		if (!cmds)
 		{
 			ft_putendl_fd("Error: Malloc failed", 2);
 			exit(EXIT_FAILURE);
 		}
+		ft_free_str(input);
 		process_cmds(cmds, builtins);
 		ft_free_ar(cmds);
 	}

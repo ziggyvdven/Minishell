@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 10:29:03 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:34:13 by zvan-de-         ###   ########.fr       */
+/*   Created: 2023/09/08 12:43:39 by zvan-de-          #+#    #+#             */
+/*   Updated: 2023/09/11 12:32:17 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/libft.h"
+#include "../includes/minishell.h"
 
-t_tokens	*ft_lstlast(t_tokens *lst)
+t_data	*get_data(char *ptr, int token_id)
 {
-	if (!lst)
+	t_data	*data;
+
+	data = malloc(sizeof(t_data) * 1);
+	if (!data)
 		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	data->str = ptr;
+	data->token_id = token_id;
+	return (data);
 }

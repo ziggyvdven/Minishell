@@ -6,22 +6,22 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 15:55:05 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/05/18 12:37:34 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:51:53 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-t_node	*ft_lstnew(char *content)
+t_tokens	*ft_lstnew(t_data *data)
 {
-	t_node	*next;
+	t_tokens	*new;
 
-	next = (t_node *)malloc(sizeof(t_node));
-	if (!(next))
+	new = (t_tokens *)malloc(sizeof(t_tokens));
+	if (!(new))
 		return (NULL);
-	next->str = content;
-	next->next = NULL;
-	return (next);
+	new->data = data;
+	new->next = NULL;
+	return (new);
 }
 
 // int main(void)

@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_free_str.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/22 10:29:03 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:34:13 by zvan-de-         ###   ########.fr       */
+/*   Created: 2023/09/06 17:06:26 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/06 17:14:21 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-t_tokens	*ft_lstlast(t_tokens *lst)
+void	ft_free_str(char *str)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
 }

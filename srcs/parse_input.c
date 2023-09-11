@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/08 13:29:50 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:21:14 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	is_meta(char c)
 {
 	if (c)
 		if (c == '"' || c == '|' || c == '<' || c == '>' || c == 39 
-			|| c == '$')
+			|| c == '$' || c == '-')
 			return (true);
 	return (false);
 }
@@ -28,33 +28,144 @@ bool	is_whitespace(char c)
 	return (false);
 }
 
-// t_tokens	*meta_specifier()
+int ft_double_quote(char *input, int i)
+{
+	while (input[i])
+	{
+		i++;
+		if (input[i] == '"')
+			break ;
+	}
+	if (input[i] == '\0')
+		ft_putstr_exit("Double quote\n", 2, 2);
+	if (input[i] == '"')
+		i++;
+	pa()->id = D_QUOTE;
+	return (i);
+}
+
+int ft_single_quote(char *input, int i)
+{
+	while (input[i])
+	{
+		i++;
+		if (input[i] == 39)
+			break ;
+	}
+	if (input[i] == '\0')
+		ft_putstr_exit("single quote\n", 2, 2);
+	if (input[i] == 39)
+		i++;
+	pa()->id = S_QUOTE;
+	return (i);
+}
+
+int get_word(char *input, int i)
+{
+	while (input[i++])
+	{
+		if (is_whitespace(input[i]) || is_meta(input[i]))
+			break ;
+	}
+	pa()->id = WORD;
+	return (i);
+}
+
+int get_flag(char *input, int i)
+{
+	while (input[i++])
+	{
+		if (is_whitespace(input[i]))
+			break ;
+	}
+	pa()->id = WORD;
+	return (i);
+}
+
+int	meta_specifier(char *input, int i)
+{
+	if (!input)
+		return (0);
+	else if (input[i] == '"')
+		i = ft_double_quote(input, i);
+	else if (input[i] == 39)
+		i = ft_single_quote(input, i);
+	else if (input[i] == '-')
+	{
+		if (is_whitespace(input[i + 1]))
+		{
+			pa()->id = WORD;
+			i++;
+		}
+		else
+		{
+			i = get_flag(input, i);
+			pa()->id = FLAG;
+		}
+	}
+	else if (input[i] == '|')
+	{
+		i++;
+		pa()->id = PIPE;
+	}
+	else if (input[i] == '<')
+	{
+		if (input[i + 1] == '<')
+		{
+			pa()->id = GREATGREAT;
+			i += 2;
+			if (input[i] == '>')
+				ft_putstr_exit("syntax error near unexpected token >", 2, 2);
+		}
+		else
+		{
+			pa()->id = GREAT;
+			i++;
+		}
+	}
+	else if (input[i] == '>')
+	{
+		if (input[i + 1] == '>')
+		{
+			pa()->id = LESSLESS;
+			i += 2;
+			if (input[i] == '>')
+				ft_putstr_exit("syntax error near unexpected token >\n", 2, 2);
+		}
+		else
+		{
+			pa()->id = LESS;
+			i++;
+		}
+	}
+	return (i);
+}
+
+t_parsing	*pa(void)
+{
+	static t_parsing	parsing;
+
+	return (&parsing);
+}
 
 void	parse_input(char *input)
 {
 	t_tokens	*tokens = NULL;
 	char		*temp;
-	size_t		i;
-	size_t		j;
 
-	i = 0;
-	j = 0;
-	while (input[i])
+	pa()->i = 0;
+	pa()->j = 0;
+	while (input[pa()->i])
 	{
-		// if (is_meta(input[i]))
-			// tokens = meta_specifier(input[i])
-		if (ft_isalpha(input[i]))
-		{
-			j = i;
-			while (input[j] && !is_whitespace(input[j]))
-				j++;
-			temp = ft_substr(input, i, j - i);
-			// printf("%s\n", temp);
-			ft_lstadd_back(tokens, ft_lstnew(get_data(temp, WORD)));
-			ft_free_str(temp);
-			i = j;
-		}
-		i++;
+		while (is_whitespace(input[pa()->i]))
+			pa()->i++;
+		if (is_meta(input[pa()->i]))
+			pa()->j = meta_specifier(input, pa()->i);
+		else if (ft_isalpha(input[pa()->i]))
+			pa()->j = get_word(input, pa()->i);
+		temp = ft_substr(input, pa()->i, pa()->j - pa()->i);
+		tokens = ft_lstadd_back(tokens, ft_lstnew(get_data(temp, pa()->id)));
+		pa()->i = pa()->j;
 	}
 	ft_printlst(tokens);
 }

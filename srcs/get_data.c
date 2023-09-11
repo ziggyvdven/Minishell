@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_data.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 12:43:39 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/08 13:29:56 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:32:17 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_data	*get_data(char *ptr, int token_id)
 {
 	t_data	*data;
 
-	data = ft_calloc(sizeof(t_data), 1);
+	data = malloc(sizeof(t_data) * 1);
 	if (!data)
 		return (NULL);
 	data->str = ptr;

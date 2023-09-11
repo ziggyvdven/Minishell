@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:55:35 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/11 15:01:32 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define WORD		101
 # define CMD		102
-# define MARCO		103
+# define MACRO		103
 
 # define PIPE		110
 # define S_QUOTE	111
@@ -39,6 +39,13 @@
 # define GREATGREAT	133 	
 # define LESSLESS	134
 
+typedef struct s_parsing
+{
+	int			id;
+	int			j;
+	int			i;
+}	t_parsing;
+
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
@@ -47,6 +54,7 @@ void		set_signals(void);
 /*PARSING**********************************************************************/
 char		**init_builtins(void);
 void		parse_input(char *input);
+t_parsing	*pa(void);
 
 /*UTILS**********************************************************************/
 t_data		*get_data(char *ptr, int token_id);

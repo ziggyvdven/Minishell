@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
+#    By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/08 11:36:38 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/11 11:57:04 by zvandeven        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,11 +53,11 @@ SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
-RLHEADER		= -I/Users/$(USER)/.brew/opt/readline/include
+RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
 
 # library and source files
 LIBFT			= ./libs/libft
-READLINE		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
+READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 
@@ -94,7 +94,7 @@ endef
 all: $(HEAD) libft $(NAME) 
 
 $(NAME): $(OBJS_PATH) $(OBJS) $(LIBFT)
-	@$(CC) $(READLINE) $(CFLAGS) -o $@ $(OBJS) $(LIBS) $(HEADERS)
+	@$(CC)  $(CFLAGS) -o $@ $(OBJS) $(LIBS) $(HEADERS) $(READLINE)
 	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c 

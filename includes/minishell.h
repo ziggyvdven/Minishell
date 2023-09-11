@@ -6,7 +6,7 @@
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/11 15:01:32 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/11 15:54:33 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,20 @@
 
 /*MACROS***********************************************************************/
 
-# define WORD		101
-# define CMD		102
-# define MACRO		103
+# define WORD			101
+# define CMD			102
+# define MACRO			103
 
-# define PIPE		110
-# define S_QUOTE	111
-# define D_QUOTE	112
-# define FLAG		113
+# define PIPE			110
+# define S_QUOTE		111
+# define D_QUOTE		112
+# define D_QUOTE_EXP	113
+# define FLAG			114
 
-# define GREAT		131			
-# define LESS		132 			
-# define GREATGREAT	133 	
-# define LESSLESS	134
+# define GREAT			131			
+# define LESS			132 			
+# define GREATGREAT		133 	
+# define LESSLESS		134
 
 typedef struct s_parsing
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:43:06 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:29:09 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <stdarg.h>
 # include <limits.h>
 # include <stdint.h>
+
+# define BUFFER_SIZE 100
 
 typedef struct s_tokens	t_tokens;
 
@@ -74,10 +76,10 @@ void		ft_putnbr_fd(int n, int fd);
 t_tokens	*ft_lstnew(t_data *data);
 void		ft_lstadd_front(t_tokens **lst, t_tokens *new);
 int			ft_lstsize(t_tokens *lst);
-void		ft_lstclear(t_tokens **lst, void (*del)(void *));
+void		ft_lstclear(t_tokens **lst);
 t_tokens	*ft_lstlast(t_tokens *lst);
 t_tokens	*ft_lstadd_back(t_tokens *lst, t_tokens *new);
-void		ft_lstdelone(t_tokens *lst, void (*del)(void*));
+void		ft_lstdelone(t_tokens *lst);
 // void		ft_lstclear(t_tokens **lst, void (*del)(int));
 void		ft_lstiter(t_tokens *lst, void (*f)(void *));
 void		ft_printlst(t_tokens *map_lst);

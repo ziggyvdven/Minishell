@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/11 15:58:24 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/12 23:22:14 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ t_parsing	*pa(void)
 	return (&parsing);
 }
 
-void	parse_input(char *input)
+t_tokens	*parse_input(char *input)
 {
 	t_tokens	*tokens = NULL;
 	char		*temp;
@@ -176,5 +176,6 @@ void	parse_input(char *input)
 		tokens = ft_lstadd_back(tokens, ft_lstnew(get_data(temp, pa()->id)));
 		pa()->i = pa()->j;
 	}
-	ft_printlst(tokens);
+	// ft_printlst(tokens);
+	return (tokens);
 }

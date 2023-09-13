@@ -5,12 +5,16 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "lldb",
+			"name": "(lldb) Lancer",
+			"type": "cppdbg",
 			"request": "launch",
-			"name": "Debug",
-			"program": "/home/zvandeven/42quebec/Minishell/minishell",
+			"program": "${workspaceFolder}/minishell",
 			"args": [],
-			"cwd": "/home/zvandeven/42quebec/Minishell/"
+			"stopAtEntry": false,
+			"cwd": "${fileDirname}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb"
 		}
 	]
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/11 15:54:33 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/12 23:23:09 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,17 @@ typedef struct s_parsing
 	int			i;
 }	t_parsing;
 
+typedef struct s_exec
+{
+	t_tokens	*in;
+	t_tokens	*out;
+	t_tokens	*exec;
+	char		**cmd;
+	char		*cmdpath;
+	int			fd[2];
+	int			pipes[2];
+}	t_exec;
+
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
@@ -54,8 +65,14 @@ void		set_signals(void);
 
 /*PARSING**********************************************************************/
 char		**init_builtins(void);
-void		parse_input(char *input);
+t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
+
+/*EXEC*************************************************************************/
+t_exec	*ex(void);
+void    create_cmd_ar(void);
+void    execute_cmds(t_tokens *tokens);
+void	get_cmd_info(void);
 
 /*UTILS**********************************************************************/
 t_data		*get_data(char *ptr, int token_id);

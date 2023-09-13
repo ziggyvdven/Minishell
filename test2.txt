@@ -1,1 +1,17 @@
-test2
+total 136
+drwxr-xr-x@ 16 olivierroy  staff    512 Sep 11 17:52 .
+drwxr-xr-x   6 olivierroy  staff    192 Sep 11 17:44 ..
+drwxr-xr-x  12 olivierroy  staff    384 Sep 11 17:45 .git
+-rw-r--r--   1 olivierroy  staff    430 Sep 11 17:44 .gitignore
+drwxr-xr-x   4 olivierroy  staff    128 Sep 11 17:44 .vscode
+-rw-r--r--@  1 olivierroy  staff   4850 Sep 11 17:47 Makefile
+-rw-r--r--   1 olivierroy  staff    655 Sep 11 17:44 README.md
+drwxr-xr-x   3 olivierroy  staff     96 Sep 11 17:44 includes
+drwxr-xr-x   3 olivierroy  staff     96 Sep 11 17:44 libs
+-rwxr-xr-x@  1 olivierroy  staff  38024 Sep 11 17:52 minishell
+drwxr-xr-x@  8 olivierroy  staff    256 Sep 11 17:48 objs
+drwxr-xr-x   8 olivierroy  staff    256 Sep 11 17:44 srcs
+-rw-r--r--   1 olivierroy  staff     18 Sep 11 17:44 test.txt
+-rw-r--r--   1 olivierroy  staff     22 Sep 11 17:44 test1.text
+-rw-r--r--@  1 olivierroy  staff      9 Sep 11 18:47 test1.txt
+-rw-r--r--@  1 olivierroy  staff      0 Sep 11 18:47 test2.txt

@@ -53,11 +53,11 @@ SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
-RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
+RLHEADER		= -I/usr/local/opt/readline/include
 
 # library and source files
 LIBFT			= ./libs/libft
-READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
+READLINE		= -L/usr/local/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 

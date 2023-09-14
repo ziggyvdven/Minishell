@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/12 23:26:42 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 00:07:37 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	get_output(void)
 		if (fd == -1)
 		{
 			perror(out->data->str);
+			close_all();
 			exit (EXIT_FAILURE);
 		}
 		out = out->next;
@@ -47,7 +48,10 @@ int	get_input(void)
 	t_tokens	*in;
 	int			fd;
 
-	fd = STDIN_FILENO;
+	if (ex()->fd[0] != STDIN_FILENO)
+		fd = ex()->fd[0];
+	else
+		fd = STDIN_FILENO;
 	in = ex()->in;
 	while (in)
 	{
@@ -55,6 +59,7 @@ int	get_input(void)
 		if (fd == -1)
 		{
 			perror(in->data->str);
+			close_all();
 			exit (EXIT_FAILURE);
 		}
 		in = in->next;
@@ -66,15 +71,15 @@ void	child_process(void)
 {
 	ex()->fd[0] = get_input();
 	ex()->fd[1] = get_output();
-	dup2 (ex()->fd[0], STDIN_FILENO);
-	dup2 (ex()->fd[1], STDOUT_FILENO);
-	if (ex()->fd[0] != STDIN_FILENO)
-		close (ex()->fd[0]);
+	dup2_(ex()->fd[0], STDIN_FILENO);
 	if (ex()->fd[1] != STDOUT_FILENO)
-		close (ex()->fd[1]);
-	get_cmd_info();
+		dup2_(ex()->fd[1], STDOUT_FILENO);
+	else if (ex()->fd[1] == STDOUT_FILENO && ex()->pipes[1])
+		dup2_(ex()->pipes[1], STDOUT_FILENO);
+	close_all();
+	get_cmdpath();
 	create_cmd_ar();
-	execve (ex()->cmdpath, ex()->cmd, NULL);
+	execve_(ex()->cmdpath, ex()->cmd, NULL);
 	exit (EXIT_FAILURE);
 }
 
@@ -83,21 +88,24 @@ void	parent_process(t_tokens *token)
 	pid_t	process_id;
 
 	if (token)
-		pipe(ex()->pipes);
-	process_id = fork();
+		pipe_(ex()->pipes);
+	process_id = fork_();
 	if (process_id == 0)
 		child_process();
-	waitpid (process_id, NULL, 0);
+	waitpid_(process_id, NULL, 0);
+	if (token)
+	{
+		if (!ex()->fd[0])
+			ex()->fd[0] = dup_(ex()->pipes[0]);
+		else
+			dup2_(ex()->pipes[0], ex()->fd[0]);
+		close_tab(ex()->pipes);
+	}
 	ft_free_ar(ex()->cmd);
 	ft_free_str(ex()->cmdpath);
 	ft_lstclear(&ex()->in);
 	ft_lstclear(&ex()->out);
 	ft_lstclear(&ex()->exec);
-	if (token)
-	{
-		close(ex()->pipes[0]);
-		close(ex()->pipes[1]);
-	}
 }
 
 void	execute_cmds(t_tokens *tokens)
@@ -116,7 +124,7 @@ void	execute_cmds(t_tokens *tokens)
 			|| tokens->data->token_id == S_QUOTE
 			|| tokens->data->token_id == D_QUOTE)
 			ex()->exec = ft_lstadd_back(ex()->exec, temp);
-		else if (tokens->data->token_id == GREAT)
+		else if (tokens->data->token_id == LESS)
 		{
 			ft_lstdelone(temp);
 			tokens = tokens->next;
@@ -125,16 +133,15 @@ void	execute_cmds(t_tokens *tokens)
 				temp = ft_lstnew(tokens->data);
 				if (!temp)
 					ft_putstr_exit("Error: Malloc failed", 2, 1);
-				printf ("%s\n", temp->data->str);
 				ex()->in = ft_lstadd_back(ex()->in, temp);
 			}
 			else
 				break ;
 		}
-		else if (tokens->data->token_id == GREATGREAT)
+		else if (tokens->data->token_id == LESSLESS)
 			printf ("Do heredoc");
-		else if (tokens->data->token_id == LESS
-			|| tokens->data->token_id == LESSLESS)
+		else if (tokens->data->token_id == GREAT
+			|| tokens->data->token_id == GREATGREAT)
 		{
 			ft_lstdelone(temp);
 			tokens = tokens->next;
@@ -153,4 +160,5 @@ void	execute_cmds(t_tokens *tokens)
 		tokens = tokens->next;
 	}
 	parent_process(tokens);
+	close_tab(ex()->fd);
 }

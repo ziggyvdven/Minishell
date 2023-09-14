@@ -1,34 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/12 23:33:38 by olivierroy       ###   ########.fr       */
+/*   Created: 2023/07/21 17:29:39 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/14 00:06:48 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int main(void)
+void	close_(int fildes)
 {
-	t_tokens	*tokens;
-	char		*input;
+	if (close (fildes) == -1)
+		perror ("Problem with close() call");
+}
 
-	set_signals();
-	printf("\x1b[31m🔥🔥🔥WELCOME TO MINIHELL🔥🔥🔥🔥\x1b[0m\n");
-	while (1)
+void	close_tab(int fildes[2])
+{
+	int	i;
+
+	i = 0;
+	while (i < 2 && fildes[i] > 2)
 	{
-		input = readline("Minishell: ");
-		if (!input)
-			break ;
-		add_history(input);
-		tokens = parse_input(input);
-		execute_cmds(tokens);
-		if (ft_strnstr("exit", input, 4) && !ft_strncmp(input, "exit", 4))
-			ft_putstr_exit("exit\n", 1, 0);
-		ft_free_str(input);
+		close_(fildes[i]);
+		fildes[i] = 0;
+		i++;
 	}
+}
+
+void	close_all(void)
+{
+	close_tab(ex()->fd);
+	close_tab(ex()->pipes);
 }

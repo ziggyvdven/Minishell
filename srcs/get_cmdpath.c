@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/12 22:00:47 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/13 14:17:29 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*find_cmd_location(char **pathlist, char *cmd)
 	return (NULL);
 }
 
-void	get_cmd_info(void)
+void	get_cmdpath(void)
 {
 	char	**pathlist;
 	char	*path;

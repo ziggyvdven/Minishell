@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/12 23:22:14 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/12 23:33:34 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,9 @@ int	ft_single_quote(char *input, int i)
 	return (i);
 }
 
-int	ft_less(char *input, int i)
-{
-	if (input[i + 1] == '>')
-	{
-		pa()->id = LESSLESS;
-		i += 2;
-	}
-	else
-	{
-		pa()->id = LESS;
-		i++;
-	}
-	return (i);
-}
-
 int	ft_great(char *input, int i)
 {
-	if (input[i + 1] == '<')
+	if (input[i + 1] == '>')
 	{
 		pa()->id = GREATGREAT;
 		i += 2;
@@ -93,6 +78,21 @@ int	ft_great(char *input, int i)
 	else
 	{
 		pa()->id = GREAT;
+		i++;
+	}
+	return (i);
+}
+
+int	ft_less(char *input, int i)
+{
+	if (input[i + 1] == '<')
+	{
+		pa()->id = LESSLESS;
+		i += 2;
+	}
+	else
+	{
+		pa()->id = LESS;
 		i++;
 	}
 	return (i);
@@ -139,9 +139,9 @@ int	meta_specifier(char *input, int i)
 	else if (input[i] == '-')
 		i = get_flag(input, i);
 	else if (input[i] == '<')
-		i = ft_great(input, i);
-	else if (input[i] == '>')
 		i = ft_less(input, i);
+	else if (input[i] == '>')
+		i = ft_great(input, i);
 	else if (input[i] == '|')
 	{
 		i++;

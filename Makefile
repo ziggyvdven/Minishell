@@ -6,7 +6,7 @@
 #    By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/11 11:57:04 by zvandeven        ###   ########.fr        #
+#    Updated: 2023/09/14 12:29:11 by zvandeven        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,11 +53,13 @@ SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
-RLHEADER		= -I/usr/local/opt/readline/include
+# RLHEADER		= -I/usr/local/opt/readline/include
+RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
 
 # library and source files
 LIBFT			= ./libs/libft
-READLINE		= -L/usr/local/opt/readline/lib -lreadline
+# READLINE		= -L/usr/local/opt/readline/lib -lreadline
+READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 

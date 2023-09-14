@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/12 23:33:38 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 13:35:10 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int main(void)
 		if (!input)
 			break ;
 		add_history(input);
-		tokens = parse_input(input);
-		execute_cmds(tokens);
 		if (ft_strnstr("exit", input, 4) && !ft_strncmp(input, "exit", 4))
 			ft_putstr_exit("exit\n", 1, 0);
+		tokens = parse_input(input);
+		execute_cmds(tokens);
 		ft_free_str(input);
 	}
 }

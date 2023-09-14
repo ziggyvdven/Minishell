@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/13 23:58:43 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 17:42:31 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,16 @@
 /*MACROS***********************************************************************/
 
 # define WORD			101
-# define CMD			102
+# define WORD_EXP		102
 # define MACRO			103
 
-# define PIPE			110
 # define S_QUOTE		111
 # define D_QUOTE		112
 # define D_QUOTE_EXP	113
 # define FLAG			114
+# define FLAG_EXP		115
 
+# define PIPE			130
 # define LESS			131			
 # define GREAT			132 			
 # define LESSLESS		133 	
@@ -67,6 +68,8 @@ void		set_signals(void);
 char		**init_builtins(void);
 t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
+bool		is_whitespace(char c);
+t_tokens	*ft_expand_tokens(t_tokens *tokens);
 
 /*EXEC*************************************************************************/
 t_exec	*ex(void);

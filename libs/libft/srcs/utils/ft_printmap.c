@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printmap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:57:50 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/06/15 11:52:12 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:37:04 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	ft_printmap(char **map)
 	i = -1;
 	ft_printf("map:\n");
 	while (map[++i] != NULL)
-		ft_printf("%s\n", map[i]);
+		ft_printf("arr[%d] = %s\n", i, map[i]);
 	ft_printf("\n");
 }

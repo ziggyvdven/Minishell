@@ -6,7 +6,7 @@
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/14 12:34:07 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/14 18:50:50 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 bool	is_meta(char c)
 {
 	if (c)
-		if (c == '"' || c == '|' || c == '<' || c == '>' || c == 39 
-			|| c == '$' || c == '-')
+		if (c == '"' || c == '|' || c == '<' || c == '>' || c == 39 || c == '-')
 			return (true);
 	return (false);
 }
@@ -33,9 +32,8 @@ int	ft_double_quote(char *input, int i)
 	int dollar;
 
 	dollar = 0;
-	while (input[i])
+	while (input[i++])
 	{
-		i++;
 		if (input[i] == '$')
 			dollar = 1;
 		if (input[i] == '"')
@@ -54,9 +52,8 @@ int	ft_double_quote(char *input, int i)
 
 int	ft_single_quote(char *input, int i)
 {
-	while (input[i])
+	while (input[i++])
 	{
-		i++;
 		if (input[i] == 39)
 			break ;
 	}
@@ -100,17 +97,29 @@ int	ft_less(char *input, int i)
 
 int	get_word(char *input, int i)
 {
-	while (input[i++])
+	int dollar;
+
+	dollar = 0;
+	while (input[i])
 	{
+		if (input[i] == '$')
+			dollar = 1;
 		if (is_whitespace(input[i]) || is_meta(input[i]))
 			break ;
+		i++;
 	}
-	pa()->id = WORD;
+	if (dollar)
+		pa()->id = WORD_EXP;
+	else
+		pa()->id = WORD;
 	return (i);
 }
 
 int	get_flag(char *input, int i)
 {
+	int	dollar;
+
+	dollar = 0;
 	if (is_whitespace(input[i + 1]))
 	{
 		pa()->id = WORD;
@@ -120,10 +129,15 @@ int	get_flag(char *input, int i)
 	{
 		while (input[i++])
 		{
+			if (input[i] == '$')
+				dollar = 1;
 			if (is_whitespace(input[i]))
 				break ;
 		}
-		pa()->id = FLAG;
+		if (dollar)
+			pa()->id = FLAG_EXP;
+		else
+			pa()->id = FLAG;
 	}
 	return (i);
 }
@@ -172,10 +186,16 @@ t_tokens	*parse_input(char *input)
 			pa()->j = meta_specifier(input, pa()->i);
 		else 
 			pa()->j = get_word(input, pa()->i);
-		temp = ft_substr(input, pa()->i, pa()->j - pa()->i);
+		if (pa()->id >= S_QUOTE && pa()->id <= D_QUOTE_EXP)
+			temp = ft_substr(input, pa()->i + 1, (pa()->j - 2) - pa()->i);
+		else
+			temp = ft_substr(input, pa()->i, pa()->j - pa()->i);
+		if (ft_strlen(temp) == 0)
+			break ;
 		tokens = ft_lstadd_back(tokens, ft_lstnew(get_data(temp, pa()->id)));
 		pa()->i = pa()->j;
 	}
-	ft_printlst(tokens);
+	// ft_printlst(tokens);
+	tokens = ft_expand_tokens(tokens);
 	return (tokens);
 }

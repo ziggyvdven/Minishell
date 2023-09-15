@@ -53,4 +53,8 @@ dkms.conf
 
 # Custom exceptions
 .vscode/
-*.json
+.vscode/launch.json
+.vscode/settings.json
+
+srcs/parse_input.c
+srcs/main.c

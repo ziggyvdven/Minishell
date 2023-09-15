@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
+#    By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/08 12:56:20 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/15 11:43:51 by zvandeven        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ alpha_digit/ft_isdigit.c \
 alpha_digit/ft_isprint.c \
 alpha_digit/ft_tolower.c \
 alpha_digit/ft_toupper.c \
+alpha_digit/ft_iswspace.c \
 gnl/get_next_line.c \
 gnl/get_next_line_utils.c \
 list/ft_lstadd_back.c \
@@ -102,6 +103,7 @@ utils/ft_putendl_fd.c \
 utils/ft_putnbr_fd.c \
 utils/ft_swap.c \
 utils/ft_printmap.c\
+utils/ft_count_cuts.c \
 
 # Progress bar variables
 TOTAL 			= $(words $(SRCS_FILES))

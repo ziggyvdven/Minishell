@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printmap.c                                      :+:      :+:    :+:   */
+/*   ft_count_cuts.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 18:57:50 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/14 15:37:04 by zvandeven        ###   ########.fr       */
+/*   Created: 2023/09/15 11:40:13 by zvandeven         #+#    #+#             */
+/*   Updated: 2023/09/15 11:48:36 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-void	ft_printmap(char **map)
+//functions that count how many cuts there have to be given a certain delimiter
+
+int	ft_count_cuts(char *str, char c)
 {
 	int	i;
+	int	count;
 
 	i = -1;
-	ft_printf("map:\n");
-	while (map[++i] != NULL)
-		ft_printf("arr[%d] = %s\n", i, map[i]);
-	ft_printf("\n");
+	count = 0;
+	if (str[0] != c)
+		count = 1;
+	while (str[++i])
+	{
+		if (str[i] == c)
+		{
+			count++;
+			i++;
+			while (str[i] && (!ft_iswspace(str[i]) && str[i] != c))
+				i++;
+			if (!str[i])
+				break ;
+			count++;
+		}
+	}
+	return (count);
 }

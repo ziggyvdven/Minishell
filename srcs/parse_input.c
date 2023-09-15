@@ -6,112 +6,38 @@
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/11 15:58:24 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/15 12:34:59 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-bool	is_meta(char c)
+int	get_word(char *input, int i)
 {
-	if (c)
-		if (c == '"' || c == '|' || c == '<' || c == '>' || c == 39 
-			|| c == '$' || c == '-')
-			return (true);
-	return (false);
-}
-
-bool	is_whitespace(char c)
-{
-	if (c == 32 || (c >= 9 && c <= 13))
-		return (true);
-	return (false);
-}
-
-int	ft_double_quote(char *input, int i)
-{
-	int dollar;
+	int	dollar;
 
 	dollar = 0;
 	while (input[i])
 	{
-		i++;
 		if (input[i] == '$')
 			dollar = 1;
-		if (input[i] == '"')
+		if (ft_iswspace(input[i]) || is_meta(input[i]))
 			break ;
-	}
-	if (input[i] == '\0')
-		ft_putstr_exit("Double quote\n", 2, 2);
-	if (input[i] == '"')
 		i++;
+	}
 	if (dollar)
-		pa()->id = D_QUOTE_EXP;
+		pa()->id = WORD_EXP;
 	else
-		pa()->id = D_QUOTE;
-	return (i);
-}
-
-int	ft_single_quote(char *input, int i)
-{
-	while (input[i])
-	{
-		i++;
-		if (input[i] == 39)
-			break ;
-	}
-	if (input[i] == '\0')
-		ft_putstr_exit("single quote\n", 2, 2);
-	if (input[i] == 39)
-		i++;
-	pa()->id = S_QUOTE;
-	return (i);
-}
-
-int	ft_less(char *input, int i)
-{
-	if (input[i + 1] == '>')
-	{
-		pa()->id = LESSLESS;
-		i += 2;
-	}
-	else
-	{
-		pa()->id = LESS;
-		i++;
-	}
-	return (i);
-}
-
-int	ft_great(char *input, int i)
-{
-	if (input[i + 1] == '<')
-	{
-		pa()->id = GREATGREAT;
-		i += 2;
-	}
-	else
-	{
-		pa()->id = GREAT;
-		i++;
-	}
-	return (i);
-}
-
-int	get_word(char *input, int i)
-{
-	while (input[i++])
-	{
-		if (is_whitespace(input[i]) || is_meta(input[i]))
-			break ;
-	}
-	pa()->id = WORD;
+		pa()->id = WORD;
 	return (i);
 }
 
 int	get_flag(char *input, int i)
 {
-	if (is_whitespace(input[i + 1]))
+	int	dollar;
+
+	dollar = 0;
+	if (ft_iswspace(input[i + 1]))
 	{
 		pa()->id = WORD;
 		i++;
@@ -120,10 +46,15 @@ int	get_flag(char *input, int i)
 	{
 		while (input[i++])
 		{
-			if (is_whitespace(input[i]))
+			if (input[i] == '$')
+				dollar = 1;
+			if (ft_iswspace(input[i]))
 				break ;
 		}
-		pa()->id = FLAG;
+		if (dollar)
+			pa()->id = FLAG_EXP;
+		else
+			pa()->id = FLAG;
 	}
 	return (i);
 }
@@ -139,9 +70,9 @@ int	meta_specifier(char *input, int i)
 	else if (input[i] == '-')
 		i = get_flag(input, i);
 	else if (input[i] == '<')
-		i = ft_great(input, i);
-	else if (input[i] == '>')
 		i = ft_less(input, i);
+	else if (input[i] == '>')
+		i = ft_great(input, i);
 	else if (input[i] == '|')
 	{
 		i++;
@@ -150,31 +81,41 @@ int	meta_specifier(char *input, int i)
 	return (i);
 }
 
-t_parsing	*pa(void)
+char	*get_string(char *input, int j)
 {
-	static t_parsing	parsing;
+	char	*temp;
 
-	return (&parsing);
+	if (pa()->id == 111 || pa()->id == 112 || pa()->id == 103)
+		temp = ft_substr(input, pa()->i + 1, (j - 2) - pa()->i);
+	else
+		temp = ft_substr(input, pa()->i, j - pa()->i);
+	return (temp);
 }
 
-void	parse_input(char *input)
+t_tokens	*parse_input(char *input)
 {
-	t_tokens	*tokens = NULL;
+	t_tokens	*tokens;
 	char		*temp;
+	int			j;
 
 	pa()->i = 0;
-	pa()->j = 0;
+	j = 0;
+	tokens = NULL;
 	while (input[pa()->i])
 	{
-		while (is_whitespace(input[pa()->i]))
+		while (ft_iswspace(input[pa()->i]))
 			pa()->i++;
 		if (is_meta(input[pa()->i]))
-			pa()->j = meta_specifier(input, pa()->i);
-		else 
-			pa()->j = get_word(input, pa()->i);
-		temp = ft_substr(input, pa()->i, pa()->j - pa()->i);
+			j = meta_specifier(input, pa()->i);
+		else
+			j = get_word(input, pa()->i);
+		temp = get_string(input, j);
+		if (ft_strlen(temp) == 0)
+			break ;
 		tokens = ft_lstadd_back(tokens, ft_lstnew(get_data(temp, pa()->id)));
-		pa()->i = pa()->j;
+		pa()->i = j;
 	}
+	tokens = ft_expand_tokens(tokens);
 	ft_printlst(tokens);
+	return (tokens);
 }

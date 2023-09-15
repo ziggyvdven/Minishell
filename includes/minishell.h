@@ -6,7 +6,7 @@
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/11 15:54:33 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/15 12:24:13 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,20 @@
 /*MACROS***********************************************************************/
 
 # define WORD			101
-# define CMD			102
-# define MACRO			103
+# define WORD_EXP		102
+# define D_QUOTE_EXP	103
+# define FLAG_EXP		104
+# define MACRO			105
 
-# define PIPE			110
 # define S_QUOTE		111
 # define D_QUOTE		112
-# define D_QUOTE_EXP	113
 # define FLAG			114
 
-# define GREAT			131			
-# define LESS			132 			
-# define GREATGREAT		133 	
-# define LESSLESS		134
+# define PIPE			130
+# define LESS			131			
+# define GREAT			132 			
+# define LESSLESS		133 	
+# define GREATGREAT		134
 
 typedef struct s_parsing
 {
@@ -47,6 +48,29 @@ typedef struct s_parsing
 	int			i;
 }	t_parsing;
 
+typedef struct s_exec
+{
+	t_tokens	*in;
+	t_tokens	*out;
+	t_tokens	*exec;
+	char		**cmd;
+	char		*cmdpath;
+	int			fd[2];
+	int			pipes[2];
+}	t_exec;
+
+typedef struct s_expand
+{
+	char	**arr;
+	char	*new_str;
+	char	*temp;
+	int		init;
+	int		start;
+	int		end;
+	int		i;
+	int		is_exp;
+}	t_expand;
+
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
@@ -54,10 +78,36 @@ void		set_signals(void);
 
 /*PARSING**********************************************************************/
 char		**init_builtins(void);
-void		parse_input(char *input);
+t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
+bool		is_whitespace(char c);
+t_tokens	*ft_expand_tokens(t_tokens *tokens);
+bool		is_meta(char c);
+int			ft_double_quote(char *input, int i);
+int			ft_single_quote(char *input, int i);
+int			ft_great(char *input, int i);
+int			ft_less(char *input, int i);
 
-/*UTILS**********************************************************************/
+/*EXEC*************************************************************************/
+t_exec		*ex(void);
+void		close_(int fildes);
+void		close_all(void);
+void		close_tab(int fildes[2]);
+void		create_cmd_ar(void);
+int			dup_(int fildes);
+void		dup2_(int fildes, int fildes2);
+void		execute_cmds(t_tokens *tokens);
+void		execve_(char *path, char **cmd, char **envp);
+pid_t		fork_(void);
+void		get_cmdpath(void);
+void		pipe_(int fildes[2]);
+void		waitpid_(pid_t pid, int *status, int options);
+
+/*UTILS************************************************************************/
 t_data		*get_data(char *ptr, int token_id);
+
+/*STRUCTS**********************************************************************/
+t_expand	*x(void);
+t_parsing	*pa(void);
 
 #endif

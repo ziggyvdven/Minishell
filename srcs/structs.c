@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   structs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/15 12:36:15 by zvandeven        ###   ########.fr       */
+/*   Created: 2023/09/15 12:06:01 by zvandeven         #+#    #+#             */
+/*   Updated: 2023/09/15 12:27:02 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(void)
+t_parsing	*pa(void)
 {
-	t_tokens	*tokens;
-	char		*input;
+	static t_parsing	parsing;
 
-	set_signals();
-	printf("\x1b[31m🔥🔥🔥WELCOME TO MINIHELL🔥🔥🔥🔥\x1b[0m\n");
-	while (1)
+	return (&parsing);
+}
+
+t_expand	*x(void)
+{
+	static t_expand	exp;
+
+	if (exp.init == 0)
 	{
-		input = readline("Minishell: ");
-		if (!input)
-			break ;
-		add_history(input);
-		if (ft_strnstr("exit", input, 4) && !ft_strncmp(input, "exit", 4))
-			ft_putstr_exit("exit\n", 1, 0);
-		tokens = parse_input(input);
-		execute_cmds(tokens);
-		ft_free_str(input);
+	exp.init = 1;
+	exp.i = 0;
+	exp.start = 0;
+	exp.end = -1;
+	exp.is_exp = 0;
+	exp.new_str = NULL;
+	exp.temp = NULL;
 	}
+	return (&exp);
 }

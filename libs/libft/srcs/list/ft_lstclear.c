@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 12:07:11 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/08 12:34:26 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/12 22:28:48 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-void	ft_lstclear(t_tokens **lst, void (*del)(void *))
+void	ft_lstclear(t_tokens **lst)
 {
 	t_tokens	*temp;
 
-	if (!*lst || !lst || !del)
+	if (!*lst || !lst)
 		return ;
 	while (*lst && lst)
 	{
 		temp = (*lst)->next;
-		ft_lstdelone(*lst, del);
+		ft_lstdelone(*lst);
 		*lst = temp;
 	}
 	return ;

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printmap.c                                      :+:      :+:    :+:   */
+/*   ft_iswspace.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 18:57:50 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/14 15:37:04 by zvandeven        ###   ########.fr       */
+/*   Created: 2023/09/15 11:42:42 by zvandeven         #+#    #+#             */
+/*   Updated: 2023/09/15 11:48:43 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-void	ft_printmap(char **map)
+bool	ft_iswspace(char c)
 {
-	int	i;
-
-	i = -1;
-	ft_printf("map:\n");
-	while (map[++i] != NULL)
-		ft_printf("arr[%d] = %s\n", i, map[i]);
-	ft_printf("\n");
+	if (c == 32 || (c >= 9 && c <= 13))
+		return (true);
+	return (false);
 }

@@ -21,7 +21,7 @@ void	ft_printlst(t_tokens *map_lst)
 	while (ptr != NULL)
 	{
 		ft_printf("%s\n", ptr->data->str);
-		ft_printf("%i\n\n", ptr->data->token_id);
+		ft_printf("%i\n", ptr->data->token_id);
 		ptr = ptr->next;
 	}
 }

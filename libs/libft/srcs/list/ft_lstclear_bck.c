@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printmap.c                                      :+:      :+:    :+:   */
+/*   ft_lstclear_bck.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/24 18:57:50 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/14 15:37:04 by zvandeven        ###   ########.fr       */
+/*   Created: 2023/02/22 12:07:11 by zvan-de-          #+#    #+#             */
+/*   Updated: 2023/09/12 22:27:59 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/libft.h"
 
-void	ft_printmap(char **map)
+void	ft_lstclear_bck(t_tokens **lst, void (*del)(void *))
 {
-	int	i;
+	t_tokens	*temp;
 
-	i = -1;
-	ft_printf("map:\n");
-	while (map[++i] != NULL)
-		ft_printf("arr[%d] = %s\n", i, map[i]);
-	ft_printf("\n");
+	if (!*lst || !lst || !del)
+		return ;
+	while (*lst && lst)
+	{
+		temp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
+	}
+	return ;
 }

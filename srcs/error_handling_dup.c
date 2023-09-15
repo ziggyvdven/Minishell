@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/13 15:25:55 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 21:49:27 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,17 @@ int	dup_(int fildes)
 	return (fildes2);
 }
 
-void	dup2_(int fildes, int fildes2)
+int	dup2_(int fildes, int fildes2)
 {
-	if (dup2 (fildes, fildes2) == -1)
+	int	fd;
+
+	fd = dup2 (fildes, fildes2);
+	if (fd == -1)
 	{
 		perror ("Problem with dup2() call");
 		close_all();
 		// free_data();
 		exit (EXIT_FAILURE);
 	}
+	return (fd);
 }

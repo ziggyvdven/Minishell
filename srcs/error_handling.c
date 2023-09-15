@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/13 15:25:44 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/15 12:16:08 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,6 @@ void	waitpid_(pid_t pid, int *status, int options)
 		// free_data();
 		exit (EXIT_FAILURE);
 	}
+	// else if (WIFEXITED(*status))
+	// 	ft_printf("EXIT STATUS: %i\n", WEXITSTATUS(*status));
 }

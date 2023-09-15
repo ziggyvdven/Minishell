@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:29:39 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/14 15:25:12 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 21:42:39 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	close_(int fildes)
 {
-	if (close (fildes) == -1)
-		perror ("Problem with close() call");
+	// if (fildes > 2)
+	// {
+		if (close (fildes) == -1)
+			perror ("Problem with close() call");
+	// 	fildes = 0;
+	// }
 }
 
 void	close_tab(int fildes[2])

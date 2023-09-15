@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/13 23:58:43 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 17:29:56 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@
 # define CMD			102
 # define MACRO			103
 
-# define PIPE			110
 # define S_QUOTE		111
 # define D_QUOTE		112
 # define D_QUOTE_EXP	113
 # define FLAG			114
 
-# define LESS			131			
-# define GREAT			132 			
-# define LESSLESS		133 	
+# define PIPE			130
+# define LESS			131
+# define GREAT			132
+# define LESSLESS		133
 # define GREATGREAT		134
 
 typedef struct s_parsing

@@ -5,6 +5,7 @@ libs
 minishell
 objs
 srcs
+test.c
 test.txt
 test1.text
 test1.txt

@@ -6,7 +6,7 @@
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/14 00:31:44 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/14 20:35:06 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_exec	*ex(void)
 	return (&ex);
 }
 
-int	get_output(void)
+void	get_output(void)
 {
 	t_tokens	*out;
 	int			fd;
@@ -28,8 +28,10 @@ int	get_output(void)
 	out = ex()->out;
 	while (out)
 	{
+		if (fd != STDOUT_FILENO)
+			close_(fd);
 		if (out->data->token_id == GREATGREAT)
-			fd = open (out->data->str, O_RDONLY | O_CREAT | O_APPEND, 0644);
+			fd = open (out->data->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
 		else
 			fd = open (out->data->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
@@ -38,23 +40,22 @@ int	get_output(void)
 			close_all();
 			exit (EXIT_FAILURE);
 		}
+		ex()->fd[1] = fd;
 		out = out->next;
 	}
-	return (fd);
 }
 
-int	get_input(void)
+void	get_input(void)
 {
 	t_tokens	*in;
 	int			fd;
 
-	if (ex()->fd[0] != STDIN_FILENO)
-		fd = ex()->fd[0];
-	else
-		fd = STDIN_FILENO;
+	fd = STDIN_FILENO;
 	in = ex()->in;
 	while (in)
 	{
+		if (fd != STDIN_FILENO)
+			close_(fd);
 		fd = open (in->data->str, O_RDONLY);
 		if (fd == -1)
 		{
@@ -62,25 +63,24 @@ int	get_input(void)
 			close_all();
 			exit (EXIT_FAILURE);
 		}
+		ex()->fd[0] = fd;
 		in = in->next;
 	}
-	return (fd);
 }
 
 void	child_process(void)
 {
-	ex()->fd[0] = get_input();
-	ex()->fd[1] = get_output();
+	get_input();
+	get_output();
 	dup2_(ex()->fd[0], STDIN_FILENO);
-	if (ex()->fd[1] != STDOUT_FILENO)
+	if (ex()->fd[1])
 		dup2_(ex()->fd[1], STDOUT_FILENO);
-	else if (ex()->fd[1] == STDOUT_FILENO && ex()->pipes[1])
+	else if (!ex()->fd[1] && ex()->pipes[1])
 		dup2_(ex()->pipes[1], STDOUT_FILENO);
 	close_all();
 	get_cmdpath();
 	create_cmd_ar();
 	execve_(ex()->cmdpath, ex()->cmd, NULL);
-	exit (EXIT_FAILURE);
 }
 
 void	parent_process(t_tokens *token)
@@ -108,57 +108,73 @@ void	parent_process(t_tokens *token)
 	ft_lstclear(&ex()->exec);
 }
 
-void	execute_cmds(t_tokens *tokens)
+void	put_redirect(t_tokens *temp, int id)
+{
+	
+	if (!temp)
+		ft_putstr_exit("Error: Malloc failed", 2, 1);
+	temp->data->token_id = id;
+	if (id == GREAT || id == GREATGREAT)
+		ex()->out = ft_lstadd_back(ex()->out, temp);
+	else
+		ex()->in = ft_lstadd_back(ex()->in, temp);
+}
+
+char	*do_heredoc(char *delimiter)
+{
+	char	*gnl;
+	char	*str;
+	char	*temp;
+	size_t	len;
+
+	str = NULL;
+	len = ft_strlen(delimiter);
+	gnl = get_next_line(STDIN_FILENO);
+	while (ft_strnstr(gnl, delimiter, len) == NULL)
+	{
+		if (!str)
+			str = ft_strdup(gnl);
+		else
+		{
+			temp = str;
+			str = ft_strjoin(temp, gnl);
+			ft_free_str(temp);
+		}
+		ft_free_str(gnl);
+		gnl = get_next_line(STDIN_FILENO);
+	}
+	ft_free_str(gnl);
+	return (str);
+}
+
+void	execute_cmds(t_tokens *t)
 {
 	t_tokens	*temp = NULL;
 
-	while (tokens)
+	while (t)
 	{
-		if (tokens->data->token_id == PIPE && !temp)
+		if (t->data->token_id == PIPE && !temp)
 			ft_putstr_exit("syntax error near unexpected token `|'", 2, 1);
-		temp = ft_lstnew(tokens->data);
+		temp = ft_lstnew(t->data);
 		if (!temp)
 			ft_putstr_exit("Error: Malloc failed", 2, 1);
-		if (tokens->data->token_id == WORD
-			|| tokens->data->token_id == FLAG
-			|| tokens->data->token_id == S_QUOTE
-			|| tokens->data->token_id == D_QUOTE)
+		if (t->data->token_id < 129)
 			ex()->exec = ft_lstadd_back(ex()->exec, temp);
-		else if (tokens->data->token_id == LESS)
+		else if (t->data->token_id > 130 && t->next)
 		{
-			ft_lstdelone(temp);
-			tokens = tokens->next;
-			if (tokens)
+			if (t->data->token_id == LESSLESS)
 			{
-				temp = ft_lstnew(tokens->data);
-				if (!temp)
-					ft_putstr_exit("Error: Malloc failed", 2, 1);
-				ex()->in = ft_lstadd_back(ex()->in, temp);
+				t->next->data->str = do_heredoc(t->next->data->str);
+				printf ("%s\n\n", t->next->data->str);
 			}
-			else
-				break ;
-		}
-		else if (tokens->data->token_id == LESSLESS)
-			printf ("Do heredoc");
-		else if (tokens->data->token_id == GREAT
-			|| tokens->data->token_id == GREATGREAT)
-		{
+			put_redirect(ft_lstnew(t->next->data), t->data->token_id);
 			ft_lstdelone(temp);
-			tokens = tokens->next;
-			if (tokens)
-			{
-				temp = ft_lstnew(tokens->data);
-				if (!temp)
-					ft_putstr_exit("Error: Malloc failed", 2, 1);
-				ex()->out = ft_lstadd_back(ex()->out, temp);
-			}
-			else
-				break ;
+			t = t->next;
 		}
-		else if (tokens->data->token_id == PIPE)
-			parent_process(tokens);
-		tokens = tokens->next;
+		else if (t->data->token_id == PIPE)
+			parent_process(t);
+		t = t->next;
 	}
-	parent_process(tokens);
+	parent_process(t);
 	close_tab(ex()->fd);
 }

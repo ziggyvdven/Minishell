@@ -4,6 +4,7 @@
 		"libft.h": "c",
 		"readline.h": "c",
 		"signal.h": "c",
-		"iterator": "c"
+		"iterator": "c",
+		"sstream": "c"
 	}
 }

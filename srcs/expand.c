@@ -6,40 +6,15 @@
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/14 18:51:13 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/15 12:07:12 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	ft_count_cuts(char *str)
-{
-	int	i;
-	int	count;
-
-	i = -1;
-	count = 0;
-	if (str[0] != '$')
-		count = 1;
-	while (str[++i])
-	{
-		if (str[i] == '$')
-		{
-			count++;
-			i++;
-			while (str[i] && (!is_whitespace(str[i]) && str[i] != '$'))
-				i++;
-			if (!str[i])
-				break ;
-			count++;
-		}
-	}
-	return (count);
-}
-
 void	ft_expand(char **arr)
 {
-	int	i;
+	int		i;
 	char	*temp;
 
 	i = -1;
@@ -47,7 +22,9 @@ void	ft_expand(char **arr)
 	{
 		if (arr[i][0] == '$')
 		{
-			if (!is_whitespace(arr[i][1]) && ft_strlen(arr[i]) != 1)
+			if (arr[i][1] == '?')
+				printf("Do pipe exit status\n");
+			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
 			{	
 				temp = getenv(ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1));
 				ft_free_str(arr[i]);
@@ -57,80 +34,85 @@ void	ft_expand(char **arr)
 	}
 }
 
+void	ft_expand_and_join(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	tmp = NULL;
+	ft_expand(x()->arr);
+	i = 0;
+	while (i < ft_count_cuts(str, '$'))
+	{
+		if (x()->arr[i])
+		{
+			if (!tmp)
+				tmp = x()->arr[i];
+			else
+				tmp = ft_strjoin(tmp, x()->arr[i]);
+		}
+		i++;
+	}
+	x()->new_str = tmp;
+}
+
+void	get_start_and_end(char *str)
+{
+	while (str[++x()->end])
+	{
+		if (x()->is_exp == 1 || (x()->end == 0 && str[x()->end] == '$'))
+		{
+			x()->end++;
+			while (str[x()->end]
+				&& (!ft_iswspace(str[x()->end]) && str[x()->end] != '$'))
+				x()->end++;
+			x()->is_exp = 0;
+			break ;
+		}
+		if (str[x()->end] == '$')
+		{
+			x()->is_exp = 1;
+			break ;
+		}
+	}
+}
+
 char	*ft_expand_arr(char *str)
 {
 	char	**arr;
-	char	*new_str;
-	int 	start;
-	int		end;
-	int		i;
-	int		is_exp;
 
-	i = 0;
-	start = 0;
-	end = -1;
-	is_exp = 0;
-	new_str = NULL;
-	arr = ft_calloc(ft_count_cuts(str) + 1, sizeof (char *));
+	arr = ft_calloc(ft_count_cuts(str, '$') + 1, sizeof (char *));
 	if (!arr)
 		ft_putstr_exit("Error: Malloc failed", 2, 1);
-	while(i < ft_count_cuts(str))
+	while (x()->i < ft_count_cuts(str, '$'))
 	{
-		while(str[++end])
-		{
-			if(is_exp == 1 || (end == 0 && str[end] == '$'))
-			{
-				end++;
-				while (str[end] && (!is_whitespace(str[end]) && str[end] != '$'))
-					end++;
-				is_exp = 0;
-				break ;
-			}
-			if(str[end] == '$')
-			{
-				is_exp = 1;
-				break;
-			}
-		}
-		arr[i] = ft_substr(str, start, end - start);
-		start = end;
-		i++;
+		get_start_and_end(str);
+		arr[x()->i] = ft_substr(str, x()->start, x()->end - x()->start);
+		x()->start = x()->end;
+		x()->i++;
 	}
-	arr[i] = NULL;
-	// ft_printmap(arr);
-	ft_expand(arr);
-	i = 0;
-	while(i < ft_count_cuts(str))
-	{
-		if (arr[i])
-		{
-			if (!new_str)
-				new_str = arr[i];
-			else
-				new_str = ft_strjoin(new_str, arr[i]);
-		}
-		i++;
-	}
-	// ft_printmap(arr);
-	return (new_str);
+	arr[x()->i] = NULL;
+	x()->arr = arr;
+	ft_expand_and_join(str);
+	return (x()->new_str);
 }
 
 t_tokens	*ft_expand_tokens(t_tokens *tokens)
 {
 	t_tokens	*ptr;
-	char 		*temp;
 
 	ptr = tokens;
 	while (tokens != NULL)
 	{
-		if ((tokens->data->token_id == WORD_EXP
-			|| tokens->data->token_id == FLAG_EXP
-			|| tokens->data->token_id == D_QUOTE_EXP)
+		if ((tokens->data->token_id >= 102 && tokens->data->token_id <= 104)
 			&& ft_strlen(tokens->data->str) > 1)
 		{
-			temp = ft_expand_arr(tokens->data->str);
+			x()->temp = ft_expand_arr(tokens->data->str);
 			ft_free_str(tokens->data->str);
-			tokens->data->str = temp;
+			if (!x()->temp)
+				tokens->data->str = ft_strdup("");
+			else
+				tokens->data->str = x()->temp;
 		}
 		if (tokens->data->token_id == WORD_EXP)
 			tokens->data->token_id = WORD;
@@ -138,6 +120,7 @@ t_tokens	*ft_expand_tokens(t_tokens *tokens)
 			tokens->data->token_id = FLAG;
 		else if (tokens->data->token_id == D_QUOTE_EXP)
 			tokens->data->token_id = D_QUOTE;
+		x()->init = 0;
 		tokens = tokens->next;
 	}
 	return (ptr);

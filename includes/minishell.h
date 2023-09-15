@@ -6,7 +6,7 @@
 /*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/14 17:42:31 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/15 12:24:13 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 
 # define WORD			101
 # define WORD_EXP		102
-# define MACRO			103
+# define D_QUOTE_EXP	103
+# define FLAG_EXP		104
+# define MACRO			105
 
 # define S_QUOTE		111
 # define D_QUOTE		112
-# define D_QUOTE_EXP	113
 # define FLAG			114
-# define FLAG_EXP		115
 
 # define PIPE			130
 # define LESS			131			
@@ -59,6 +59,18 @@ typedef struct s_exec
 	int			pipes[2];
 }	t_exec;
 
+typedef struct s_expand
+{
+	char	**arr;
+	char	*new_str;
+	char	*temp;
+	int		init;
+	int		start;
+	int		end;
+	int		i;
+	int		is_exp;
+}	t_expand;
+
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
@@ -70,23 +82,32 @@ t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
 bool		is_whitespace(char c);
 t_tokens	*ft_expand_tokens(t_tokens *tokens);
+bool		is_meta(char c);
+int			ft_double_quote(char *input, int i);
+int			ft_single_quote(char *input, int i);
+int			ft_great(char *input, int i);
+int			ft_less(char *input, int i);
 
 /*EXEC*************************************************************************/
-t_exec	*ex(void);
-void	close_(int fildes);
-void	close_all(void);
-void	close_tab(int fildes[2]);
-void    create_cmd_ar(void);
-int		dup_(int fildes);
-void	dup2_(int fildes, int fildes2);
-void    execute_cmds(t_tokens *tokens);
-void	execve_(char *path, char **cmd, char **envp);
-pid_t	fork_(void);
-void	get_cmdpath(void);
-void	pipe_(int fildes[2]);
-void	waitpid_(pid_t pid, int *status, int options);
+t_exec		*ex(void);
+void		close_(int fildes);
+void		close_all(void);
+void		close_tab(int fildes[2]);
+void		create_cmd_ar(void);
+int			dup_(int fildes);
+void		dup2_(int fildes, int fildes2);
+void		execute_cmds(t_tokens *tokens);
+void		execve_(char *path, char **cmd, char **envp);
+pid_t		fork_(void);
+void		get_cmdpath(void);
+void		pipe_(int fildes[2]);
+void		waitpid_(pid_t pid, int *status, int options);
 
-/*UTILS**********************************************************************/
+/*UTILS************************************************************************/
 t_data		*get_data(char *ptr, int token_id);
+
+/*STRUCTS**********************************************************************/
+t_expand	*x(void);
+t_parsing	*pa(void);
 
 #endif

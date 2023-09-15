@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/12 22:29:09 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/15 11:45:59 by zvandeven        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdarg.h>
 # include <limits.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 # define BUFFER_SIZE 100
 
@@ -42,6 +43,7 @@ int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isascii(int c);
 int			ft_isprint(int c);
+bool		ft_iswspace(char c);
 size_t		ft_strlen(const char *s);
 void		*ft_memset(void *b, int c, size_t len);
 void		ft_bzero(void *s, size_t n);
@@ -91,6 +93,7 @@ void		ft_swap(int *a, int *b);
 void		ft_free_ar(char **ar);
 void		ft_free_str(char *str);
 void		ft_printmap(char **map);
+int			ft_count_cuts(char *str, char c);
 
 /*PRINTF*********************************/
 int			ft_printf(const char *s, ...);

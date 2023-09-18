@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_cmd_info.c                                     :+:      :+:    :+:   */
+/*   get_cmdpath.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/13 14:17:29 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/18 12:50:04 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	get_cmdpath(void)
 	char	**pathlist;
 	char	*path;
 
+	if (access (ex()->exec->data->str, X_OK) == 0)
+	{
+		ex()->cmdpath = ft_strdup(ex()->exec->data->str);
+		return ;
+	}
 	path = ft_strjoin("/", ex()->exec->data->str);
 	if (!path)
 		ft_putstr_exit("Error: Malloc failed", 2, 1);

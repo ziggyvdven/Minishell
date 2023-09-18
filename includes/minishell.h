@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/15 12:24:13 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/18 12:46:01 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,13 @@ void		close_all(void);
 void		close_tab(int fildes[2]);
 void		create_cmd_ar(void);
 int			dup_(int fildes);
-void		dup2_(int fildes, int fildes2);
+int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
 void		execve_(char *path, char **cmd, char **envp);
 pid_t		fork_(void);
 void		get_cmdpath(void);
+void		get_input(void);
+void		get_output(void);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/15 12:34:59 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/19 13:41:04 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,6 @@ t_tokens	*parse_input(char *input)
 		pa()->i = j;
 	}
 	tokens = ft_expand_tokens(tokens);
-	ft_printlst(tokens);
+	// ft_printlst(tokens);
 	return (tokens);
 }

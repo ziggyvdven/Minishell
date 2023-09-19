@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+         #
+#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/18 12:57:48 by olivierroy       ###   ########.fr        #
+#    Updated: 2023/09/19 13:20:28 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,13 +53,15 @@ SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
+RLHEADER		= -I/Users/oroy/.brew/opt/readline/include
 # RLHEADER		= -I/usr/local/opt/readline/include
-RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
+# RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
 
 # library and source files
 LIBFT			= ./libs/libft
+READLINE		= -L/Users/oroy/.brew/opt/readline/lib -lreadline
 # READLINE		= -L/usr/local/opt/readline/lib -lreadline
-READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
+# READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/18 12:46:01 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/19 15:22:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_exec
 	char		*cmdpath;
 	int			fd[2];
 	int			pipes[2];
+	int			exitcode;
 }	t_exec;
 
 typedef struct s_expand
@@ -77,7 +78,6 @@ void		sigquit_handler(int signo);
 void		set_signals(void);
 
 /*PARSING**********************************************************************/
-char		**init_builtins(void);
 t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
 bool		is_whitespace(char c);
@@ -87,6 +87,10 @@ int			ft_double_quote(char *input, int i);
 int			ft_single_quote(char *input, int i);
 int			ft_great(char *input, int i);
 int			ft_less(char *input, int i);
+
+/*BUILTIN**********************************************************************/
+bool		is_builtin(char *cmd);
+void		bt_echo(void);
 
 /*EXEC*************************************************************************/
 t_exec		*ex(void);

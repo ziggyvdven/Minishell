@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmdpath.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/18 12:50:04 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/19 17:04:06 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,12 @@ void	get_cmdpath(void)
 	ex()->cmdpath = find_cmd_location(pathlist, path);
 	ft_free_ar(pathlist);
 	ft_free_str(path);
-	// if (!ex()->cmdpath)
-	// {
-	// 	ft_putstr_fd("Error: Shell command not found/executable: ", 2);
-	// 	ft_putendl_fd(arg, 2);
-	// 	free_data();
-	// 	exit (EXIT_FAILURE);
-	// }
+	if (!ex()->cmdpath)
+	{
+		ft_putstr_fd(ex()->exec->data->str, 2);
+		ft_putendl_fd(": command not found", 2);
+		ex()->exitcode = 127;
+		// free_data();
+		exit (EXIT_FAILURE);
+	}
 }

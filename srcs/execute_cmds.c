@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/15 12:31:40 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/19 17:13:28 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-t_exec	*ex(void)
-{
-	static t_exec	ex;
-	
-	return (&ex);
-}
 
 void	child_process(void)
 {
@@ -39,24 +32,29 @@ void	parent_process(t_tokens *token)
 	pid_t	process_id;
 	int		status;
 
-	if (token)
-		pipe_(ex()->pipes);
-	process_id = fork_();
-	if (process_id == 0)
-		child_process();
-	waitpid_(process_id, &status, 0);
-	if (token)
+	status = 0;
+	if (!is_builtin(ex()->exec->data->str))
 	{
-		if (!ex()->fd[0])
-			ex()->fd[0] = dup_(ex()->pipes[0]);
-		else
-			dup2_(ex()->pipes[0], ex()->fd[0]);
-		close_tab(ex()->pipes);
+		if (token)
+			pipe_(ex()->pipes);
+		process_id = fork_();
+		if (process_id == 0)
+			child_process();
+		waitpid_(process_id, &status, 0);
+		if (token)
+		{
+			if (!ex()->fd[0])
+				ex()->fd[0] = dup_(ex()->pipes[0]);
+			else
+				dup2_(ex()->pipes[0], ex()->fd[0]);
+			close_tab(ex()->pipes);
+		}
+		if (access ("heredoc", F_OK) == 0)
+			unlink ("heredoc");
+		ft_free_ar(ex()->cmd);
+		ft_free_str(ex()->cmdpath);
 	}
-	if (access ("heredoc", F_OK) == 0)
-		unlink ("heredoc");
-	ft_free_ar(ex()->cmd);
-	ft_free_str(ex()->cmdpath);
+	ex()->exitcode = status;
 	ft_lstclear(&ex()->in);
 	ft_lstclear(&ex()->out);
 	ft_lstclear(&ex()->exec);

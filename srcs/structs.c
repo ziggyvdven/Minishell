@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   structs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:01 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/15 12:27:02 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/19 16:03:37 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+t_exec	*ex(void)
+{
+	static t_exec	ex;
+	
+	return (&ex);
+}
 
 t_parsing	*pa(void)
 {
@@ -25,13 +32,13 @@ t_expand	*x(void)
 
 	if (exp.init == 0)
 	{
-	exp.init = 1;
-	exp.i = 0;
-	exp.start = 0;
-	exp.end = -1;
-	exp.is_exp = 0;
-	exp.new_str = NULL;
-	exp.temp = NULL;
+		exp.init = 1;
+		exp.i = 0;
+		exp.start = 0;
+		exp.end = -1;
+		exp.is_exp = 0;
+		exp.new_str = NULL;
+		exp.temp = NULL;
 	}
 	return (&exp);
 }

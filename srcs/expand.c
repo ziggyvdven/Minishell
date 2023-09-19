@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/15 12:07:12 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/19 16:50:11 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	ft_expand(char **arr)
 		if (arr[i][0] == '$')
 		{
 			if (arr[i][1] == '?')
-				printf("Do pipe exit status\n");
+			{
+				temp = ft_itoa(ex()->exitcode);
+				ft_free_str(arr[i]);
+				arr[i] = temp;
+			}
 			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
 			{	
 				temp = getenv(ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1));

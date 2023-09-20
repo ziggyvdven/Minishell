@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/19 16:50:11 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 15:41:09 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+//Function expands the token after $
 
 void	ft_expand(char **arr)
 {
@@ -29,7 +31,7 @@ void	ft_expand(char **arr)
 				arr[i] = temp;
 			}
 			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
-			{	
+			{
 				temp = getenv(ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1));
 				ft_free_str(arr[i]);
 				arr[i] = temp;
@@ -37,6 +39,7 @@ void	ft_expand(char **arr)
 		}
 	}
 }
+//Function joins the strings from the array
 
 void	ft_expand_and_join(char *str)
 {
@@ -59,6 +62,7 @@ void	ft_expand_and_join(char *str)
 	}
 	x()->new_str = tmp;
 }
+//Function that gets the place to cut the string
 
 void	get_start_and_end(char *str)
 {
@@ -68,7 +72,8 @@ void	get_start_and_end(char *str)
 		{
 			x()->end++;
 			while (str[x()->end]
-				&& (!ft_iswspace(str[x()->end]) && str[x()->end] != '$'))
+				&& (!ft_iswspace(str[x()->end]) && str[x()->end] != '$'
+					&& !is_meta(str[x()->end])))
 				x()->end++;
 			x()->is_exp = 0;
 			break ;
@@ -80,11 +85,13 @@ void	get_start_and_end(char *str)
 		}
 	}
 }
+//Function that creates an arr with all the cut parts
 
 char	*ft_expand_arr(char *str)
 {
 	char	**arr;
 
+	printf("%d\n", ft_count_cuts(str, '$'));
 	arr = ft_calloc(ft_count_cuts(str, '$') + 1, sizeof (char *));
 	if (!arr)
 		ft_putstr_exit("Error: Malloc failed", 2, 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/20 16:45:51 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 16:47:57 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	bt_echo(void)
 			printf ("%s", bt->data->str);
 			bt = bt->next;
 			if (bt)
-				printf (" ");
+			 printf (" ");
 		}
 	}
 	if (newline)

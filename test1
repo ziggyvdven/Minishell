@@ -1,1 +1,28 @@
+<<<<<<< HEAD
 hello
+=======
+total 240
+drwxr-xr-x  23 zvan-de-  2023_quebec    782 Sep 20 14:39 .
+drwxr-xr-x  17 zvan-de-  2023_quebec    578 Sep  7 17:28 ..
+drwxr-xr-x  15 zvan-de-  2023_quebec    510 Sep 20 14:35 .git
+-rw-r--r--   1 zvan-de-  2023_quebec    430 Sep  7 17:28 .gitignore
+drwxr-xr-x   4 zvan-de-  2023_quebec    136 Sep 20 13:42 .vscode
+-rw-r--r--   1 zvan-de-  2023_quebec   5110 Sep 20 13:45 Makefile
+-rw-r--r--   1 zvan-de-  2023_quebec    655 Sep  7 17:28 README.md
+drwxr-xr-x   3 zvan-de-  2023_quebec    102 Sep 20 13:42 includes
+drwxr-xr-x   3 zvan-de-  2023_quebec    102 Sep  7 17:28 libs
+-rwxr-xr-x   1 zvan-de-  2023_quebec  76688 Sep 20 14:35 minishell
+drwxr-xr-x   3 zvan-de-  2023_quebec    102 Sep 20 14:11 minishell.dSYM
+drwxr-xr-x  17 zvan-de-  2023_quebec    578 Sep 20 14:35 objs
+-rw-r--r--   1 zvan-de-  2023_quebec     35 Sep 20 14:00 pwd
+drwxr-xr-x  17 zvan-de-  2023_quebec    578 Sep 20 14:35 srcs
+-rw-r--r--   1 zvan-de-  2023_quebec      0 Sep 20 13:40 test.txt
+-rw-r--r--   1 zvan-de-  2023_quebec      0 Sep 20 14:40 test1
+-rw-r--r--   1 zvan-de-  2023_quebec     22 Sep 20 13:42 test1.text
+-rw-r--r--   1 zvan-de-  2023_quebec     15 Sep 20 13:40 test1.txt
+-rw-r--r--   1 zvan-de-  2023_quebec      0 Sep 20 14:40 test2
+-rw-r--r--   1 zvan-de-  2023_quebec    980 Sep 20 13:40 test2.txt
+-rw-r--r--   1 zvan-de-  2023_quebec    111 Sep 20 13:40 test3
+-rw-r--r--   1 zvan-de-  2023_quebec      2 Sep 20 13:40 test4
+-rw-r--r--   1 zvan-de-  2023_quebec    863 Sep 20 13:40 test5
+>>>>>>> ziggy

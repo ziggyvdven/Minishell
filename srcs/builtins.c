@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/20 13:11:56 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 16:45:51 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ void	bt_echo(void)
 		{
 			printf ("%s", bt->data->str);
 			bt = bt->next;
+			if (bt)
+				printf (" ");
 		}
 	}
 	if (newline)
 		printf ("\n");
 	ex()->exitcode = 0;
+	ex()->
 }
 
 void	bt_cd(void)

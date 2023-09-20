@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/20 13:41:02 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 16:45:07 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,13 @@ void	child_process(void)
 	else if (!ex()->fd[1] && ex()->pipes[1])
 		dup2_(ex()->pipes[1], STDOUT_FILENO);
 	close_all();
-	get_cmdpath();
-	create_cmd_ar();
-	execve_(ex()->cmdpath, ex()->cmd, NULL);
+	if (!is_builtin(ex()->exec->data->str))
+	{
+		get_cmdpath();
+		create_cmd_ar();
+		execve_(ex()->cmdpath, ex()->cmd, NULL);
+	}
+	exit (EXIT_SUCCESS);
 }
 
 void	parent_process(t_tokens *token)
@@ -32,29 +36,26 @@ void	parent_process(t_tokens *token)
 	pid_t	process_id;
 	int		status;
 
-	if (!is_builtin(ex()->exec->data->str))
-	{
-		if (token)
-			pipe_(ex()->pipes);
-		process_id = fork_();
-		if (process_id == 0)
-			child_process();
-		waitpid_(process_id, &status, 0);
-		if (token)
-		{
-			if (!ex()->fd[0])
-				ex()->fd[0] = dup_(ex()->pipes[0]);
-			else
-				dup2_(ex()->pipes[0], ex()->fd[0]);
-			close_tab(ex()->pipes);
-		}
-		if (access ("heredoc", F_OK) == 0)
-			unlink ("heredoc");
-		ft_free_ar(ex()->cmd);
-		ft_free_str(ex()->cmdpath);
-	}
+	if (token)
+		pipe_(ex()->pipes);
+	process_id = fork_();
+	if (process_id == 0)
+		child_process();
+	waitpid_(process_id, &status, 0);
 	if (WIFEXITED(status))
 		ex()->exitcode = WEXITSTATUS(status);
+	if (token)
+	{
+		if (!ex()->fd[0])
+			ex()->fd[0] = dup_(ex()->pipes[0]);
+		else
+			dup2_(ex()->pipes[0], ex()->fd[0]);
+		close_tab(ex()->pipes);
+	}
+	if (access ("heredoc", F_OK) == 0)
+		unlink ("heredoc");
+	ft_free_ar(ex()->cmd);
+	ft_free_str(ex()->cmdpath);
 	ft_lstclear(&ex()->in);
 	ft_lstclear(&ex()->out);
 	ft_lstclear(&ex()->exec);

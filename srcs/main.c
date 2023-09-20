@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/19 13:47:51 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 16:45:02 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(void)
 			ft_putstr_exit("exit\n", 1, 0);
 		tokens = parse_input(input);
 		execute_cmds(tokens);
+		ft_lstclear(&tokens);
 		ft_free_str(input);
 	}
 }

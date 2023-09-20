@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/19 17:13:28 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:38:18 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	parent_process(t_tokens *token)
 	pid_t	process_id;
 	int		status;
 
-	status = 0;
 	if (!is_builtin(ex()->exec->data->str))
 	{
 		if (token)
@@ -54,7 +53,8 @@ void	parent_process(t_tokens *token)
 		ft_free_ar(ex()->cmd);
 		ft_free_str(ex()->cmdpath);
 	}
-	ex()->exitcode = status;
+	if (WIFEXITED(status))
+		ex()->exitcode = WEXITSTATUS(status);
 	ft_lstclear(&ex()->in);
 	ft_lstclear(&ex()->out);
 	ft_lstclear(&ex()->exec);

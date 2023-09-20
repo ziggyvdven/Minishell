@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/19 15:52:39 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:11:56 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,28 @@ void	bt_echo(void)
 	}
 	if (newline)
 		printf ("\n");
+	ex()->exitcode = 0;
+}
+
+void	bt_cd(void)
+{
+	DIR		*dir;
+	char	*path;
+
+	if (!ex()->exec->next)
+		return ;
+	path = ex()->exec->next->data->str;
+	dir = opendir (path);
+	if (!dir)
+	{
+		perror (path);
+		ex()->exitcode = 1;
+	}
+	else
+	{
+		chdir (path);
+		closedir (dir);
+	}
 }
 
 bool	is_builtin(char *cmd)
@@ -43,8 +65,8 @@ bool	is_builtin(char *cmd)
 	status = true;
 	if (!ft_strncmp(cmd, "echo", 4))
 		bt_echo();
-	// else if (cmd == "cd")
-	// 	printf ("Do cd()");
+	else if (!ft_strncmp(cmd, "cd", 2))
+		bt_cd();
 	// else if (cmd == "pwd")
 	// 	printf ("Do pwd()");
 	// else if (cmd == "export")

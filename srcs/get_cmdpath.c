@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/19 17:04:06 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/20 13:10:16 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	get_cmdpath(void)
 	{
 		ft_putstr_fd(ex()->exec->data->str, 2);
 		ft_putendl_fd(": command not found", 2);
-		ex()->exitcode = 127;
+		// ex()->exitcode = 127;
 		// free_data();
 		exit (EXIT_FAILURE);
 	}

@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/home/zvandeven/42quebec/Minishell/minishell",
+			"program": "/Users/zvan-de-/42cursus/minishell/minishell",
 			"args": [],
-			"cwd": "/home/zvandeven/42quebec/Minishell/"
+			"cwd": "/Users/zvan-de-/42cursus/minishell/"
 		}
 	]
 }

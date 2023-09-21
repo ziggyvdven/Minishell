@@ -5,6 +5,7 @@
 		"readline.h": "c",
 		"signal.h": "c",
 		"iterator": "c",
-		"minishell.h": "c"
+		"minishell.h": "c",
+		"cstdlib": "c"
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/15 11:45:59 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/21 13:55:11 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int			ft_isascii(int c);
 int			ft_isprint(int c);
 bool		ft_iswspace(char c);
 size_t		ft_strlen(const char *s);
+int			ft_strlen_int(const char *s);
 void		*ft_memset(void *b, int c, size_t len);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
@@ -64,6 +65,7 @@ void		*ft_calloc(size_t nmemb, size_t size);
 char		*ft_strdup(const char *s);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin_free(char *s1, char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
 char		*ft_itoa(int n);
@@ -79,9 +81,11 @@ t_tokens	*ft_lstnew(t_data *data);
 void		ft_lstadd_front(t_tokens **lst, t_tokens *new);
 int			ft_lstsize(t_tokens *lst);
 void		ft_lstclear(t_tokens **lst);
+void		ft_clearlst(t_tokens **lst);
 t_tokens	*ft_lstlast(t_tokens *lst);
 t_tokens	*ft_lstadd_back(t_tokens *lst, t_tokens *new);
 void		ft_lstdelone(t_tokens *lst);
+void		ft_lstdelone2(t_tokens *lst);
 // void		ft_lstclear(t_tokens **lst, void (*del)(int));
 void		ft_lstiter(t_tokens *lst, void (*f)(void *));
 void		ft_printlst(t_tokens *map_lst);
@@ -91,6 +95,7 @@ int			ft_strisdigit(char *str);
 long int	ft_atol(const char *nptr);
 void		ft_swap(int *a, int *b);
 void		ft_free_ar(char **ar);
+void		ft_free_n_ar(char **ar, int n);
 void		ft_free_str(char *str);
 void		ft_printmap(char **map);
 int			ft_count_cuts(char *str, char c);

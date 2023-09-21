@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/15 12:24:13 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/21 11:40:34 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 /*MACROS***********************************************************************/
 
@@ -57,6 +58,7 @@ typedef struct s_exec
 	char		*cmdpath;
 	int			fd[2];
 	int			pipes[2];
+	int			exitcode;
 }	t_exec;
 
 typedef struct s_expand
@@ -77,7 +79,6 @@ void		sigquit_handler(int signo);
 void		set_signals(void);
 
 /*PARSING**********************************************************************/
-char		**init_builtins(void);
 t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
 bool		is_whitespace(char c);
@@ -88,6 +89,11 @@ int			ft_single_quote(char *input, int i);
 int			ft_great(char *input, int i);
 int			ft_less(char *input, int i);
 
+/*BUILTIN**********************************************************************/
+bool		is_builtin(char *cmd);
+void		bt_cd(void);
+void		bt_echo(void);
+
 /*EXEC*************************************************************************/
 t_exec		*ex(void);
 void		close_(int fildes);
@@ -95,11 +101,13 @@ void		close_all(void);
 void		close_tab(int fildes[2]);
 void		create_cmd_ar(void);
 int			dup_(int fildes);
-void		dup2_(int fildes, int fildes2);
+int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
 void		execve_(char *path, char **cmd, char **envp);
 pid_t		fork_(void);
 void		get_cmdpath(void);
+void		get_input(void);
+void		get_output(void);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
 

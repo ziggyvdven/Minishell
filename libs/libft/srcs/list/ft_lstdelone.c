@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:05:49 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/20 16:44:34 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/21 11:03:38 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,19 @@ void	ft_lstdelone(t_tokens *lst)
 {
 	if (!lst)
 		return ;
-	// (*del)(lst->str);
+	ft_free_str(lst->data->str);
+	free(lst->data);
+	lst->data = NULL;
 	free(lst);
+	lst = NULL;
+	return ;
+}
+
+void	ft_lstdelone2(t_tokens *lst)
+{
+	if (!lst)
+		return ;
+	free(lst);
+	lst = NULL;
 	return ;
 }

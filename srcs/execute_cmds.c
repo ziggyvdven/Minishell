@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/20 16:48:03 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:03:51 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ void	parent_process(t_tokens *token)
 		unlink ("heredoc");
 	ft_free_ar(ex()->cmd);
 	ft_free_str(ex()->cmdpath);
-	ft_lstclear(&ex()->in);
-	ft_lstclear(&ex()->out);
-	ft_lstclear(&ex()->exec);
+	ft_clearlst(&ex()->in);
+	ft_clearlst(&ex()->out);
+	ft_clearlst(&ex()->exec);
 }
 
 void	put_redirect(t_tokens *temp, int id)
@@ -128,11 +128,14 @@ void	execute_cmds(t_tokens *t)
 			if (t->data->token_id == LESSLESS)
 				t->next->data->str = get_heredoc(t->next->data->str);
 			put_redirect(ft_lstnew(t->next->data), t->data->token_id);
-			ft_lstdelone(temp);
+			ft_lstdelone2(temp);
 			t = t->next;
 		}
 		else if (t->data->token_id == PIPE)
+		{
+			ft_lstdelone2(temp);
 			parent_process(t);
+		}
 		t = t->next;
 	}
 	parent_process(t);

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/20 16:47:57 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:51:59 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	bt_echo(void)
 	if (newline)
 		printf ("\n");
 	ex()->exitcode = 0;
-	ex()->
 }
 
 void	bt_cd(void)

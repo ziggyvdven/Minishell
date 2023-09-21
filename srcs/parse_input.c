@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/19 13:41:04 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/21 10:48:47 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_tokens	*parse_input(char *input)
 	pa()->i = 0;
 	j = 0;
 	tokens = NULL;
-	while (input[pa()->i])
+	while (pa()->i <= ft_strlen_int(input) && input[pa()->i])
 	{
 		while (ft_iswspace(input[pa()->i]))
 			pa()->i++;
@@ -116,6 +116,5 @@ t_tokens	*parse_input(char *input)
 		pa()->i = j;
 	}
 	tokens = ft_expand_tokens(tokens);
-	// ft_printlst(tokens);
 	return (tokens);
 }

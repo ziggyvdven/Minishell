@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/20 15:41:09 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:55:55 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ft_expand(char **arr)
 {
 	int		i;
 	char	*temp;
+	char	*str;
 
 	i = -1;
 	while (arr[++i])
@@ -25,17 +26,17 @@ void	ft_expand(char **arr)
 		if (arr[i][0] == '$')
 		{
 			if (arr[i][1] == '?')
-			{
 				temp = ft_itoa(ex()->exitcode);
-				ft_free_str(arr[i]);
-				arr[i] = temp;
-			}
 			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
 			{
-				temp = getenv(ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1));
-				ft_free_str(arr[i]);
-				arr[i] = temp;
+				str = ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1);
+				temp = ft_strdup(getenv(str));
+				free (str);
+				if (!temp)
+					temp = ft_strdup("");
 			}
+			ft_free_str(arr[i]);
+			arr[i] = temp;
 		}
 	}
 }
@@ -54,9 +55,9 @@ void	ft_expand_and_join(char *str)
 		if (x()->arr[i])
 		{
 			if (!tmp)
-				tmp = x()->arr[i];
+				tmp = ft_strdup(x()->arr[i]);
 			else
-				tmp = ft_strjoin(tmp, x()->arr[i]);
+				tmp = ft_strjoin_free(tmp, x()->arr[i]);
 		}
 		i++;
 	}
@@ -66,7 +67,7 @@ void	ft_expand_and_join(char *str)
 
 void	get_start_and_end(char *str)
 {
-	while (str[++x()->end])
+	while (x()->end < ft_strlen_int(str) && str[++x()->end])
 	{
 		if (x()->is_exp == 1 || (x()->end == 0 && str[x()->end] == '$'))
 		{
@@ -91,7 +92,6 @@ char	*ft_expand_arr(char *str)
 {
 	char	**arr;
 
-	printf("%d\n", ft_count_cuts(str, '$'));
 	arr = ft_calloc(ft_count_cuts(str, '$') + 1, sizeof (char *));
 	if (!arr)
 		ft_putstr_exit("Error: Malloc failed", 2, 1);
@@ -105,34 +105,35 @@ char	*ft_expand_arr(char *str)
 	arr[x()->i] = NULL;
 	x()->arr = arr;
 	ft_expand_and_join(str);
+	ft_free_ar(arr);
 	return (x()->new_str);
 }
 
-t_tokens	*ft_expand_tokens(t_tokens *tokens)
+t_tokens	*ft_expand_tokens(t_tokens *t)
 {
 	t_tokens	*ptr;
 
-	ptr = tokens;
-	while (tokens != NULL)
+	ptr = t;
+	while (t)
 	{
-		if ((tokens->data->token_id >= 102 && tokens->data->token_id <= 104)
-			&& ft_strlen(tokens->data->str) > 1)
+		if ((t->data->token_id >= 102 && t->data->token_id <= 104)
+			&& ft_strlen(t->data->str) > 1)
 		{
-			x()->temp = ft_expand_arr(tokens->data->str);
-			ft_free_str(tokens->data->str);
+			x()->temp = ft_expand_arr(t->data->str);
+			ft_free_str(t->data->str);
 			if (!x()->temp)
-				tokens->data->str = ft_strdup("");
+				t->data->str = ft_strdup("");
 			else
-				tokens->data->str = x()->temp;
+				t->data->str = x()->temp;
 		}
-		if (tokens->data->token_id == WORD_EXP)
-			tokens->data->token_id = WORD;
-		else if (tokens->data->token_id == FLAG_EXP)
-			tokens->data->token_id = FLAG;
-		else if (tokens->data->token_id == D_QUOTE_EXP)
-			tokens->data->token_id = D_QUOTE;
+		if (t->data->token_id == WORD_EXP)
+			t->data->token_id = WORD;
+		else if (t->data->token_id == FLAG_EXP)
+			t->data->token_id = FLAG;
+		else if (t->data->token_id == D_QUOTE_EXP)
+			t->data->token_id = D_QUOTE;
 		x()->init = 0;
-		tokens = tokens->next;
+		t = t->next;
 	}
 	return (ptr);
 }

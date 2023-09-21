@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:18 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/15 11:56:32 by zvandeven        ###   ########.fr       */
+/*   Updated: 2023/09/21 13:26:55 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ int	ft_double_quote(char *input, int i)
 	{
 		if (input[i] == '$')
 			dollar = 1;
-		if (input[i] == '"')
+		else if (input[i] == '"')
 			break ;
+		else if (input[i] == '\0')
+			ft_putstr_exit("Double quote\n", 2, 2);
 	}
-	if (input[i] == '\0')
-		ft_putstr_exit("Double quote\n", 2, 2);
 	if (input[i] == '"')
 		i++;
 	if (dollar)
@@ -49,9 +49,9 @@ int	ft_single_quote(char *input, int i)
 	{
 		if (input[i] == 39)
 			break ;
+		else if (input[i] == '\0')
+			ft_putstr_exit("single quote\n", 2, 2);
 	}
-	if (input[i] == '\0')
-		ft_putstr_exit("single quote\n", 2, 2);
 	if (input[i] == 39)
 		i++;
 	pa()->id = S_QUOTE;

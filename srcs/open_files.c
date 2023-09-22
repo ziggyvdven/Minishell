@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:41:55 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/15 11:44:53 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/22 11:38:16 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,26 +36,6 @@ void	get_output(void)
 		ex()->fd[1] = fd;
 		out = out->next;
 	}
-}
-int	open_heredoc(int fd, char *str)
-{
-	fd = open ("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (fd == -1)
-	{
-		perror("heredoc");
-		close_all();
-		exit (EXIT_FAILURE);
-	}
-	ft_putstr_fd(str, fd);
-	close_(fd);
-	fd = open ("heredoc", O_RDONLY);
-	if (fd == -1)
-	{
-		perror("heredoc");
-		close_all();
-		exit (EXIT_FAILURE);
-	}
-	return (fd);
 }
 
 void	get_input(void)

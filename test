@@ -1,1 +1,10 @@
-hello
+Makefile
+README.md
+execute_cmds_bck.c
+includes
+libs
+minishell
+minishell.dSYM
+objs
+srcs
+test

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/20 16:45:02 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/21 12:52:00 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(void)
 		if (ft_strnstr("exit", input, 4) && !ft_strncmp(input, "exit", 4))
 			ft_putstr_exit("exit\n", 1, 0);
 		tokens = parse_input(input);
-		execute_cmds(tokens);
+		if (tokens)
+			execute_cmds(tokens);
 		ft_lstclear(&tokens);
 		ft_free_str(input);
 	}

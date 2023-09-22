@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:37:21 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/21 13:55:11 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:50:36 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_data
 {
 	char		*str;
 	int			token_id;
+	bool		space;
 }	t_data;
 
 typedef struct s_tokens

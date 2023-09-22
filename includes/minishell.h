@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 16:11:53 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:23:17 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_exec
 	char		*cmdpath;
 	int			fd[2];
 	int			pipes[2];
+	int			saves[2];
 	int			exitcode;
 }	t_exec;
 
@@ -107,8 +108,10 @@ void		execute_cmds(t_tokens *tokens);
 void		execve_(char *path, char **cmd, char **envp);
 pid_t		fork_(void);
 void		get_cmdpath(void);
+char		*get_heredoc_input(char *delimiter);
 void		get_input(void);
 void		get_output(void);
+int			open_heredoc(int fd, char *str);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
 

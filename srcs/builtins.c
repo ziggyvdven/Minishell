@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 19:22:43 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 19:52:35 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,28 @@ void	bt_env(void)
 	}
 }
 
-void	bt_export(void)
-{
-	
-}
+// void	bt_export(void)
+// {
+// 	bool	setenv;
+// 	char	*newentry;
+// 	size_t	i;
+
+// 	if (ex()->exec->next)
+// 	{
+// 		i = 0;
+// 		setenv = false;
+// 		while (ex()->exec->data->str[i])
+// 		{
+// 			if (ex()->exec->data->str[i] == '=')
+// 				setenv = true;
+// 			i++;
+// 		}
+// 		if (setenv)
+// 		{
+// 			newentry = ft_calloc(1, sizeof (char *));
+// 		}
+// 	}
+// }
 
 bool	is_builtin(char *cmd)
 {
@@ -96,8 +114,8 @@ bool	is_builtin(char *cmd)
 		bt_cd();
 	else if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "pwd", 3))
 		bt_pwd();
-	else if (ft_strlen(cmd) == 6 && !ft_strncmp(cmd, "export", 6))
-		bt_export();
+	// else if (ft_strlen(cmd) == 6 && !ft_strncmp(cmd, "export", 6))
+	// 	bt_export();
 	// else if (cmd == "unset")
 	// 	printf ("Do unset()");
 	else if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "env", 3))

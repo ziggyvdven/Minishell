@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/20 16:51:59 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:21:20 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	bt_echo(void)
 			bt = bt->next;
 		}
 		while (bt)
-		{
+		{	
 			printf ("%s", bt->data->str);
 			bt = bt->next;
 			if (bt)
-			 printf (" ");
+				printf (" ");
 		}
 	}
 	if (newline)
@@ -65,9 +65,9 @@ bool	is_builtin(char *cmd)
 	int	status;
 
 	status = true;
-	if (!ft_strncmp(cmd, "echo", 4))
+	if (ft_strlen(cmd) == 4 && !ft_strncmp(cmd, "echo", 4))
 		bt_echo();
-	else if (!ft_strncmp(cmd, "cd", 2))
+	else if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "cd", 2))
 		bt_cd();
 	// else if (cmd == "pwd")
 	// 	printf ("Do pwd()");

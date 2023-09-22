@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   close_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 17:29:39 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/14 00:06:48 by olivierroy       ###   ########.fr       */
+/*   Updated: 2023/09/21 16:36:56 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ void	close_tab(int fildes[2])
 	int	i;
 
 	i = 0;
-	while (i < 2 && fildes[i] > 2)
+	while (i < 2)
 	{
-		close_(fildes[i]);
-		fildes[i] = 0;
+		if (fildes[i] > 2)
+		{
+			close_(fildes[i]);
+			fildes[i] = 0;
+		}
 		i++;
 	}
 }
@@ -35,4 +38,5 @@ void	close_all(void)
 {
 	close_tab(ex()->fd);
 	close_tab(ex()->pipes);
+	close_tab(ex()->saves);
 }

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/21 10:48:47 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:10:44 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,19 @@ char	*get_string(char *input, int j)
 	return (temp);
 }
 
+int	get_wspace(char *input, int i)
+{
+	while (input[i])
+	{
+		if (!ft_iswspace(input[i]))
+			break ;
+		i++;
+	}
+	pa()->id = WSPACE;
+	pa()->i = i - 1;
+	return (i);
+}
+
 t_tokens	*parse_input(char *input)
 {
 	t_tokens	*tokens;
@@ -103,16 +116,17 @@ t_tokens	*parse_input(char *input)
 	tokens = NULL;
 	while (pa()->i <= ft_strlen_int(input) && input[pa()->i])
 	{
-		while (ft_iswspace(input[pa()->i]))
-			pa()->i++;
-		if (is_meta(input[pa()->i]))
+		if (ft_iswspace(input[pa()->i]))
+			j = get_wspace(input, pa()->i);
+		else if (is_meta(input[pa()->i]))
 			j = meta_specifier(input, pa()->i);
 		else
 			j = get_word(input, pa()->i);
 		temp = get_string(input, j);
 		if (ft_strlen(temp) == 0)
 			break ;
-		tokens = ft_lstadd_back(tokens, ft_lstnew(get_data(temp, pa()->id)));
+		tokens = ft_lstadd_back(tokens,
+				ft_lstnew(get_data(temp, pa()->id)));
 		pa()->i = j;
 	}
 	tokens = ft_expand_tokens(tokens);

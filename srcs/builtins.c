@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 13:43:07 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 16:12:44 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	bt_echo(void)
 		{
 			printf ("%s", bt->data->str);
 			bt = bt->next;
-			if (bt)
-				printf(" ");
 		}
 	}
 	if (newline)

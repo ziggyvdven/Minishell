@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/19 15:42:47 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 19:00:15 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ void	waitpid_(pid_t pid, int *status, int options)
 		// free_data();
 		exit (EXIT_FAILURE);
 	}
+}
+
+void	pars_error(char *str, int fd)
+{
+	ft_putstr_fd(str, fd);
+	pa()->parse_error = 1;
 }

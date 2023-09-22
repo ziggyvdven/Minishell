@@ -6,17 +6,20 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 16:21:20 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 18:52:22 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	t_tokens	*tokens;
 	char		*input;
 
+	(void) argc;
+	(void) argv;
+	env()->env = envp;
 	set_signals();
 	printf("\x1b[31m🔥🔥🔥WELCOME TO MINIHELL🔥🔥🔥🔥\x1b[0m\n");
 	while (1)

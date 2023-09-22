@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:01 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/20 13:01:52 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 18:33:31 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,11 @@ t_expand	*x(void)
 		exp.temp = NULL;
 	}
 	return (&exp);
+}
+
+t_env	*env(void)
+{
+	static t_env	env;
+
+	return (&env);
 }

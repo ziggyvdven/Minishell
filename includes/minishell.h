@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 16:23:17 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:50:51 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ typedef struct s_expand
 	int		is_exp;
 }	t_expand;
 
+typedef struct s_env
+{
+	char	**env;
+}	t_env;
+
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
@@ -121,5 +126,6 @@ t_data		*get_data(char *ptr, int token_id);
 /*STRUCTS**********************************************************************/
 t_expand	*x(void);
 t_parsing	*pa(void);
+t_env		*env(void);
 
 #endif

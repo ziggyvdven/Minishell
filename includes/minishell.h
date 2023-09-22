@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 16:23:17 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:58:58 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 
 /*MACROS***********************************************************************/
 
-# define WORD			101
 # define WORD_EXP		102
 # define D_QUOTE_EXP	103
 # define FLAG_EXP		104
 # define MACRO			105
 # define WSPACE			106
 
+# define WORD			110
 # define S_QUOTE		111
 # define D_QUOTE		112
 # define FLAG			114
@@ -47,6 +47,7 @@ typedef struct s_parsing
 {
 	int			id;
 	bool		space;
+	int			parse_error;
 	int			j;
 	int			i;
 }	t_parsing;
@@ -83,13 +84,15 @@ void		set_signals(void);
 
 /*PARSING**********************************************************************/
 t_tokens	*parse_input(char *input);
-t_parsing	*pa(void);
-t_tokens	*ft_expand_tokens(t_tokens *tokens);
-bool		is_meta(char c);
+int			meta_specifier(char *input, int i);
 int			ft_double_quote(char *input, int i);
 int			ft_single_quote(char *input, int i);
-int			ft_great(char *input, int i);
-int			ft_less(char *input, int i);
+int			ft_less_great(char *input, int i);
+int			get_wspace(char *input, int i);
+int			get_word(char *input, int i);
+int			get_flag(char *input, int i);
+t_tokens	*ft_expand_tokens(t_tokens *tokens);
+t_tokens	*ft_concat_tokens(t_tokens *t);
 
 /*BUILTIN**********************************************************************/
 bool		is_builtin(char *cmd);
@@ -117,6 +120,8 @@ void		waitpid_(pid_t pid, int *status, int options);
 
 /*UTILS************************************************************************/
 t_data		*get_data(char *ptr, int token_id);
+bool		is_meta(char c);
+void		pars_error(char *str, int error);
 
 /*STRUCTS**********************************************************************/
 t_expand	*x(void);

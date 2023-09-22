@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 16:10:44 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:33:24 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,8 @@ int	meta_specifier(char *input, int i)
 		i = ft_single_quote(input, i);
 	else if (input[i] == '-')
 		i = get_flag(input, i);
-	else if (input[i] == '<')
-		i = ft_less(input, i);
-	else if (input[i] == '>')
-		i = ft_great(input, i);
+	else if (input[i] == '<' || input[i] == '>')
+		i = ft_less_great(input, i);
 	else if (input[i] == '|')
 	{
 		i++;
@@ -85,24 +83,11 @@ char	*get_string(char *input, int j)
 {
 	char	*temp;
 
-	if (pa()->id == 111 || pa()->id == 112 || pa()->id == 103)
+	if (pa()->id == S_QUOTE || pa()->id == D_QUOTE || pa()->id == D_QUOTE_EXP)
 		temp = ft_substr(input, pa()->i + 1, (j - 2) - pa()->i);
 	else
 		temp = ft_substr(input, pa()->i, j - pa()->i);
 	return (temp);
-}
-
-int	get_wspace(char *input, int i)
-{
-	while (input[i])
-	{
-		if (!ft_iswspace(input[i]))
-			break ;
-		i++;
-	}
-	pa()->id = WSPACE;
-	pa()->i = i - 1;
-	return (i);
 }
 
 t_tokens	*parse_input(char *input)
@@ -130,5 +115,6 @@ t_tokens	*parse_input(char *input)
 		pa()->i = j;
 	}
 	tokens = ft_expand_tokens(tokens);
+	tokens = ft_concat_tokens(tokens);
 	return (tokens);
 }

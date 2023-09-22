@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 16:24:23 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:34:14 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	bt_echo(void)
 
 	newline = 1;
 	bt = ex()->exec->next;
-	// ft_printlst(bt);
 	if (bt)
 	{
 		if (!ft_strncmp(bt->data->str, "-n", 2))
@@ -31,6 +30,8 @@ void	bt_echo(void)
 		{
 			printf ("%s", bt->data->str);
 			bt = bt->next;
+			if (bt)
+				printf (" ");
 		}
 	}
 	if (newline)

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:13 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/20 16:16:41 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:00:35 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 bool	is_meta_libft(char c)
 {
 	if (c)
-		if (c == '"' || c == '|' || c == '<' || c == '>' || c == 39 || c == '-')
+		if (c == '"' || c == '|' || c == '<' || c == '>' || c == 39 
+			|| c == '-' || c == '$')
 			return (true);
 	return (false);
 }
@@ -24,26 +25,27 @@ bool	is_meta_libft(char c)
 
 int	ft_count_cuts(char *str, char c)
 {
-	int	i;
-	int	count;
+	int		i;
+	int		count;
 
-	i = -1;
+	i = 0;
 	count = 0;
-	if (str[0] != c)
-		count = 1;
-	while (str[++i])
+	while (str[i])
 	{
-		if (str[i] == c)
+		if (str[i] == c) 
 		{
-			count++;
 			i++;
-			while (str[i] && (!ft_iswspace(str[i]) && str[i] != c 
-					&& !is_meta_libft(str[i])))
+			if (str[i] == c)
 				i++;
-			count++;
-			if (!str[i])
-				break ;
+			else if (str[i] && !ft_iswspace(str[i]) && !is_meta_libft(str[i]))
+				while (str[i] && !ft_iswspace(str[i])
+					&& str[i] != c && !is_meta_libft(str[i]))
+					i++;
 		}
+		else
+			while (str[i] && str[i] != c)
+				i++;
+		count++;
 	}
 	return (count);
 }

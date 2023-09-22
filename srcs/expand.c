@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/21 13:55:55 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:51:14 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	ft_expand(char **arr)
 		{
 			if (arr[i][1] == '?')
 				temp = ft_itoa(ex()->exitcode);
+			else if (ft_strlen(arr[i]) == 1)
+				temp = ft_strdup("$");
 			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
 			{
 				str = ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1);
@@ -65,41 +67,40 @@ void	ft_expand_and_join(char *str)
 }
 //Function that gets the place to cut the string
 
-void	get_start_and_end(char *str)
+int	ft_expand_get_end(char *str, int i)
 {
-	while (x()->end < ft_strlen_int(str) && str[++x()->end])
+	if (str[i] == '$')
 	{
-		if (x()->is_exp == 1 || (x()->end == 0 && str[x()->end] == '$'))
-		{
-			x()->end++;
-			while (str[x()->end]
-				&& (!ft_iswspace(str[x()->end]) && str[x()->end] != '$'
-					&& !is_meta(str[x()->end])))
-				x()->end++;
-			x()->is_exp = 0;
-			break ;
-		}
-		if (str[x()->end] == '$')
-		{
-			x()->is_exp = 1;
-			break ;
-		}
+		i++;
+		if (str[i] == '$')
+			return (i + 1);
+		else if (ft_iswspace(str[i]) || is_meta(str[i]))
+			return (i);
+		else
+			while (str[i] && !ft_iswspace(str[i]) && str[i] != '$' 
+				&& !is_meta(str[i]))
+				i++;
 	}
+	else
+		while (str[i] != '$')
+			i++;
+	return (i);
 }
 //Function that creates an arr with all the cut parts
 
 char	*ft_expand_arr(char *str)
 {
 	char	**arr;
+	int		end;
 
 	arr = ft_calloc(ft_count_cuts(str, '$') + 1, sizeof (char *));
 	if (!arr)
 		ft_putstr_exit("Error: Malloc failed", 2, 1);
 	while (x()->i < ft_count_cuts(str, '$'))
 	{
-		get_start_and_end(str);
-		arr[x()->i] = ft_substr(str, x()->start, x()->end - x()->start);
-		x()->start = x()->end;
+		end = ft_expand_get_end(str, x()->start);
+		arr[x()->i] = ft_substr(str, x()->start, end - x()->start);
+		x()->start = end;
 		x()->i++;
 	}
 	arr[x()->i] = NULL;

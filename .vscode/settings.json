@@ -6,6 +6,7 @@
 		"signal.h": "c",
 		"iterator": "c",
 		"minishell.h": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"sstream": "c"
 	}
 }

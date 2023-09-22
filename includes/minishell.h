@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 16:21:20 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 16:23:17 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define D_QUOTE_EXP	103
 # define FLAG_EXP		104
 # define MACRO			105
+# define WSPACE			106
 
 # define S_QUOTE		111
 # define D_QUOTE		112
@@ -45,6 +46,7 @@
 typedef struct s_parsing
 {
 	int			id;
+	bool		space;
 	int			j;
 	int			i;
 }	t_parsing;
@@ -82,7 +84,6 @@ void		set_signals(void);
 /*PARSING**********************************************************************/
 t_tokens	*parse_input(char *input);
 t_parsing	*pa(void);
-bool		is_whitespace(char c);
 t_tokens	*ft_expand_tokens(t_tokens *tokens);
 bool		is_meta(char c);
 int			ft_double_quote(char *input, int i);

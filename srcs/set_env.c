@@ -1,51 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.c                                          :+:      :+:    :+:   */
+/*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 12:06:01 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/24 11:54:38 by oroy             ###   ########.fr       */
+/*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/24 12:47:43 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_exec	*ex(void)
+void	set_env(char **envp)
 {
-	static t_exec	ex;
-	
-	return (&ex);
-}
+	t_tokens	*env;
+	size_t		i;
 
-t_parsing	*pa(void)
-{
-	static t_parsing	parsing;
-
-	return (&parsing);
-}
-
-t_expand	*x(void)
-{
-	static t_expand	exp;
-
-	if (exp.init == 0)
+	i = 0;
+	env = NULL;
+	while (envp[i])
 	{
-		exp.init = 1;
-		exp.i = 0;
-		exp.start = 0;
-		exp.end = -1;
-		exp.is_exp = 0;
-		exp.new_str = NULL;
-		exp.temp = NULL;
+		env = ft_lstadd_back(env, ft_lstnew(get_data(envp[i], WORD)));
+		i++;
 	}
-	return (&exp);
-}
-
-t_env	*t(void)
-{
-	static t_env	t;
-
-	return (&t);
+	t()->env = env;
 }

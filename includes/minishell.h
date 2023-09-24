@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 19:52:14 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/24 12:33:27 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ typedef struct s_expand
 
 typedef struct s_env
 {
-	char	**env;
+	t_tokens	*env;
 }	t_env;
+
 
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
@@ -103,6 +104,9 @@ t_tokens	*ft_concat_tokens(t_tokens *t);
 bool		is_builtin(char *cmd);
 void		bt_cd(void);
 void		bt_echo(void);
+
+/*ENV**************************************************************************/
+void		set_env(char **envp);
 
 /*EXEC*************************************************************************/
 t_exec		*ex(void);
@@ -129,8 +133,8 @@ bool		is_meta(char c);
 void		pars_error(char *str, int error);
 
 /*STRUCTS**********************************************************************/
-t_expand	*x(void);
 t_parsing	*pa(void);
-t_env		*env(void);
+t_env		*t(void);
+t_expand	*x(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 19:52:35 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/24 12:48:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,13 @@ void	bt_pwd(void)
 
 void	bt_env(void)
 {
-	size_t	i;
+	t_tokens	*env;
 
-	i = 0;
-	while (env()->env[i])
+	env = t()->env;
+	while (env)
 	{
-		printf ("%s\n", env()->env[i]);
-		i++;
+		printf ("%s\n", env->data->str);
+		env = env->next;
 	}
 }
 

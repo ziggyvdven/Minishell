@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/27 16:11:19 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@ int	main(int argc, char **argv, char **envp)
 		ft_lstclear(&tokens);
 		ft_free_str(input);
 	}
+	// ft_lstclear(&t()->env);
 }

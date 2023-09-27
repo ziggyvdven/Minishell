@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:12:03 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	pipe_(int fildes[2])
 		perror("Problem with pipe() call");
 		close_all();
 		// free_data();
-		exit (EXIT_FAILURE);
 	}
 }
 
@@ -33,7 +32,6 @@ pid_t	fork_(void)
 		perror ("Problem with fork() call");
 		close_all();
 		// free_data();
-		exit (EXIT_FAILURE);
 	}
 	return (process);
 }
@@ -44,7 +42,6 @@ void	execve_(char *path, char **cmd, char **envp)
 	{
 		perror ("Problem with execve() call");
 		// free_data();
-		exit (EXIT_FAILURE);
 	}
 }
 
@@ -55,7 +52,6 @@ void	waitpid_(pid_t pid, int *status, int options)
 		perror ("Problem with waitpid() call");
 		close_all();
 		// free_data();
-		exit (EXIT_FAILURE);
 	}
 }
 

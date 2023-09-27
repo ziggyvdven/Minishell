@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:07:16 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	bt_pwd(void)
 {
 	char	*pwd;
 
-	pwd = getcwd(NULL, 0);
+	pwd = getcwd (NULL, 0);
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
 }
@@ -72,11 +72,21 @@ void	bt_pwd(void)
 void	bt_env(void)
 {
 	t_tokens	*env;
+	size_t		i;
 
 	env = t()->env;
 	while (env)
 	{
-		printf ("%s\n", env->data->str);
+		i = 0;
+		while (env->data->str[i])
+		{
+			if (env->data->str[i] == '=')
+			{
+				printf ("%s\n", env->data->str);
+				break ;
+			}
+			i++;
+		}
 		env = env->next;
 	}
 }
@@ -96,7 +106,10 @@ void	bt_export(void)
 			args = args->next;
 			str = ft_strdup(args->data->str);
 			if (!str)
-				ft_putstr_exit("Error: Malloc failed", 2, 1);
+			{
+				ft_putendl_fd("Error: Malloc failed", 2);
+				return ;
+			}	
 			env = ft_lstadd_back(env, ft_lstnew(get_data(str, WORD)));
 		}
 	}
@@ -108,31 +121,42 @@ void	bt_export(void)
 
 void	bt_unset(void)
 {
+	t_tokens	*args;
 	t_tokens	*env;
 	t_tokens	*head;
-	char		*str;
-	size_t		len;
+	size_t		i;
 
-	if (ex()->exec->next)
+	args = ex()->exec->next;
+	while (args)
 	{
-		str = ex()->exec->next->data->str;
-		len = ft_strlen(str);
-		env = t()->env;
-		head = env;
-		while (env)
+		i = 0;
+		while (args->data->str[i] && args->data->str[i] != '=')
+			i++;
+		if (!args->data->str[i])
 		{
-			if (!ft_strncmp(env->data->str, str, len) && env->data->str[len] == '=')
-			{
-				if (head == env)
-					t()->env = env->next;
-				else
-					head->next = env->next;
-				ft_lstdelone(env);
-				break ;
-			}
+			env = t()->env;
 			head = env;
-			env = env->next;
+			while (env)
+			{
+				if (!ft_strncmp(args->data->str, env->data->str, i))
+				{
+					if (head == env)
+						t()->env = env->next;
+					else
+						head->next = env->next;
+					ft_lstdelone(env);
+					break ;
+				}
+				head = env;
+				env = env->next;
+			}
 		}
+		else
+		{
+			ft_putstr_fd(args->data->str, 2);
+			ft_putendl_fd(" : not a valid identifier", 2);
+		}
+		args = args->next;
 	}
 }
 void	bt_exit(void)

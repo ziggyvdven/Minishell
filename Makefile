@@ -6,7 +6,11 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2023/09/27 15:12:57 by zvan-de-         ###   ########.fr        #
+=======
+#    Updated: 2023/09/27 15:16:52 by oroy             ###   ########.fr        #
+>>>>>>> olivier
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,6 +144,13 @@ re: fclean all
 .PHONY:		all, clean, fclean, re, libmlx
 
 # VALGRIND #
+
+# val: $(NAME)
+# 	valgrind --show-reachable=no \
+# 	--leak-check=full \
+# 	--show-leak-kinds=all \
+# 	--track-origins=yes -s \
+# 	./$(NAME)
 
 val: $(NAME)
 	valgrind --leak-check=full \

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/26 20:23:55 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 14:04:23 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	bt_cd(void)
 		closedir (dir);
 	}
 }
+
 void	bt_pwd(void)
 {
 	char	*pwd;
@@ -82,25 +83,26 @@ void	bt_env(void)
 
 void	bt_export(void)
 {
-	bool		setenv;
-	char		*str;
+	t_tokens	*args;
 	t_tokens	*env;
-	size_t		i;
+	char		*str;
 
 	env = t()->env;
-	if (ex()->exec->next)
+	args = ex()->exec;
+	if (args->next)
 	{
-		str = ex()->exec->next->data->str;
-		setenv = false;
-		i = 0;
-		while (str[i])
+		while (args->next)
 		{
-			if (str[i] == '=')
-				setenv = true;
-			i++;
+			args = args->next;
+			str = ft_strdup(args->data->str);
+			if (!str)
+				ft_putstr_exit("Error: Malloc failed", 2, 1);
+			env = ft_lstadd_back(env, ft_lstnew(get_data(str, WORD)));
 		}
-		if (setenv)
-			env = ft_lstadd_back(env, ft_lstnew(get_data(ft_strdup(str), WORD)));
+	}
+	else
+	{
+		printf ("Print everything");
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 19:00:15 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:12:03 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	waitpid_(pid_t pid, int *status, int options)
 	}
 }
 
-void	pars_error(char *str, int fd)
+void	pars_error_(char *str, int fd)
 {
 	ft_putstr_fd(str, fd);
 	pa()->parse_error = 1;

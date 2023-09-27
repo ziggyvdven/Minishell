@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/24 12:33:27 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 16:12:36 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void		waitpid_(pid_t pid, int *status, int options);
 /*UTILS************************************************************************/
 t_data		*get_data(char *ptr, int token_id);
 bool		is_meta(char c);
-void		pars_error(char *str, int error);
+void		pars_error_(char *str, int fd);
 
 /*STRUCTS**********************************************************************/
 t_parsing	*pa(void);

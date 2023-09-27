@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:18 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/22 19:03:59 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:17:18 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_double_quote(char *input, int i)
 			break ;
 		else if (input[i] == '\0')
 		{
-			pars_error("Parse error: Unclosed double quotes\n", 2);
+			pars_error_("Parse error: Unclosed double quotes\n", 2);
 			break ;
 		}
 	}
@@ -54,7 +54,7 @@ int	ft_single_quote(char *input, int i)
 			break ;
 		else if (input[i] == '\0')
 		{
-			pars_error("Parse error: Unclosed single quotes\n", 2);
+			pars_error_("Parse error: Unclosed single quotes\n", 2);
 			break ;
 		}
 	}

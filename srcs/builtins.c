@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 14:04:23 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 16:07:16 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,10 @@ void	bt_unset(void)
 		}
 	}
 }
+void	bt_exit(void)
+{
+	ft_putstr_exit("exit\n", 1, 0);
+}
 
 bool	is_builtin(char *cmd)
 {
@@ -153,8 +157,8 @@ bool	is_builtin(char *cmd)
 		bt_unset();
 	else if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "env", 3))
 		bt_env();
-	// else if (cmd == "exit")
-	// 	printf ("Do exit()");
+	else if (ft_strlen(cmd) == 4 && !ft_strncmp(cmd, "exit", 4))
+		bt_exit();
 	else
 		status = false;
 	return (status);

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 14:57:01 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:20:33 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char	*get_string(char *input, int j)
 		temp = ft_substr(input, pa()->i + 1, (j - 2) - pa()->i);
 	else
 		temp = ft_substr(input, pa()->i, j - pa()->i);
+	if (!temp)
+		pars_error_("Parse error: Malloc\n", 2);
 	return (temp);
 }
 
@@ -89,7 +91,8 @@ t_tokens	*parse_input(char *input)
 	pa()->i = 0;
 	j = 0;
 	tokens = NULL;
-	while (pa()->i <= ft_strlen_int(input) && input[pa()->i])
+	while (pa()->i <= ft_strlen_int(input) && input[pa()->i]
+		&& pa()->parse_error == 0)
 	{
 		if (is_meta(input[pa()->i]) || ft_iswspace(input[pa()->i]))
 			j = meta_specifier(input, pa()->i);

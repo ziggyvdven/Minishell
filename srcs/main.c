@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/26 18:20:14 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 16:11:19 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!input)
 			break ;
 		add_history(input);
-		if (ft_strnstr("exit", input, 4) && !ft_strncmp(input, "exit", 4))
-			ft_putstr_exit("exit\n", 1, 0);
 		tokens = parse_input(input);
 		if (tokens && pa()->parse_error == 0)
 			execute_cmds(tokens);

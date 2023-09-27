@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/26 19:44:33 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 15:20:35 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,14 @@ void	execute_cmds(t_tokens *t)
 			else if (t->data->token_id == LESSLESS)
 				t->next->data->str = get_heredoc_input(t->next->data->str);
 			put_redirection(ft_lstnew(t->next->data), t->data->token_id);
-			ft_lstdelone(temp);
+			free(temp);
 			t = t->next;
 		}
 		else if (t->data->token_id == PIPE && t->next)
+		{
 			parent_process(t);
+			free(temp);
+		}
 		t = t->next;
 	}
 	parent_process(t);

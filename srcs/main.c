@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/26 18:20:14 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 16:34:54 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,5 @@ int	main(int argc, char **argv, char **envp)
 		ft_lstclear(&tokens);
 		ft_free_str(input);
 	}
+	// ft_lstclear(&t()->env);
 }

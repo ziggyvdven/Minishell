@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/26 19:44:33 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/27 16:32:38 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	fork_process(void)
 		get_cmdpath();
 		create_cmd_ar();
 		execve_(ex()->cmdpath, ex()->cmd, NULL);
-		exit (EXIT_SUCCESS);
+		exit (EXIT_FAILURE);
 	}
 	waitpid_(process_id, &status, 0);
 	if (WIFEXITED(status))
@@ -98,7 +98,11 @@ void	execute_cmds(t_tokens *t)
 	while (t)
 	{
 		if (!temp && t->data->token_id == PIPE)
-			ft_putstr_exit("syntax error near unexpected token `|'", 2, 1);
+		{
+			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+			free_cmd();
+			return ;
+		}
 		temp = ft_lstnew(t->data);
 		if (!temp)
 			ft_putstr_exit("Error: Malloc failed", 2, 1);
@@ -113,16 +117,22 @@ void	execute_cmds(t_tokens *t)
 			{
 				ft_putstr_fd("syntax error near unexpected token `", 2);
 				ft_putstr_fd(t->data->str, 2);
-				ft_putstr_exit("'\n", 2, 1);
+				ft_putstr_fd("'\n", 2);
+				free (temp);
+				free_cmd();
+				return ;
 			}
 			else if (t->data->token_id == LESSLESS)
 				t->next->data->str = get_heredoc_input(t->next->data->str);
 			put_redirection(ft_lstnew(t->next->data), t->data->token_id);
-			ft_lstdelone(temp);
+			free (temp);
 			t = t->next;
 		}
 		else if (t->data->token_id == PIPE && t->next)
+		{
 			parent_process(t);
+			free (temp);
+		}
 		t = t->next;
 	}
 	parent_process(t);

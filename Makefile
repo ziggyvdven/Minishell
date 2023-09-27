@@ -6,7 +6,7 @@
 #    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/22 19:27:25 by oroy             ###   ########.fr        #
+#    Updated: 2023/09/27 15:16:52 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,8 +141,14 @@ re: fclean all
 
 # VALGRIND #
 
+# val: $(NAME)
+# 	valgrind --show-reachable=no \
+# 	--leak-check=full \
+# 	--show-leak-kinds=all \
+# 	--track-origins=yes -s \
+# 	./$(NAME)
+
 val: $(NAME)
-	valgrind --leak-check=full \
-	--show-leak-kinds=all \
-	--track-origins=yes -s \
+	valgrind --show-reachable=no \
+	--leak-check=full \
 	./$(NAME)

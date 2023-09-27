@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:18 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/22 16:10:54 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:17:18 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ int	ft_double_quote(char *input, int i)
 		else if (input[i] == '"')
 			break ;
 		else if (input[i] == '\0')
-			ft_putstr_exit("Double quote\n", 2, 2);
+		{
+			pars_error_("Parse error: Unclosed double quotes\n", 2);
+			break ;
+		}
 	}
 	if (input[i] == '"')
 		i++;
@@ -50,7 +53,10 @@ int	ft_single_quote(char *input, int i)
 		if (input[i] == 39)
 			break ;
 		else if (input[i] == '\0')
-			ft_putstr_exit("single quote\n", 2, 2);
+		{
+			pars_error_("Parse error: Unclosed single quotes\n", 2);
+			break ;
+		}
 	}
 	if (input[i] == 39)
 		i++;
@@ -58,32 +64,40 @@ int	ft_single_quote(char *input, int i)
 	return (i);
 }
 
-int	ft_great(char *input, int i)
+int	ft_less_great(char *input, int i)
 {
-	if (input[i + 1] == '>')
+	if (input[i] == '<')
 	{
-		pa()->id = GREATGREAT;
-		i += 2;
+		if (input[i + 1] == '<')
+		{
+			pa()->id = LESSLESS;
+			i++;
+		}
+		else
+			pa()->id = LESS;
 	}
-	else
+	else if (input[i] == '>')
 	{
-		pa()->id = GREAT;
-		i++;
+		if (input[i + 1] == '>')
+		{
+			pa()->id = GREATGREAT;
+			i++;
+		}
+		else
+			pa()->id = GREAT;
 	}
-	return (i);
+	return (i + 1);
 }
 
-int	ft_less(char *input, int i)
+int	get_wspace(char *input, int i)
 {
-	if (input[i + 1] == '<')
+	while (input[i])
 	{
-		pa()->id = LESSLESS;
-		i += 2;
-	}
-	else
-	{
-		pa()->id = LESS;
+		if (!ft_iswspace(input[i]))
+			break ;
 		i++;
 	}
+	pa()->id = WSPACE;
+	pa()->i = i - 1;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 18:52:53 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	fork_process(void)
 		get_cmdpath();
 		create_cmd_ar();
 		execve_(ex()->cmdpath, ex()->cmd, NULL);
-		exit (EXIT_FAILURE);
+		exit (EXIT_SUCCESS);
 	}
 	waitpid_(process_id, &status, 0);
 	if (WIFEXITED(status))
@@ -94,15 +94,13 @@ void	execute_cmds(t_tokens *t)
 	t_tokens	*temp;
 	t_tokens	*ptr;
 
-	temp = NULL;
+	if (t->data->token_id == PIPE)
+	{
+		ft_putendl_fd("syntax error near unexpected token `|'", 2);
+		return ;
+	}
 	while (t)
 	{
-		if (!temp && t->data->token_id == PIPE)
-		{
-			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
-			free_cmd();
-			return ;
-		}
 		temp = ft_lstnew(t->data);
 		if (!temp)
 			ft_putstr_exit("Error: Malloc failed", 2, 1);
@@ -116,22 +114,25 @@ void	execute_cmds(t_tokens *t)
 			if (!t->next)
 			{
 				ft_putstr_fd("syntax error near unexpected token `", 2);
-				ft_putstr_fd(t->data->str, 2);
-				ft_putstr_fd("'\n", 2);
-				free (temp);
-				free_cmd();
+				ft_putendl_fd(t->data->str, 2);
 				return ;
 			}
-			else if (t->data->token_id == LESSLESS)
-				t->next->data->str = get_heredoc_input(t->next->data->str);
-			put_redirection(ft_lstnew(t->next->data), t->data->token_id);
-			free (temp);
-			t = t->next;
+			if (t->next->data->token_id == WSPACE)
+				ptr = t->next->next;
+			else
+				ptr = t->next;
+			if (t->data->token_id == LESSLESS)
+				ptr->data->str = get_heredoc_input(ptr->data->str);
+			put_redirection(ft_lstnew(ptr->data), t->data->token_id);
+			ft_lstdelone(temp);
+			t = ptr;
 		}
 		else if (t->data->token_id == PIPE && t->next)
-		{
 			parent_process(t);
-			free (temp);
+		else
+		{
+			ft_putendl_fd("syntax error near unexpected token `|'", 2);
+			return ;
 		}
 		t = t->next;
 	}

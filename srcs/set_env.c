@@ -1,41 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling_dup.c                               :+:      :+:    :+:   */
+/*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:27:23 by oroy             ###   ########.fr       */
+/*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/24 12:47:43 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	dup_(int fildes)
+void	set_env(char **envp)
 {
-	int	fildes2;
+	t_tokens	*env;
+	size_t		i;
 
-	fildes2 = dup (fildes);
-	if (fildes2 == -1)
+	i = 0;
+	env = NULL;
+	while (envp[i])
 	{
-		perror ("Problem with dup() call");
-		close_all();
-		// free_data();
+		env = ft_lstadd_back(env, ft_lstnew(get_data(envp[i], WORD)));
+		i++;
 	}
-	return (fildes2);
-}
-
-int	dup2_(int fildes, int fildes2)
-{
-	int	fd;
-
-	fd = dup2 (fildes, fildes2);
-	if (fd == -1)
-	{
-		perror ("Problem with dup2() call");
-		close_all();
-		// free_data();
-	}
-	return (fd);
+	t()->env = env;
 }

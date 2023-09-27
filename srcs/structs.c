@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:01 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/20 13:01:52 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/26 16:08:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ t_parsing	*pa(void)
 	static t_parsing	parsing;
 
 	return (&parsing);
+}
+
+t_env	*t(void)
+{
+	static t_env	t;
+
+	return (&t);
 }
 
 t_expand	*x(void)

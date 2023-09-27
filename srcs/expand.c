@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/22 12:51:14 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 16:13:49 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	ft_expand_and_join(char *str)
 				tmp = ft_strdup(x()->arr[i]);
 			else
 				tmp = ft_strjoin_free(tmp, x()->arr[i]);
+			if (!tmp)
+				pars_error_("Malloc", 2);
 		}
 		i++;
 	}
@@ -95,7 +97,7 @@ char	*ft_expand_arr(char *str)
 
 	arr = ft_calloc(ft_count_cuts(str, '$') + 1, sizeof (char *));
 	if (!arr)
-		ft_putstr_exit("Error: Malloc failed", 2, 1);
+		pa()->parse_error = 1;
 	while (x()->i < ft_count_cuts(str, '$'))
 	{
 		end = ft_expand_get_end(str, x()->start);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 18:34:14 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:04:23 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,82 @@ void	bt_cd(void)
 	}
 }
 
+void	bt_pwd(void)
+{
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	printf ("%s\n", pwd);
+	ft_free_str(pwd);
+}
+
+void	bt_env(void)
+{
+	t_tokens	*env;
+
+	env = t()->env;
+	while (env)
+	{
+		printf ("%s\n", env->data->str);
+		env = env->next;
+	}
+}
+
+void	bt_export(void)
+{
+	t_tokens	*args;
+	t_tokens	*env;
+	char		*str;
+
+	env = t()->env;
+	args = ex()->exec;
+	if (args->next)
+	{
+		while (args->next)
+		{
+			args = args->next;
+			str = ft_strdup(args->data->str);
+			if (!str)
+				ft_putstr_exit("Error: Malloc failed", 2, 1);
+			env = ft_lstadd_back(env, ft_lstnew(get_data(str, WORD)));
+		}
+	}
+	else
+	{
+		printf ("Print everything");
+	}
+}
+
+void	bt_unset(void)
+{
+	t_tokens	*env;
+	t_tokens	*head;
+	char		*str;
+	size_t		len;
+
+	if (ex()->exec->next)
+	{
+		str = ex()->exec->next->data->str;
+		len = ft_strlen(str);
+		env = t()->env;
+		head = env;
+		while (env)
+		{
+			if (!ft_strncmp(env->data->str, str, len) && env->data->str[len] == '=')
+			{
+				if (head == env)
+					t()->env = env->next;
+				else
+					head->next = env->next;
+				ft_lstdelone(env);
+				break ;
+			}
+			head = env;
+			env = env->next;
+		}
+	}
+}
+
 bool	is_builtin(char *cmd)
 {
 	int	status;
@@ -69,65 +145,17 @@ bool	is_builtin(char *cmd)
 		bt_echo();
 	else if (ft_strlen(cmd) == 2 && !ft_strncmp(cmd, "cd", 2))
 		bt_cd();
-	// else if (cmd == "pwd")
-	// 	printf ("Do pwd()");
-	// else if (cmd == "export")
-	// 	printf ("Do export()");
-	// else if (cmd == "unset")
-	// 	printf ("Do unset()");
-	// else if (cmd == "env")
-	// 	printf ("Do env()");
+	else if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "pwd", 3))
+		bt_pwd();
+	else if (ft_strlen(cmd) == 6 && !ft_strncmp(cmd, "export", 6))
+		bt_export();
+	else if (ft_strlen(cmd) == 5 && !ft_strncmp(cmd, "unset", 5))
+		bt_unset();
+	else if (ft_strlen(cmd) == 3 && !ft_strncmp(cmd, "env", 3))
+		bt_env();
 	// else if (cmd == "exit")
 	// 	printf ("Do exit()");
 	else
 		status = false;
 	return (status);
 }
-
-// bool	is_builtin(char *str)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (ex()->bt[i])
-// 	{
-// 		if (str == ex()->bt[i])
-// 		{
-// 			exec_builtin(str);
-// 			return (true);
-// 		}
-// 		i++;
-// 	}
-// 	return (false);
-// }
-// static char	*set_builtin(char *str)
-// {
-// 	char	*bt;
-
-// 	bt = ft_strdup(str);
-// 	if (!bt)
-// 	{
-// 		ft_putendl_fd("Error: Couldn't malloc builtin", 2);
-// 		ft_free_ar(ex()->bt);
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	return (bt);
-// }
-
-// void	init_builtins(void)
-// {
-// 	ex()->bt = ft_calloc(8, sizeof (char *));
-// 	if (!ex()->bt)
-// 	{
-// 		ft_putendl_fd("Error: Couldn't malloc builtin array", 2);
-// 		exit(EXIT_FAILURE);
-// 	}
-// 	ex()->bt[0] = set_builtin("echo");
-// 	ex()->bt[1] = set_builtin("cd");
-// 	ex()->bt[2] = set_builtin("pwd");
-// 	ex()->bt[3] = set_builtin("export");
-// 	ex()->bt[4] = set_builtin("unset");
-// 	ex()->bt[5] = set_builtin("env");
-// 	ex()->bt[6] = set_builtin("exit");
-// 	ex()->bt[7] = NULL;
-// }

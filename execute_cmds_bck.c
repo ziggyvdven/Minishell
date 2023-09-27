@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/26 19:44:33 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/22 18:52:53 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,13 @@ void	execute_cmds(t_tokens *t)
 	t_tokens	*temp;
 	t_tokens	*ptr;
 
-	temp = NULL;
+	if (t->data->token_id == PIPE)
+	{
+		ft_putendl_fd("syntax error near unexpected token `|'", 2);
+		return ;
+	}
 	while (t)
 	{
-		if (!temp && t->data->token_id == PIPE)
-			ft_putstr_exit("syntax error near unexpected token `|'", 2, 1);
 		temp = ft_lstnew(t->data);
 		if (!temp)
 			ft_putstr_exit("Error: Malloc failed", 2, 1);
@@ -112,17 +114,26 @@ void	execute_cmds(t_tokens *t)
 			if (!t->next)
 			{
 				ft_putstr_fd("syntax error near unexpected token `", 2);
-				ft_putstr_fd(t->data->str, 2);
-				ft_putstr_exit("'\n", 2, 1);
+				ft_putendl_fd(t->data->str, 2);
+				return ;
 			}
-			else if (t->data->token_id == LESSLESS)
-				t->next->data->str = get_heredoc_input(t->next->data->str);
-			put_redirection(ft_lstnew(t->next->data), t->data->token_id);
+			if (t->next->data->token_id == WSPACE)
+				ptr = t->next->next;
+			else
+				ptr = t->next;
+			if (t->data->token_id == LESSLESS)
+				ptr->data->str = get_heredoc_input(ptr->data->str);
+			put_redirection(ft_lstnew(ptr->data), t->data->token_id);
 			ft_lstdelone(temp);
-			t = t->next;
+			t = ptr;
 		}
 		else if (t->data->token_id == PIPE && t->next)
 			parent_process(t);
+		else
+		{
+			ft_putendl_fd("syntax error near unexpected token `|'", 2);
+			return ;
+		}
 		t = t->next;
 	}
 	parent_process(t);

@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_data.c                                         :+:      :+:    :+:   */
+/*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/08 12:43:39 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/24 11:59:28 by oroy             ###   ########.fr       */
+/*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/24 12:47:43 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_data	*get_data(char *ptr, int token_id)
+void	set_env(char **envp)
 {
-	t_data	*data;
+	t_tokens	*env;
+	size_t		i;
 
-	data = malloc(sizeof(t_data) * 1);
-	if (!data)
-		return (NULL);
-	data->str = ptr;
-	data->token_id = token_id;
-	return (data);
+	i = 0;
+	env = NULL;
+	while (envp[i])
+	{
+		env = ft_lstadd_back(env, ft_lstnew(get_data(envp[i], WORD)));
+		i++;
+	}
+	t()->env = env;
 }

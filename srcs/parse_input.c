@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/22 18:33:24 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/27 14:50:59 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ int	get_word(char *input, int i)
 
 int	get_flag(char *input, int i)
 {
-	int	dollar;
-
-	dollar = 0;
 	if (ft_iswspace(input[i + 1]))
 	{
 		pa()->id = WORD;
@@ -44,17 +41,8 @@ int	get_flag(char *input, int i)
 	}
 	else
 	{
-		while (input[i++])
-		{
-			if (input[i] == '$')
-				dollar = 1;
-			if (ft_iswspace(input[i]))
-				break ;
-		}
-		if (dollar)
-			pa()->id = FLAG_EXP;
-		else
-			pa()->id = FLAG;
+		pa()->id = FLAG;
+		i++;
 	}
 	return (i);
 }
@@ -63,6 +51,8 @@ int	meta_specifier(char *input, int i)
 {
 	if (!input)
 		return (0);
+	if (ft_iswspace(input[pa()->i]))
+		i = get_wspace(input, pa()->i);
 	else if (input[i] == '"')
 		i = ft_double_quote(input, i);
 	else if (input[i] == 39)
@@ -101,9 +91,7 @@ t_tokens	*parse_input(char *input)
 	tokens = NULL;
 	while (pa()->i <= ft_strlen_int(input) && input[pa()->i])
 	{
-		if (ft_iswspace(input[pa()->i]))
-			j = get_wspace(input, pa()->i);
-		else if (is_meta(input[pa()->i]))
+		if (is_meta(input[pa()->i]) || ft_iswspace(input[pa()->i]))
 			j = meta_specifier(input, pa()->i);
 		else
 			j = get_word(input, pa()->i);

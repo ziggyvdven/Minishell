@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:20:33 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:27:29 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ char	*get_string(char *input, int j)
 		temp = ft_substr(input, pa()->i, j - pa()->i);
 	if (!temp)
 		pars_error_("Parse error: Malloc\n", 2);
+	if (pa()->parse_error && temp)
+	{
+		free (temp);
+		temp = NULL;
+	}
 	return (temp);
 }
 

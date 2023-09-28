@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmds.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/28 14:15:31 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	fork_process(void)
 	waitpid_(process_id, &status, 0);
 	if (WIFEXITED(status))
 		ex()->exitcode = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		ex()->exitcode = 130;
 }
 
 void	parent_process(t_tokens *token)
@@ -100,6 +102,7 @@ void	execute_cmds(t_tokens *t)
 		if (!temp && t->data->token_id == PIPE)
 		{
 			ft_putstr_fd("syntax error near unexpected token `|'\n", 2);
+			ex()->exitcode = 258;
 			free_cmd();
 			return ;
 		}

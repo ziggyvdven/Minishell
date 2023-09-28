@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/27 16:13:49 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:00:59 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_expand(char **arr)
 			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
 			{
 				str = ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1);
-				temp = ft_strdup(getenv(str));
+				temp = ft_get_env(str);
 				free (str);
 				if (!temp)
 					temp = ft_strdup("");

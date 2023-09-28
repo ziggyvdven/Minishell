@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/28 13:57:32 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	bt_export(void)
 			{
 				ft_putendl_fd("Error: Malloc failed", 2);
 				return ;
-			}	
+			}
 			env = ft_lstadd_back(env, ft_lstnew(get_data(str, WORD)));
 		}
 	}
@@ -125,6 +125,7 @@ void	bt_unset(void)
 	t_tokens	*env;
 	t_tokens	*head;
 	size_t		i;
+	size_t		j;
 
 	args = ex()->exec->next;
 	while (args)
@@ -138,7 +139,11 @@ void	bt_unset(void)
 			head = env;
 			while (env)
 			{
-				if (!ft_strncmp(args->data->str, env->data->str, i))
+				j = 0;
+				while (env->data->str[j] != '=')
+					j++;
+				if (!ft_strncmp(args->data->str, env->data->str, j) 
+						&& ft_strlen(args->data->str) == j)
 				{
 					if (head == env)
 						t()->env = env->next;
@@ -161,7 +166,18 @@ void	bt_unset(void)
 }
 void	bt_exit(void)
 {
-	ft_putstr_exit("exit\n", 1, 0);
+	t_tokens	*bt;
+
+	bt = ex()->exec->next;
+	ft_lstclear(&t()->env);
+	if (bt)
+	{
+		if (!ft_hasdigit(bt->data->str))
+			ft_putstr_exit("exit: numeric argument required\n", 1, 255);
+		else
+			ft_putstr_exit("exit\n", 1, ft_atoi(bt->data->str));
+	}
+	ft_putstr_exit("exit\n", 1, ex()->exitcode);
 }
 
 bool	is_builtin(char *cmd)

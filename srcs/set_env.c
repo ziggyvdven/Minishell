@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/24 12:47:43 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/28 13:37:05 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_env(char **envp)
 	env = NULL;
 	while (envp[i])
 	{
-		env = ft_lstadd_back(env, ft_lstnew(get_data(envp[i], WORD)));
+		env = ft_lstadd_back(env, ft_lstnew(get_data(ft_strdup(envp[i]), WORD)));
 		i++;
 	}
 	t()->env = env;

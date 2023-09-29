@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:41:55 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/29 16:44:34 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 19:30:39 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,12 @@ void	get_input(void)
 	{
 		if (fd != STDIN_FILENO)
 			close_(fd);
-		if (in->data->token_id == LESSLESS)
-			fd = open_heredoc(fd, in->data->str);
-		else
+		fd = open (in->data->str, O_RDONLY);
+		if (fd == -1)
 		{
-			fd = open (in->data->str, O_RDONLY);
-			if (fd == -1)
-			{
-				perror(in->data->str);
-				close_all();
-				exit (EXIT_FAILURE);
-			}
+			perror(in->data->str);
+			close_all();
+			exit (EXIT_FAILURE);
 		}
 		ex()->fd[0] = fd;
 		in = in->next;

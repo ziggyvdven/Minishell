@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/28 14:28:46 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 13:11:57 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static char	*find_cmd_location(char **pathlist, char *cmd)
 	{
 		path = ft_strjoin(pathlist[i], cmd);
 		if (!path)
-			ft_putstr_exit("Error: Malloc failed", 2, 1);
+		{
+			ft_free_ar(pathlist);
+			ft_free_str(cmd);
+			exit (exec_error("Malloc error", 1));
+		}
 		if (access (path, X_OK) == 0)
 			return (path);
 		ft_free_str(path);
@@ -35,6 +39,7 @@ void	get_cmdpath(void)
 {
 	char	**pathlist;
 	char	*path;
+	char	*env;
 
 	if (access (ex()->exec->data->str, X_OK) == 0)
 	{
@@ -43,20 +48,18 @@ void	get_cmdpath(void)
 	}
 	path = ft_strjoin("/", ex()->exec->data->str);
 	if (!path)
-		ft_putstr_exit("Error: Malloc failed", 2, 1);
-	pathlist = ft_split(getenv("PATH"), ':');
+		exit (exec_error("Malloc error", 1));
+	env = ft_get_env("PATH");
+	pathlist = ft_split(env, ':');
+	ft_free_str(env);
 	if (!pathlist)
 	{
 		ft_free_str(path);
-		ft_putstr_exit("Error: Malloc failed", 2, 1);
+		exit (exec_error("Malloc error", 1));
 	}
-	ex()->cmdpath = find_cmd_location(pathlist, path);
+	path = find_cmd_location(pathlist, path);
 	ft_free_ar(pathlist);
-	ft_free_str(path);
-	if (!ex()->cmdpath)
-	{
-		ft_putstr_fd(ex()->exec->data->str, 2);
-		ft_putendl_fd(": command not found", 2);
-		exit (127);
-	}
+	if (!path)
+		exit (exec_error(ex()->exec->data->str, 127));
+	ex()->cmdpath = path;
 }

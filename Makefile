@@ -6,7 +6,7 @@
 #    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/28 14:13:28 by oroy             ###   ########.fr        #
+#    Updated: 2023/09/29 11:49:53 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -152,4 +152,5 @@ val: $(NAME)
 	valgrind --leak-check=full \
 	--show-leak-kinds=all \
 	--show-reachable=no \
+	--leak-check=full \
 	./$(NAME)

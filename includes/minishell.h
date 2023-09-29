@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/28 14:12:46 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 12:28:10 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ void		create_cmd_ar(void);
 int			dup_(int fildes);
 int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
+int			exec_error(char *s, int exitcode);
 void		execve_(char *path, char **cmd, char **envp);
 void		free_cmd(void);
 pid_t		fork_(void);
@@ -125,6 +126,7 @@ char		*get_heredoc_input(char *delimiter);
 void		get_input(void);
 void		get_output(void);
 int			open_heredoc(int fd, char *str);
+void		parent_process(t_tokens *token);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
 

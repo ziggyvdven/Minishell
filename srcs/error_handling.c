@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/28 14:17:47 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 13:11:18 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	pipe_(int fildes[2])
 	{
 		perror("Problem with pipe() call");
 		close_all();
-		// free_data();
 	}
 }
 
@@ -31,7 +30,6 @@ pid_t	fork_(void)
 	{
 		perror ("Problem with fork() call");
 		close_all();
-		// free_data();
 	}
 	return (process);
 }
@@ -50,7 +48,6 @@ void	waitpid_(pid_t pid, int *status, int options)
 	{
 		perror ("Problem with waitpid() call");
 		close_all();
-		// free_data();
 	}
 }
 
@@ -58,4 +55,22 @@ void	pars_error_(char *str, int fd)
 {
 	ft_putstr_fd(str, fd);
 	pa()->parse_error = 1;
+}
+
+int	exec_error(char *s, int exitcode)
+{
+	if (exitcode == 127)
+	{
+		ft_putstr_fd(s, 2);
+		ft_putendl_fd(": command not found", 2);
+	}
+	else
+	{
+		if (exitcode > 1)
+			ft_putstr_fd("Parse error near ", 2);
+		ft_putendl_fd(s, 2);
+	}
+	free_cmd();
+	ex()->exitcode = exitcode;
+	return (exitcode);
 }

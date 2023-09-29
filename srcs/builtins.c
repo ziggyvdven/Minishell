@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 12:02:28 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:28:30 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ void	bt_cd(void)
 	DIR		*dir;
 	char	*path;
 
-	if (!ex()->exec->next)
-		return ;
-	path = ex()->exec->next->data->str;
+	if (!ex()->exec->next || ex()->exec->next->data->str[0] == '~')
+		path = ft_get_env("HOME");
+	else
+		path = ft_strdup(ex()->exec->next->data->str);
 	dir = opendir (path);
 	if (!dir)
 	{
@@ -62,6 +63,7 @@ void	bt_cd(void)
 		chdir (path);
 		closedir (dir);
 	}
+	ft_free_str(path);
 }
 
 // Builtin version of pwd

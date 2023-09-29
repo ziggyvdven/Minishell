@@ -6,11 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/28 14:27:29 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:54:39 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// if no Meta set id to WORD
 
 int	get_word(char *input, int i)
 {
@@ -32,6 +34,8 @@ int	get_word(char *input, int i)
 	return (i);
 }
 
+// if Meta is '-' set id to FLAG
+
 int	get_flag(char *input, int i)
 {
 	if (ft_iswspace(input[i + 1]))
@@ -46,6 +50,8 @@ int	get_flag(char *input, int i)
 	}
 	return (i);
 }
+
+//Checks if the first character is a meta character
 
 int	meta_specifier(char *input, int i)
 {
@@ -68,6 +74,7 @@ int	meta_specifier(char *input, int i)
 	}
 	return (i);
 }
+// Gets the string to put in the token
 
 char	*get_string(char *input, int j)
 {
@@ -86,6 +93,8 @@ char	*get_string(char *input, int j)
 	}
 	return (temp);
 }
+
+// Takes the input line and tokenizes it
 
 t_tokens	*parse_input(char *input)
 {

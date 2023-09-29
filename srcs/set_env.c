@@ -6,11 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 11:02:08 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:56:34 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// Getenv function for minishell environement 
 
 char	*ft_get_env(char *str)
 {
@@ -35,6 +37,8 @@ char	*ft_get_env(char *str)
 	}
 	return (s);
 }
+
+// stores environement in linked list
 
 void	set_env(char **envp)
 {

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:53:18 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/27 16:17:18 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:58:44 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	is_meta(char c)
 			return (true);
 	return (false);
 }
+
+// gets string in double quote set ID to D_QUOTE
 
 int	ft_double_quote(char *input, int i)
 {
@@ -46,6 +48,8 @@ int	ft_double_quote(char *input, int i)
 	return (i);
 }
 
+// gets string in single quote set ID to S_QUOTE
+
 int	ft_single_quote(char *input, int i)
 {
 	while (input[i++])
@@ -63,6 +67,8 @@ int	ft_single_quote(char *input, int i)
 	pa()->id = S_QUOTE;
 	return (i);
 }
+
+// If character is '<' or '>' set if to LESS or GREAT
 
 int	ft_less_great(char *input, int i)
 {
@@ -88,6 +94,8 @@ int	ft_less_great(char *input, int i)
 	}
 	return (i + 1);
 }
+
+// If character is wspace set ID to WSPACE and remove extra spaces
 
 int	get_wspace(char *input, int i)
 {

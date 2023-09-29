@@ -6,11 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/28 14:34:06 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:02:28 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// buildin version of echo with the -n flag
 
 void	bt_echo(void)
 {
@@ -39,6 +41,8 @@ void	bt_echo(void)
 	ex()->exitcode = 0;
 }
 
+// Builtin version of cd
+
 void	bt_cd(void)
 {
 	DIR		*dir;
@@ -60,6 +64,8 @@ void	bt_cd(void)
 	}
 }
 
+// Builtin version of pwd
+
 void	bt_pwd(void)
 {
 	char	*pwd;
@@ -68,6 +74,8 @@ void	bt_pwd(void)
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
 }
+
+// Builtin version of exit. exits with given exit code
 
 void	bt_exit(void)
 {

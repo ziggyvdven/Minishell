@@ -6,11 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 10:49:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 11:25:23 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:04:41 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// prints env when export is executed
 
 void	ft_print_env(t_tokens *env)
 {
@@ -41,6 +43,8 @@ void	ft_print_env(t_tokens *env)
 	}
 }
 
+// replaces string at given pointer
+
 int	replace(char *s, char *str, t_tokens *ptr)
 {
 	size_t	i;
@@ -58,6 +62,7 @@ int	replace(char *s, char *str, t_tokens *ptr)
 	return (0);
 }
 
+//Checks if variable exist and replaces if it does
 
 int	ft_env_replace(t_tokens *env, char *str)
 {
@@ -81,6 +86,8 @@ int	ft_env_replace(t_tokens *env, char *str)
 	ft_free_str(s);
 	return (0);
 }
+
+//removes node from linked list.
 
 void	unset(t_tokens	*env, t_tokens	*head, t_tokens	*args)
 {

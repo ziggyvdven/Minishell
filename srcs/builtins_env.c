@@ -6,11 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:33:00 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 11:14:11 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:03:08 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// Builtin version of export
 
 void	bt_export(void)
 {
@@ -41,6 +43,8 @@ void	bt_export(void)
 		ft_print_env(env);
 }
 
+// Builtin version of unset
+
 void	bt_unset(void)
 {
 	t_tokens	*args;
@@ -68,6 +72,8 @@ void	bt_unset(void)
 		args = args->next;
 	}
 }
+
+// Builtin version of env
 
 void	bt_env(void)
 {

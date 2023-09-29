@@ -6,13 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/28 14:00:59 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 12:00:44 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//Function expands the token after $
+//Function expands the variable after '$' within the token
 
 void	ft_expand(char **arr)
 {
@@ -67,7 +67,7 @@ void	ft_expand_and_join(char *str)
 	}
 	x()->new_str = tmp;
 }
-//Function that gets the place to cut the string
+//Function that gets place to cut the string
 
 int	ft_expand_get_end(char *str, int i)
 {
@@ -111,6 +111,8 @@ char	*ft_expand_arr(char *str)
 	ft_free_ar(arr);
 	return (x()->new_str);
 }
+
+// function that checks for '$' and expands the variables
 
 t_tokens	*ft_expand_tokens(t_tokens *t)
 {

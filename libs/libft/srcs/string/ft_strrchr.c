@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 12:18:45 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/04/13 18:01:38 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:48:52 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ char	*ft_strrchr(const char *s, int c)
 		return (0);
 	while (*str != '\0')
 	{
-	str++;
-	i++;
-	}	
+		str++;
+		i++;
+	}
 	while (*str != (char)c && i != 0)
 	{
 		str--;

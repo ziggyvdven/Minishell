@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 12:08:21 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 18:49:26 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,83 @@ int	open_heredoc(int fd, char *str)
 	return (fd);
 }
 
+// char	*get_heredoc_input(char *delimiter)
+// {
+// 	char	*gnl;
+// 	char	*str;
+// 	char	*temp;
+// 	size_t	len;
+
+// 	str = NULL;
+// 	len = ft_strlen(delimiter);
+// 	ft_putstr_fd("> ", STDIN_FILENO);
+// 	gnl = get_next_line(STDIN_FILENO);
+// 	while (ft_strnstr(gnl, delimiter, len) == NULL)
+// 	{
+// 		if (!str)
+// 			str = ft_strdup(gnl);
+// 		else
+// 		{
+// 			temp = str;
+// 			str = ft_strjoin(temp, gnl);
+// 			ft_free_str(temp);
+// 		}
+// 		ft_free_str(gnl);
+// 		ft_putstr_fd("> ", STDIN_FILENO);
+// 		gnl = get_next_line(STDIN_FILENO);
+// 	}
+// 	ft_free_str(gnl);
+// 	return (str);
+// }
+
+char	*add_newline(char *old)
+{
+	char 	*new;
+
+	new = ft_strjoin("\n", old);
+	ft_free_str(old);
+	return (new);
+}
+
 char	*get_heredoc_input(char *delimiter)
 {
+	pid_t	process_id;
+	int		status;
 	char	*gnl;
 	char	*str;
 	char	*temp;
 	size_t	len;
 
 	str = NULL;
+	gnl = NULL;
 	len = ft_strlen(delimiter);
-	ft_putstr_fd("> ", STDIN_FILENO);
-	gnl = get_next_line(STDIN_FILENO);
-	while (ft_strnstr(gnl, delimiter, len) == NULL)
+	process_id = fork_();
+	if (process_id == 0)
 	{
-		if (!str)
-			str = ft_strdup(gnl);
-		else
+		while (1)
 		{
-			temp = str;
-			str = ft_strjoin(temp, gnl);
-			ft_free_str(temp);
+			gnl = readline("> ");
+			if (!gnl || ft_strncmp(gnl, delimiter, len) == 0)
+			{
+				ex()->heredoc = str;
+				exit (EXIT_FAILURE);
+			}
+			if (!str)
+				str = ft_strdup(gnl);
+			else
+			{
+				temp = add_newline(str);
+				str = ft_strjoin(temp, gnl);
+				ft_free_str(temp);
+			}
+			ft_free_str(gnl);
 		}
-		ft_free_str(gnl);
-		ft_putstr_fd("> ", STDIN_FILENO);
-		gnl = get_next_line(STDIN_FILENO);
 	}
+	waitpid_(process_id, &status, 0);
+	printf ("%s\n", ex()->heredoc);
 	ft_free_str(gnl);
+	ft_free_str(delimiter);
+	if (!str)
+		str = ft_strdup("");
 	return (str);
 }

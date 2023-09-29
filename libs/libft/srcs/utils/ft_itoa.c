@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 11:34:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/04/13 18:02:13 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:48:13 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_itoa(int n)
 		return (NULL);
 	ptr[len--] = '\0';
 	if (n == 0)
-	ptr[0] = '0';
+		ptr[0] = '0';
 	while (temp != 0)
 	{
 		if (temp < 0)
@@ -56,7 +56,7 @@ char	*ft_itoa(int n)
 		ptr[len] = temp % 10 + 48;
 		temp /= 10;
 		len--;
-	}		
+	}
 	return (ptr);
 }
 

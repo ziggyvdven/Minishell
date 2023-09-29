@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 14:39:30 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/29 13:21:07 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 17:26:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,14 @@ int	add_token(t_tokens **t, t_tokens **temp)
 		ptr = ft_lstadd_back(ex()->exec, *temp);
 		ex()->exec = ptr;
 	}
-	else if ((*t)->data->token_id > 130)
+	else
 	{
-		rtn = handle_redirections(t);
-		free (*temp);
-		*temp = NULL;
-	}
-	else if ((*t)->data->token_id == PIPE && (*t)->next)
-	{
-		parent_process(*t);
+		if ((*t)->data->token_id > 130)
+			rtn = handle_redirections(t);
+		else if ((*t)->data->token_id == PIPE && (*t)->next)
+			parent_process(*t);
+		else if ((*t)->data->token_id == PIPE && !(*t)->next)
+			rtn = exec_error("|", 258);
 		free (*temp);
 		*temp = NULL;
 	}

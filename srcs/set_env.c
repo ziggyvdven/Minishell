@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/28 13:40:52 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:02:08 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_get_env(char *str)
 	while (env != NULL)
 	{
 		i = 0;
-		while (env->data->str[i] != '=')
+		while (env->data->str[i] != '=' && env->data->str[i])
 			i++;
 		if (ft_strnstr(env->data->str, str, ft_strlen(str))
 			&& ft_strlen(str) == i)

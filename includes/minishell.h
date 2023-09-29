@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/28 14:35:06 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 10:55:00 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,9 @@ void		bt_env(void);
 /*ENV**************************************************************************/
 void		set_env(char **envp);
 char		*ft_get_env(char *str);
+void		ft_print_env(t_tokens *env);
+int			ft_env_replace(t_tokens *env, char *str);
+void		unset(t_tokens	*env, t_tokens	*head, t_tokens	*args);
 
 /*EXEC*************************************************************************/
 t_exec		*ex(void);

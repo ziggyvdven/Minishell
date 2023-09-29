@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/29 13:00:04 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/29 13:10:33 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -112,7 +112,7 @@ $(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 
 $(OBJS_PATH):
 	@mkdir -p $(OBJS_PATH)
-	
+
 libft:
 	@$(call print_header)
 	@$(MAKE) -C $(LIBFT)
@@ -127,7 +127,16 @@ cmake : glfw
 	cmake --version | brew install cmake
 
 bonus: 
-	@$(MAKE) "NAME=$(NAME_BONUS)" "OBJS=$(OBJS_BONUS)" "SRCS_FILES=$(SRCS_B_FILES)" "SRCS_PATH=$(SRCS_B_PATH)"
+$(NAME_BONUS): $(OBJS_B_PATH) $(OBJS_BONUS) $(LIBFT)
+	@$(CC)  $(CFLAGS) -o $@ $(OBJS_BONUS) $(LIBS) $(HEADERS) $(READLINE)
+	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
+
+$(OBJS_B_PATH)%.o: $(SRCS_B_PATH)%.c 
+	@$(CC) $(RLHEADER) $(CFLAGS) -o $@ -c $< 
+	$(call update_progress)
+
+$(OBJS_B_PATH):
+	@mkdir -p $(OBJS_B_PATH)
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_PATH)

@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/28 13:37:00 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/29 13:00:04 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ export HEADER
 
 # Program name
 NAME 			= minishell
+NAME_BONUS		= minishell_bonus
 
 # Compiler and flags
 CC				= gcc
@@ -42,14 +43,15 @@ MAKE			= make
 
 # Objects 
 OBJS_PATH		= objs/
+OBJS_B_PATH     = objs_bonus/
 OBJS			= $(patsubst $(SRCS_PATH)%.c, $(OBJS_PATH)%.o, $(SRCS_FILES))
-OBJS_BONUS		= $(addprefix $(OBJS_PATH), $(SRCS_BONUS_FILES:.c=.o))
+OBJS_BONUS		= $(patsubst $(SRCS_B_PATH)%.c, $(OBJS_B_PATH)%.o, $(SRCS_B_FILES))
 
 # Sources
 SRCS_PATH		= srcs/
-BONUS_PATH		= srcs_bonus/
+SRCS_B_PATH		= srcs_bonus/
 SRCS			= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
-SRCS_BONUS		= $(addprefix $(SRCS_PATH), $(SRCS_BONUS_FILES))
+SRCS_BONUS		= $(addprefix $(BONUS_PATH), $(SRCS_B_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
@@ -66,6 +68,7 @@ READLINE		= -L/Users/zvan-de-/.brew/opt/readline/lib -lreadline
 # READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
+SRCS_B_FILES	= $(wildcard $(SRCS_B_PATH)*.c)
 
 # Progress bar variables
 TOTAL 			= $(words $(SRCS_FILES))
@@ -106,7 +109,7 @@ $(NAME): $(OBJS_PATH) $(OBJS) $(LIBFT)
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c 
 	@$(CC) $(RLHEADER) $(CFLAGS) -o $@ -c $< 
 	$(call update_progress)
-	
+
 $(OBJS_PATH):
 	@mkdir -p $(OBJS_PATH)
 	
@@ -124,7 +127,7 @@ cmake : glfw
 	cmake --version | brew install cmake
 
 bonus: 
-	@$(MAKE) "NAME=$(NAME_BONUS)" "OBJS=$(OBJS_BONUS)" "SRCS_FILES=$(SRCS_BONUS_FILES)" "SRCS_PATH=$(BONUS_PATH)"
+	@$(MAKE) "NAME=$(NAME_BONUS)" "OBJS=$(OBJS_BONUS)" "SRCS_FILES=$(SRCS_B_FILES)" "SRCS_PATH=$(SRCS_B_PATH)"
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_PATH)

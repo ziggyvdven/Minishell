@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 10:55:00 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:21:07 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,16 @@ void		create_cmd_ar(void);
 int			dup_(int fildes);
 int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
+int			exec_error(char *s, int exitcode);
 void		execve_(char *path, char **cmd, char **envp);
+void		free_cmd(void);
 pid_t		fork_(void);
 void		get_cmdpath(void);
 char		*get_heredoc_input(char *delimiter);
 void		get_input(void);
 void		get_output(void);
 int			open_heredoc(int fd, char *str);
+void		parent_process(t_tokens *token);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
 

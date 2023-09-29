@@ -1,51 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structs.c                                          :+:      :+:    :+:   */
+/*   error_handling_custom.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/15 12:06:01 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/29 13:21:07 by oroy             ###   ########.fr       */
+/*   Created: 2023/09/29 13:16:04 by oroy              #+#    #+#             */
+/*   Updated: 2023/09/29 13:16:21 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-t_exec	*ex(void)
+void	pars_error_(char *str, int fd)
 {
-	static t_exec	ex;
-
-	return (&ex);
+	ft_putstr_fd(str, fd);
+	pa()->parse_error = 1;
 }
 
-t_parsing	*pa(void)
+int	exec_error(char *s, int exitcode)
 {
-	static t_parsing	parsing;
-
-	return (&parsing);
-}
-
-t_env	*t(void)
-{
-	static t_env	t;
-
-	return (&t);
-}
-
-t_expand	*x(void)
-{
-	static t_expand	exp;
-
-	if (exp.init == 0)
+	if (exitcode == 127)
 	{
-		exp.init = 1;
-		exp.i = 0;
-		exp.start = 0;
-		exp.end = -1;
-		exp.is_exp = 0;
-		exp.new_str = NULL;
-		exp.temp = NULL;
+		ft_putstr_fd(s, 2);
+		ft_putendl_fd(": command not found", 2);
 	}
-	return (&exp);
+	else
+	{
+		if (exitcode > 1)
+			ft_putstr_fd("Parse error near ", 2);
+		ft_putendl_fd(s, 2);
+	}
+	free_cmd();
+	ex()->exitcode = exitcode;
+	return (exitcode);
 }

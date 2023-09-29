@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/28 13:57:32 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:34:06 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,101 +69,6 @@ void	bt_pwd(void)
 	ft_free_str(pwd);
 }
 
-void	bt_env(void)
-{
-	t_tokens	*env;
-	size_t		i;
-
-	env = t()->env;
-	while (env)
-	{
-		i = 0;
-		while (env->data->str[i])
-		{
-			if (env->data->str[i] == '=')
-			{
-				printf ("%s\n", env->data->str);
-				break ;
-			}
-			i++;
-		}
-		env = env->next;
-	}
-}
-
-void	bt_export(void)
-{
-	t_tokens	*args;
-	t_tokens	*env;
-	char		*str;
-
-	env = t()->env;
-	args = ex()->exec;
-	if (args->next)
-	{
-		while (args->next)
-		{
-			args = args->next;
-			str = ft_strdup(args->data->str);
-			if (!str)
-			{
-				ft_putendl_fd("Error: Malloc failed", 2);
-				return ;
-			}
-			env = ft_lstadd_back(env, ft_lstnew(get_data(str, WORD)));
-		}
-	}
-	else
-	{
-		printf ("Print everything");
-	}
-}
-
-void	bt_unset(void)
-{
-	t_tokens	*args;
-	t_tokens	*env;
-	t_tokens	*head;
-	size_t		i;
-	size_t		j;
-
-	args = ex()->exec->next;
-	while (args)
-	{
-		i = 0;
-		while (args->data->str[i] && args->data->str[i] != '=')
-			i++;
-		if (!args->data->str[i])
-		{
-			env = t()->env;
-			head = env;
-			while (env)
-			{
-				j = 0;
-				while (env->data->str[j] != '=')
-					j++;
-				if (!ft_strncmp(args->data->str, env->data->str, j) 
-						&& ft_strlen(args->data->str) == j)
-				{
-					if (head == env)
-						t()->env = env->next;
-					else
-						head->next = env->next;
-					ft_lstdelone(env);
-					break ;
-				}
-				head = env;
-				env = env->next;
-			}
-		}
-		else
-		{
-			ft_putstr_fd(args->data->str, 2);
-			ft_putendl_fd(" : not a valid identifier", 2);
-		}
-		args = args->next;
-	}
-}
 void	bt_exit(void)
 {
 	t_tokens	*bt;

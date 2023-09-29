@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/28 13:18:38 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/28 14:35:06 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,9 @@ t_tokens	*ft_concat_tokens(t_tokens *t);
 bool		is_builtin(char *cmd);
 void		bt_cd(void);
 void		bt_echo(void);
+void		bt_export(void);
+void		bt_unset(void);
+void		bt_env(void);
 
 /*ENV**************************************************************************/
 void		set_env(char **envp);

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 13:11:18 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 13:16:19 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,3 @@ void	waitpid_(pid_t pid, int *status, int options)
 	}
 }
 
-void	pars_error_(char *str, int fd)
-{
-	ft_putstr_fd(str, fd);
-	pa()->parse_error = 1;
-}
-
-int	exec_error(char *s, int exitcode)
-{
-	if (exitcode == 127)
-	{
-		ft_putstr_fd(s, 2);
-		ft_putendl_fd(": command not found", 2);
-	}
-	else
-	{
-		if (exitcode > 1)
-			ft_putstr_fd("Parse error near ", 2);
-		ft_putendl_fd(s, 2);
-	}
-	free_cmd();
-	ex()->exitcode = exitcode;
-	return (exitcode);
-}

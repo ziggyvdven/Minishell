@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 13:21:07 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 16:43:27 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include <dirent.h>
 # include <errno.h>
+# include <signal.h>
 
 /*MACROS***********************************************************************/
 
@@ -64,6 +65,7 @@ typedef struct s_exec
 	int			pipes[2];
 	int			saves[2];
 	int			exitcode;
+	int			signal;
 }	t_exec;
 
 typedef struct s_expand
@@ -88,6 +90,8 @@ typedef struct s_env
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
 void		set_signals(void);
+void		heredoc_signals(int signo);
+void		set_here_sig(void);
 
 /*PARSING**********************************************************************/
 t_tokens	*parse_input(char *input);

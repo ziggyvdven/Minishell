@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/29 12:00:44 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:18:01 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,15 +76,14 @@ int	ft_expand_get_end(char *str, int i)
 		i++;
 		if (str[i] == '$')
 			return (i + 1);
-		else if (ft_iswspace(str[i]) || is_meta(str[i]))
+		else if (!ft_isalnum(str[i]))
 			return (i);
 		else
-			while (str[i] && !ft_iswspace(str[i]) && str[i] != '$' 
-				&& !is_meta(str[i]))
+			while (str[i] && ft_isalnum(str[i]))
 				i++;
 	}
 	else
-		while (str[i] != '$')
+		while (str[i] != '$' && str[i])
 			i++;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 11:40:13 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/22 12:00:35 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 15:07:10 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ int	ft_count_cuts(char *str, char c)
 			i++;
 			if (str[i] == c)
 				i++;
-			else if (str[i] && !ft_iswspace(str[i]) && !is_meta_libft(str[i]))
-				while (str[i] && !ft_iswspace(str[i])
-					&& str[i] != c && !is_meta_libft(str[i]))
+			else if (str[i] && ft_isalnum(str[i]))
+				while (str[i] && ft_isalnum(str[i]))
 					i++;
 		}
 		else

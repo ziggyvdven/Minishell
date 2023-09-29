@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/29 13:10:33 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/09/29 13:13:17 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,8 @@ glfw: brew
 cmake : glfw
 	cmake --version | brew install cmake
 
-bonus: 
+bonus: $(HEAD) libft $(NAME_BONUS) 
+
 $(NAME_BONUS): $(OBJS_B_PATH) $(OBJS_BONUS) $(LIBFT)
 	@$(CC)  $(CFLAGS) -o $@ $(OBJS_BONUS) $(LIBS) $(HEADERS) $(READLINE)
 	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
@@ -140,11 +141,13 @@ $(OBJS_B_PATH):
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_PATH)
+	@rm -rf $(OBJS_BONUS) $(OBJS_B_PATH)
 	@$(MAKE) -C $(LIBFT) clean
 	@echo "$(R)Files succesfully cleaned 🗑$(RT)"
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) $(NAME_BONUS)
 	@$(MAKE) -C $(LIBFT) fclean
 
 re: fclean all

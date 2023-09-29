@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_input_bonus.c                                :+:      :+:    :+:   */
+/*   parse_input_bonus_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 12:33:30 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:19:11 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,17 @@ int	meta_specifier(char *input, int i)
 			i++;
 			pa()->id = OR;
 		}
-		pa()->id = PIPE;
+		else
+			pa()->id = PIPE;
 	}
 	else if (input[i] == '&')
 	{
 		i++;
 		if (input[i] == '&')
+		{
+			i++;
 			pa()->id = AND;
+		}
 		else
 			pa()->id = WORD;
 	}
@@ -134,5 +138,6 @@ t_tokens	*parse_input(char *input)
 	}
 	tokens = ft_expand_tokens(tokens);
 	tokens = ft_concat_tokens(tokens);
+	ft_printlst(tokens);
 	return (tokens);
 }

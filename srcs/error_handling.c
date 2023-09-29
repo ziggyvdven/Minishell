@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 13:21:07 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 15:22:17 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	execve_(char *path, char **cmd, char **envp)
 	if (execve (path, cmd, envp) == -1)
 	{
 		perror ("Problem with execve() call");
+		exit (EXIT_FAILURE);
 	}
 }
 

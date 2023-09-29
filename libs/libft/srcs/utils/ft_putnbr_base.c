@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 11:07:25 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/04/19 11:39:44 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:47:50 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ft_doublechar(char *base)
 		{
 			if (base[i] == base[j])
 				return (1);
-		++j;
+			++j;
 		}
-	++i;
+		++i;
 	}
 	return (0);
 }
@@ -62,7 +62,7 @@ void	ft_putnbr_base(int nbr, char *base)
 		if (((base[len] == '-') || (base[len] == '+'))
 			|| ((base[len] <= 31)))
 			return ;
-	len ++;
+		len++;
 	}
 	if (len < 2)
 		return ;

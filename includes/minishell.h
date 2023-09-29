@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 16:43:27 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:53:37 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_exec
 	t_tokens	*exec;
 	char		**cmd;
 	char		*cmdpath;
+	char		*heredoc;
 	int			fd[2];
 	int			pipes[2];
 	int			saves[2];
@@ -84,7 +85,6 @@ typedef struct s_env
 {
 	t_tokens	*env;
 }	t_env;
-
 
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);

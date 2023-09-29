@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_base_pf.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 11:07:25 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/04/13 18:09:36 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:49:46 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../includes/libft.h"
+#include "../../includes/libft.h"
 
 int	ft_printnbr_pf(unsigned int nbr, unsigned int len, char *base)
 {
@@ -38,7 +38,7 @@ int	ft_putnbr_base_pf(unsigned int nbr, int count, int b)
 	if (b == 2)
 		base = "0123456789ABCDEF";
 	while (base[len] != '\0')
-	len ++;
+		len++;
 	count = ft_printnbr_pf(nbr, len, base);
 	return (count);
 }

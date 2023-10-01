@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 19:29:59 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/30 23:40:38 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void		get_cmdpath(void);
 char		*get_heredoc_input(char *delimiter);
 void		get_input(void);
 void		get_output(void);
-int			open_heredoc(int fd, char *str);
 void		parent_process(t_tokens *token);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);

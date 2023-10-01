@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: olivierroy <olivierroy@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:32:59 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 18:53:37 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/30 23:06:49 by olivierroy       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	heredoc_signals(int signo)
 {
 	(void) signo;
 	write(1, "\n", 1);
-	exit(0);
+	exit(1);
 }
 
 void	silence_signal(void)

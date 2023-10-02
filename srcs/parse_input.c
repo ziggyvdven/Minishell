@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 13:04:40 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:32:11 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,6 @@ t_tokens	*parse_input(char *input)
 	}
 	tokens = ft_expand_tokens(tokens);
 	tokens = ft_concat_tokens(tokens);
-	ft_printlst(tokens);
+	// ft_printlst(tokens);
 	return (tokens);
 }

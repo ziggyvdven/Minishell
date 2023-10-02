@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 15:17:33 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:38:12 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ char	*get_string(char *input, int j)
 {
 	char	*temp;
 
+	if (is_meta(input[pa()->i]) || ft_iswspace(input[pa()->i]))
+		j = meta_specifier(input, pa()->i);
+	else
+		j = get_word(input, pa()->i);
 	if (pa()->id == S_QUOTE || pa()->id == D_QUOTE || pa()->id == D_QUOTE_EXP)
 		temp = ft_substr(input, pa()->i + 1, (j - 2) - pa()->i);
 	else
@@ -91,6 +95,7 @@ char	*get_string(char *input, int j)
 		free (temp);
 		temp = NULL;
 	}
+	pa()->j = j;
 	return (temp);
 }
 
@@ -100,24 +105,17 @@ t_tokens	*parse_input(char *input)
 {
 	t_tokens	*tokens;
 	char		*temp;
-	int			j;
 
 	pa()->i = 0;
-	j = 0;
+	pa()->j = 0;
 	tokens = NULL;
 	while (pa()->i <= ft_strlen_int(input) && input[pa()->i]
 		&& pa()->parse_error == 0)
 	{
-		if (is_meta(input[pa()->i]) || ft_iswspace(input[pa()->i]))
-			j = meta_specifier(input, pa()->i);
-		else
-			j = get_word(input, pa()->i);
-		temp = get_string(input, j);
-		if (ft_strlen(temp) == 0)
-			break ;
+		temp = get_string(input, pa()->j);
 		tokens = ft_lstadd_back(tokens,
 				ft_lstnew(get_data(temp, pa()->id)));
-		pa()->i = j;
+		pa()->i = pa()->j;
 	}
 	tokens = ft_expand_tokens(tokens);
 	tokens = ft_concat_tokens(tokens);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling_custom.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:16:04 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 13:16:21 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 15:31:44 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,15 @@ int	exec_error(char *s, int exitcode)
 	free_cmd();
 	ex()->exitcode = exitcode;
 	return (exitcode);
+}
+
+int	ft_putstr_excode(char *str, int fd, int exit_status)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i] != '\0')
+		write(fd, &str[i], 1);
+	ex()->exitcode = exit_status;
+	return (1);
 }

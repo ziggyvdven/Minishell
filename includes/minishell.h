@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 17:15:58 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:51:55 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_expand
 typedef struct s_env
 {
 	t_tokens	*env;
+	t_tokens	*tokens;
+	char		*input;
 	char		**env_arr;
 }	t_env;
 
@@ -111,15 +113,15 @@ bool		is_builtin(char *cmd);
 void		bt_cd(void);
 void		bt_echo(void);
 void		bt_export(void);
-void		bt_unset(void);
-void		bt_env(void);
+int			bt_unset(void);
+int			bt_env(void);
 
 /*ENV**************************************************************************/
 void		set_env(char **envp);
 char		*ft_get_env(char *str);
 void		ft_print_env(t_tokens *env);
 int			ft_env_replace(t_tokens *env, char *str);
-void		unset(t_tokens	*env, t_tokens	*head, t_tokens	*args);
+int			unset(t_tokens	*env, t_tokens	*head, t_tokens	*args);
 
 /*EXEC*************************************************************************/
 t_exec		*ex(void);
@@ -142,6 +144,7 @@ bool		get_output(void);
 void		parent_process(t_tokens *token);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
+int			ft_putstr_excode(char *str, int fd, int exit_status);
 
 /*UTILS************************************************************************/
 t_data		*get_data(char *ptr, int token_id);

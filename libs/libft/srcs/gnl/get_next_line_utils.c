@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 14:15:27 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/04/13 18:26:36 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:52:33 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../includes/libft.h"
+#include "../../includes/libft.h"
 
 int	ft_strlcpy_gnl(char *dst, char *src, int dstsize)
 {
@@ -64,7 +64,7 @@ int	strchr_gnl(const char *s, int c)
 		{
 			i++;
 			return (i);
-		}		
+		}
 		i++;
 	}
 	if (s[i] == '\0' && (unsigned char)c == '\0')

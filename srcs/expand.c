@@ -6,13 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/09/27 16:13:49 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:27:48 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//Function expands the token after $
+//Function expands the variable after '$' within the token
 
 void	ft_expand(char **arr)
 {
@@ -32,7 +32,7 @@ void	ft_expand(char **arr)
 			else if (!ft_iswspace(arr[i][1]) && ft_strlen(arr[i]) != 1)
 			{
 				str = ft_substr(arr[i], 1, ft_strlen(arr[i]) - 1);
-				temp = ft_strdup(getenv(str));
+				temp = ft_get_env(str);
 				free (str);
 				if (!temp)
 					temp = ft_strdup("");
@@ -67,24 +67,23 @@ void	ft_expand_and_join(char *str)
 	}
 	x()->new_str = tmp;
 }
-//Function that gets the place to cut the string
+//Function that gets place to cut the string
 
 int	ft_expand_get_end(char *str, int i)
 {
 	if (str[i] == '$')
 	{
 		i++;
-		if (str[i] == '$')
+		if (str[i] == '$' || str[i] == '?')
 			return (i + 1);
-		else if (ft_iswspace(str[i]) || is_meta(str[i]))
+		else if (!ft_isalnum(str[i]))
 			return (i);
 		else
-			while (str[i] && !ft_iswspace(str[i]) && str[i] != '$' 
-				&& !is_meta(str[i]))
+			while (str[i] && ft_isalnum(str[i]))
 				i++;
 	}
 	else
-		while (str[i] != '$')
+		while (str[i] != '$' && str[i])
 			i++;
 	return (i);
 }
@@ -111,6 +110,8 @@ char	*ft_expand_arr(char *str)
 	ft_free_ar(arr);
 	return (x()->new_str);
 }
+
+// function that checks for '$' and expands the variables
 
 t_tokens	*ft_expand_tokens(t_tokens *t)
 {

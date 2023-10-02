@@ -6,11 +6,13 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 16:47:09 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/22 18:32:50 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/09/29 11:58:54 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// Deletes whitspace tokens needed for the concat function
 
 t_tokens	*ft_delwspace_tokens(t_tokens *t)
 {
@@ -40,6 +42,8 @@ t_tokens	*ft_delwspace_tokens(t_tokens *t)
 	}
 	return (t);
 }
+
+// Concats tokens that go together
 
 t_tokens	*ft_concat_tokens(t_tokens *t)
 {

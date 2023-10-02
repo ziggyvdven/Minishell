@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zvandeven <zvandeven@student.42.fr>        +#+  +:+       +#+         #
+#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/15 11:43:51 by zvandeven        ###   ########.fr        #
+#    Updated: 2023/09/28 11:11:40 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,6 +74,7 @@ printf/ft_putnbr_base_pf.c \
 printf/ft_putnbr_pf.c \
 printf/ft_putunsign.c \
 printf/ft_printadr.c \
+string/ft_hasalpha.c \
 string/ft_split.c \
 string/ft_strchr.c \
 string/ft_strdup.c \

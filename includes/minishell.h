@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/27 16:12:36 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 17:42:08 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <dirent.h>
+# include <errno.h>
+# include <signal.h>
 
 /*MACROS***********************************************************************/
 
@@ -61,8 +63,9 @@ typedef struct s_exec
 	char		*cmdpath;
 	int			fd[2];
 	int			pipes[2];
-	int			saves[2];
+	int			save;
 	int			exitcode;
+	int			signal;
 }	t_exec;
 
 typedef struct s_expand
@@ -80,13 +83,18 @@ typedef struct s_expand
 typedef struct s_env
 {
 	t_tokens	*env;
+	t_tokens	*tokens;
+	char		*input;
+	char		**env_arr;
 }	t_env;
-
 
 /*SIGNALS**********************************************************************/
 void		sigint_handler(int signo);
 void		sigquit_handler(int signo);
 void		set_signals(void);
+void		heredoc_signals(int signo);
+void		set_here_sig(void);
+void		silence_signal(void);
 
 /*PARSING**********************************************************************/
 t_tokens	*parse_input(char *input);
@@ -104,9 +112,16 @@ t_tokens	*ft_concat_tokens(t_tokens *t);
 bool		is_builtin(char *cmd);
 void		bt_cd(void);
 void		bt_echo(void);
+void		bt_export(void);
+int			bt_unset(void);
+int			bt_env(void);
 
 /*ENV**************************************************************************/
 void		set_env(char **envp);
+char		*ft_get_env(char *str);
+void		ft_print_env(t_tokens *env);
+int			ft_env_replace(t_tokens *env, char *str);
+int			unset(t_tokens	*env, t_tokens	*head, t_tokens	*args);
 
 /*EXEC*************************************************************************/
 t_exec		*ex(void);
@@ -114,18 +129,22 @@ void		close_(int fildes);
 void		close_all(void);
 void		close_tab(int fildes[2]);
 void		create_cmd_ar(void);
+void		create_env_ar(void);
 int			dup_(int fildes);
 int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
+int			exec_error(char *s, int exitcode);
 void		execve_(char *path, char **cmd, char **envp);
+void		free_cmd(void);
 pid_t		fork_(void);
 void		get_cmdpath(void);
 char		*get_heredoc_input(char *delimiter);
 void		get_input(void);
 void		get_output(void);
-int			open_heredoc(int fd, char *str);
+void		parent_process(t_tokens *token);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);
+int			ft_putstr_excode(char *str, int fd, int exit_status);
 
 /*UTILS************************************************************************/
 t_data		*get_data(char *ptr, int token_id);

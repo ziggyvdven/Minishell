@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmdpath.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:33:44 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 16:27:51 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static char	*find_cmd_location(char **pathlist, char *cmd)
 	{
 		path = ft_strjoin(pathlist[i], cmd);
 		if (!path)
-			ft_putstr_exit("Error: Malloc failed", 2, 1);
+		{
+			ft_free_ar(pathlist);
+			ft_free_str(cmd);
+			exit (exec_error("Malloc error", 1));
+		}
 		if (access (path, X_OK) == 0)
 			return (path);
 		ft_free_str(path);
@@ -31,34 +35,40 @@ static char	*find_cmd_location(char **pathlist, char *cmd)
 	return (NULL);
 }
 
+static bool	check_initialpath(char *str)
+{
+	if (access (str, X_OK) == 0)
+	{
+		ex()->cmdpath = ft_strdup(str);
+		return (true);
+	}
+	return (false);
+}
+
 void	get_cmdpath(void)
 {
 	char	**pathlist;
+	char	*cmdpath;
 	char	*path;
+	char	*env;
 
-	if (access (ex()->exec->data->str, X_OK) == 0)
-	{
-		ex()->cmdpath = ft_strdup(ex()->exec->data->str);
+	if (check_initialpath(ex()->exec->data->str))
 		return ;
-	}
 	path = ft_strjoin("/", ex()->exec->data->str);
 	if (!path)
-		ft_putstr_exit("Error: Malloc failed", 2, 1);
-	pathlist = ft_split(getenv("PATH"), ':');
+		exit (exec_error("Malloc error", 1));
+	env = ft_get_env("PATH");
+	pathlist = ft_split(env, ':');
+	ft_free_str(env);
 	if (!pathlist)
 	{
 		ft_free_str(path);
-		ft_putstr_exit("Error: Malloc failed", 2, 1);
+		exit (exec_error("Malloc error", 1));
 	}
-	ex()->cmdpath = find_cmd_location(pathlist, path);
+	cmdpath = find_cmd_location(pathlist, path);
 	ft_free_ar(pathlist);
 	ft_free_str(path);
-	if (!ex()->cmdpath)
-	{
-		ft_putstr_fd(ex()->exec->data->str, 2);
-		ft_putendl_fd(": command not found", 2);
-		// ex()->exitcode = 127;
-		// free_data();
-		exit (EXIT_FAILURE);
-	}
+	if (!cmdpath || ft_strlen(ex()->exec->data->str) == 0)
+		exit (exec_error(ex()->exec->data->str, 127));
+	ex()->cmdpath = cmdpath;
 }

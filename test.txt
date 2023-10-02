@@ -1,1 +1,22 @@
-      17
+sdfiuhsdiff
+osijdfosdf
+110101010101
+iuhidasd
+iuahisudh
+test
+Makefile
+README.md
+execute_cmds_bck.c
+includes
+libs
+minishell
+minishell.dSYM
+objs
+srcs
+test
+test.txt
+testlst.txt
+text.txt
+      15
+      15
+      15

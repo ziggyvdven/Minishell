@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:27:23 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 12:06:11 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	dup_(int fildes)
 	{
 		perror ("Problem with dup() call");
 		close_all();
-		// free_data();
 	}
 	return (fildes2);
 }
@@ -35,7 +34,6 @@ int	dup2_(int fildes, int fildes2)
 	{
 		perror ("Problem with dup2() call");
 		close_all();
-		// free_data();
 	}
 	return (fd);
 }

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/27 16:39:22 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:40:45 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+// buildin version of echo with the -n flag
 
 void	bt_echo(void)
 {
@@ -39,14 +41,17 @@ void	bt_echo(void)
 	ex()->exitcode = 0;
 }
 
+// Builtin version of cd
+
 void	bt_cd(void)
 {
 	DIR		*dir;
 	char	*path;
 
-	if (!ex()->exec->next)
-		return ;
-	path = ex()->exec->next->data->str;
+	if (!ex()->exec->next || ex()->exec->next->data->str[0] == '~')
+		path = ft_get_env("HOME");
+	else
+		path = ft_strdup(ex()->exec->next->data->str);
 	dir = opendir (path);
 	if (!dir)
 	{
@@ -57,8 +62,12 @@ void	bt_cd(void)
 	{
 		chdir (path);
 		closedir (dir);
+		ex()->exitcode = 0;
 	}
+	ft_free_str(path);
 }
+
+// Builtin version of pwd
 
 void	bt_pwd(void)
 {
@@ -67,101 +76,27 @@ void	bt_pwd(void)
 	pwd = getcwd (NULL, 0);
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
+	ex()->exitcode = 0;
 }
 
-void	bt_env(void)
-{
-	t_tokens	*env;
-	size_t		i;
+// Builtin version of exit. exits with given exit code
 
-	env = t()->env;
-	while (env)
-	{
-		i = 0;
-		while (env->data->str[i])
-		{
-			if (env->data->str[i] == '=')
-			{
-				printf ("%s\n", env->data->str);
-				break ;
-			}
-			i++;
-		}
-		env = env->next;
-	}
-}
-
-void	bt_export(void)
-{
-	t_tokens	*args;
-	t_tokens	*env;
-	char		*str;
-
-	env = t()->env;
-	args = ex()->exec;
-	if (args->next)
-	{
-		while (args->next)
-		{
-			args = args->next;
-			str = ft_strdup(args->data->str);
-			if (!str)
-			{
-				ft_putendl_fd("Error: Malloc failed", 2);
-				return ;
-			}	
-			env = ft_lstadd_back(env, ft_lstnew(get_data(str, WORD)));
-		}
-	}
-	else
-	{
-		printf ("Print everything");
-	}
-}
-
-void	bt_unset(void)
-{
-	t_tokens	*args;
-	t_tokens	*env;
-	t_tokens	*head;
-	size_t		i;
-
-	args = ex()->exec->next;
-	while (args)
-	{
-		i = 0;
-		while (args->data->str[i] && args->data->str[i] != '=')
-			i++;
-		if (!args->data->str[i])
-		{
-			env = t()->env;
-			head = env;
-			while (env)
-			{
-				if (!ft_strncmp(args->data->str, env->data->str, i))
-				{
-					if (head == env)
-						t()->env = env->next;
-					else
-						head->next = env->next;
-					ft_lstdelone(env);
-					break ;
-				}
-				head = env;
-				env = env->next;
-			}
-		}
-		else
-		{
-			ft_putstr_fd(args->data->str, 2);
-			ft_putendl_fd(" : not a valid identifier", 2);
-		}
-		args = args->next;
-	}
-}
 void	bt_exit(void)
 {
-	ft_putstr_exit("exit\n", 1, 0);
+	t_tokens	*bt;
+
+	bt = ex()->exec->next;
+	ft_lstclear(&t()->env);
+	ft_lstclear(&t()->tokens);
+	free_cmd();
+	ft_free_str(t()->input);
+	if (bt)
+	{
+		if (!ft_hasdigit(bt->data->str))
+			ft_putstr_exit("exit: numeric argument required\n", 1, 255);
+		else
+			ft_putstr_exit("exit\n", 1, ft_atoi(bt->data->str));	}
+	ft_putstr_exit("exit\n", 1, ex()->exitcode);
 }
 
 bool	is_builtin(char *cmd)

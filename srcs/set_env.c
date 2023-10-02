@@ -6,11 +6,34 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 18:53:37 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 16:20:46 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	create_env_ar(void)
+{
+	char		**arr;
+	t_tokens	*env;
+	size_t		i;
+
+	i = 0;
+	env = t()->env;
+	arr = ft_calloc(ft_lstsize(env) + 1, sizeof (char *));
+	if (!arr)
+		exit (exec_error("Malloc error", 1));
+	t()->env_arr = arr;
+	while (env)
+	{
+		t()->env_arr[i] = ft_strdup(env->data->str);
+		if (!t()->env_arr[i])
+			exit (exec_error("Malloc error", 1));
+		env = env->next;
+		i++;
+	}
+	t()->env_arr[i] = NULL;
+}
 
 // Getenv function for minishell environement 
 

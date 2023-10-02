@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 14:57:58 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:27:37 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	bt_pwd(void)
 	pwd = getcwd (NULL, 0);
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
+	ex()->exitcode = 0;
 }
 
 // Builtin version of exit. exits with given exit code

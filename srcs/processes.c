@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:37:08 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 13:30:39 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:28:34 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	child_process(void)
 	pid_t	process_id;
 	int		status;
 
-	process_id = fork_();
 	silence_signal();
+	process_id = fork_();
 	if (process_id == 0)
 	{
 		set_here_sig();
@@ -27,14 +27,15 @@ void	child_process(void)
 		close_all();
 		get_cmdpath();
 		create_cmd_ar();
-		execve_(ex()->cmdpath, ex()->cmd, NULL);
+		create_env_ar();
+		execve_(ex()->cmdpath, ex()->cmd, t()->env_arr);
 	}
 	waitpid_(process_id, &status, 0);
-	set_signals();
 	if (WIFEXITED(status))
 		ex()->exitcode = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		ex()->exitcode = 130;
+	set_signals();
 }
 
 void	parent_process(t_tokens *token)

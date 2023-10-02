@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 16:27:31 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 17:42:08 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_expand
 typedef struct s_env
 {
 	t_tokens	*env;
+	t_tokens	*tokens;
+	char		*input;
 	char		**env_arr;
 }	t_env;
 

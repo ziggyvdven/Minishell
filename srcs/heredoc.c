@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 18:49:26 by oroy             ###   ########.fr       */
+/*   Updated: 2023/09/29 18:57:16 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,11 @@ char	*get_heredoc_input(char *delimiter)
 	str = NULL;
 	gnl = NULL;
 	len = ft_strlen(delimiter);
+	silence_signal();
 	process_id = fork_();
 	if (process_id == 0)
 	{
+		set_here_sig();
 		while (1)
 		{
 			gnl = readline("> ");
@@ -106,6 +108,7 @@ char	*get_heredoc_input(char *delimiter)
 		}
 	}
 	waitpid_(process_id, &status, 0);
+	set_signals();
 	printf ("%s\n", ex()->heredoc);
 	ft_free_str(gnl);
 	ft_free_str(delimiter);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:37:08 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 18:50:36 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 11:29:15 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ void	child_process(void)
 	int		status;
 
 	process_id = fork_();
+	silence_signal();
 	if (process_id == 0)
 	{
+		set_here_sig();
 		close_all();
 		get_cmdpath();
 		create_cmd_ar();
 		execve_(ex()->cmdpath, ex()->cmd, NULL);
 	}
 	waitpid_(process_id, &status, 0);
+	set_signals();
 	if (WIFEXITED(status))
 		ex()->exitcode = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))

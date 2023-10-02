@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/09/29 13:23:47 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/10/02 11:45:55 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -167,5 +167,4 @@ val: $(NAME)
 	valgrind --leak-check=full \
 	--show-leak-kinds=all \
 	--show-reachable=no \
-	--leak-check=full \
 	./$(NAME)

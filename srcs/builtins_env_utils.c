@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 10:49:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 12:04:41 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:23:36 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	replace(char *s, char *str, t_tokens *ptr)
 	size_t	i;
 
 	i = 0;
-	while (ptr->data->str[i] != '=')
+	while (ptr->data->str[i] && ptr->data->str[i] != '=')
 		i++;
 	if (ft_strnstr(ptr->data->str, s, ft_strlen(s)) && ft_strlen(s) == i)
 	{
@@ -71,8 +71,13 @@ int	ft_env_replace(t_tokens *env, char *str)
 	size_t		i;
 
 	i = 0;
-	while (str[i] != '=' && str[i])
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]))
+			return (ft_putstr_excode(
+					"Minishell: export: not a valid identifier\n", 2, 1));
 		i++;
+	}
 	if (str[i] != '=')
 		return (0);
 	s = ft_substr(str, 0, i);
@@ -89,7 +94,7 @@ int	ft_env_replace(t_tokens *env, char *str)
 
 //removes node from linked list.
 
-void	unset(t_tokens	*env, t_tokens	*head, t_tokens	*args)
+int	unset(t_tokens	*env, t_tokens	*head, t_tokens	*args)
 {
 	size_t	j;
 
@@ -111,4 +116,5 @@ void	unset(t_tokens	*env, t_tokens	*head, t_tokens	*args)
 		head = env;
 		env = env->next;
 	}
+	return (0);
 }

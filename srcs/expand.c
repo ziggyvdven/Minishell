@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 13:54:30 by zvandeven         #+#    #+#             */
-/*   Updated: 2023/10/02 13:27:53 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:38:44 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ int	ft_expand_get_end(char *str, int i)
 	if (str[i] == '$')
 	{
 		i++;
-		if (str[i] == '$')
-			return (i + 1);
-		if (str[i] == '?')
+		if (str[i] == '$' || str[i] == '?')
 			return (i + 1);
 		else if (!ft_isalnum(str[i]))
 			return (i);

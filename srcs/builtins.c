@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 13:28:30 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 14:57:58 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	bt_cd(void)
 	{
 		chdir (path);
 		closedir (dir);
+		ex()->exitcode = 0;
 	}
 	ft_free_str(path);
 }

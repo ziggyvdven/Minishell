@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 14:33:00 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/09/29 12:03:08 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:24:06 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	bt_export(void)
 			str = ft_strdup(args->data->str);
 			if (!str)
 			{
-				ft_putendl_fd("Error: Malloc failed", 2);
+				ft_putstr_excode("Error: Malloc failed", 2, 1);
 				return ;
 			}
 			if (!ft_env_replace(env, str))
@@ -45,7 +45,7 @@ void	bt_export(void)
 
 // Builtin version of unset
 
-void	bt_unset(void)
+int	bt_unset(void)
 {
 	t_tokens	*args;
 	t_tokens	*env;
@@ -55,9 +55,12 @@ void	bt_unset(void)
 	args = ex()->exec->next;
 	while (args)
 	{
-		i = 0;
-		while (args->data->str[i] && args->data->str[i] != '=')
-			i++;
+		i = -1;
+		while (args && args->data->str[++i] && args->data->str[i] != '=')
+		{
+			if (!ft_isalnum(args->data->str[i]))
+				return (ft_putstr_excode("Not a valid identifier\n", 2, 1));
+		}
 		if (!args->data->str[i])
 		{
 			env = t()->env;
@@ -65,21 +68,23 @@ void	bt_unset(void)
 			unset(env, head, args);
 		}
 		else
-		{
-			ft_putstr_fd(args->data->str, 2);
-			ft_putendl_fd(" : not a valid identifier", 2);
-		}
+			return (ft_putstr_excode("Not a valid identifier\n", 2, 1));
 		args = args->next;
 	}
+	return (0);
 }
 
 // Builtin version of env
 
-void	bt_env(void)
+int	bt_env(void)
 {
 	t_tokens	*env;
 	size_t		i;
+	t_tokens	*bt;
 
+	bt = ex()->exec->next;
+	if (bt)
+		return (ft_putstr_excode("Too many arguments\n", 2, 1));
 	env = t()->env;
 	while (env)
 	{
@@ -95,4 +100,5 @@ void	bt_env(void)
 		}
 		env = env->next;
 	}
+	return (0);
 }

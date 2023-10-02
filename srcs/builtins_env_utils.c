@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 10:49:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 16:23:36 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:34:33 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	ft_print_env(t_tokens *env)
 	while (ptr != NULL)
 	{
 		i = -1;
-		ft_printf("declare -x ");
 		if (ft_strchr(ptr->data->str, '='))
 		{
+			ft_printf("declare -x ");
 			while (ptr->data->str[++i] != '=')
 				ft_putchar(ptr->data->str[i]);
 			if (ptr->data->str[i])

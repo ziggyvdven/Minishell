@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 13:04:40 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:27:52 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,5 @@ t_tokens	*parse_input(char *input)
 	}
 	tokens = ft_expand_tokens(tokens);
 	tokens = ft_concat_tokens(tokens);
-	ft_printlst(tokens);
 	return (tokens);
 }

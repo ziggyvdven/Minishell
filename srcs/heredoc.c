@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 11:53:06 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:27:03 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_heredoc_input(char *delimiter)
 	len = ft_strlen(delimiter);
 	silence_signal();
 	process_id = fork_();
-	silence_signal();
+	// silence_signal();
 	if (process_id == 0)
 	{
 		set_here_sig();

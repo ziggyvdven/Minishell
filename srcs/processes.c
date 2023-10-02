@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:37:08 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 13:04:25 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 13:30:39 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	child_process(void)
 	silence_signal();
 	if (process_id == 0)
 	{
+		set_here_sig();
 		get_input();
 		dup2_(ex()->fd[0], STDIN_FILENO);
 		close_all();

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 13:32:11 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 16:18:30 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,5 @@ t_tokens	*parse_input(char *input)
 	}
 	tokens = ft_expand_tokens(tokens);
 	tokens = ft_concat_tokens(tokens);
-	// ft_printlst(tokens);
 	return (tokens);
 }

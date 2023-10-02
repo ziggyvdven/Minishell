@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 13:04:25 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 16:25:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_expand
 typedef struct s_env
 {
 	t_tokens	*env;
+	char		**env_arr;
 }	t_env;
 
 /*SIGNALS**********************************************************************/
@@ -126,6 +127,7 @@ void		close_(int fildes);
 void		close_all(void);
 void		close_tab(int fildes[2]);
 void		create_cmd_ar(void);
+void		create_env_ar(void);
 int			dup_(int fildes);
 int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 13:35:02 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 15:08:25 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	bt_cd(void)
 	{
 		chdir (path);
 		closedir (dir);
+		ex()->exitcode = 0;
 	}
 	ft_free_str(path);
 }
@@ -75,6 +76,7 @@ void	bt_pwd(void)
 	pwd = getcwd (NULL, 0);
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
+	ex()->exitcode = 0;
 }
 
 // Builtin version of exit. exits with given exit code

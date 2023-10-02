@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   processes.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:37:08 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 11:29:15 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 13:04:25 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	child_process(void)
 	silence_signal();
 	if (process_id == 0)
 	{
-		set_here_sig();
+		get_input();
+		dup2_(ex()->fd[0], STDIN_FILENO);
 		close_all();
 		get_cmdpath();
 		create_cmd_ar();
@@ -39,11 +40,8 @@ void	parent_process(t_tokens *token)
 {
 	if (token)
 		pipe_(ex()->pipes);
-	get_input();
 	get_output();
-	ex()->saves[0] = dup_(STDIN_FILENO);
-	ex()->saves[1] = dup_(STDOUT_FILENO);
-	dup2_(ex()->fd[0], STDIN_FILENO);
+	ex()->save = dup_(STDOUT_FILENO);
 	if (ex()->fd[1])
 		dup2_(ex()->fd[1], STDOUT_FILENO);
 	else if (!ex()->fd[1] && ex()->pipes[1])
@@ -56,8 +54,7 @@ void	parent_process(t_tokens *token)
 		ex()->fd[0] = dup_(ex()->pipes[0]);
 		close_tab(ex()->pipes);
 	}
-	dup2_(ex()->saves[0], STDIN_FILENO);
-	dup2_(ex()->saves[1], STDOUT_FILENO);
-	close_tab(ex()->saves);
+	dup2_(ex()->save, STDOUT_FILENO);
+	close_(ex()->save);
 	free_cmd();
 }

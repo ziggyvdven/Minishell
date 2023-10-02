@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/09/29 13:21:07 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 12:55:56 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,25 @@ static char	*find_cmd_location(char **pathlist, char *cmd)
 	return (NULL);
 }
 
+static bool	check_initialpath(char *str)
+{
+	if (access (str, X_OK) == 0)
+	{
+		ex()->cmdpath = ft_strdup(str);
+		return (true);
+	}
+	return (false);
+}
+
 void	get_cmdpath(void)
 {
 	char	**pathlist;
+	char	*cmdpath;
 	char	*path;
 	char	*env;
 
-	if (access (ex()->exec->data->str, X_OK) == 0)
-	{
-		ex()->cmdpath = ft_strdup(ex()->exec->data->str);
+	if (check_initialpath(ex()->exec->data->str))
 		return ;
-	}
 	path = ft_strjoin("/", ex()->exec->data->str);
 	if (!path)
 		exit (exec_error("Malloc error", 1));
@@ -57,9 +65,10 @@ void	get_cmdpath(void)
 		ft_free_str(path);
 		exit (exec_error("Malloc error", 1));
 	}
-	path = find_cmd_location(pathlist, path);
+	cmdpath = find_cmd_location(pathlist, path);
 	ft_free_ar(pathlist);
-	if (!path)
+	ft_free_str(path);
+	if (!cmdpath)
 		exit (exec_error(ex()->exec->data->str, 127));
-	ex()->cmdpath = path;
+	ex()->cmdpath = cmdpath;
 }

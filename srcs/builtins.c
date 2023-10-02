@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 17:40:45 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:22:38 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,17 @@ void	bt_exit(void)
 	t_tokens	*bt;
 
 	bt = ex()->exec->next;
-	ft_lstclear(&t()->env);
-	ft_lstclear(&t()->tokens);
-	free_cmd();
-	ft_free_str(t()->input);
 	if (bt)
 	{
 		if (!ft_hasdigit(bt->data->str))
 			ft_putstr_exit("exit: numeric argument required\n", 1, 255);
 		else
-			ft_putstr_exit("exit\n", 1, ft_atoi(bt->data->str));	}
+			ft_putstr_exit("exit\n", 1, ft_atoi(bt->data->str));
+	}
+	free_cmd();
+	ft_lstclear(&t()->env);
+	ft_lstclear(&t()->tokens);
+	ft_free_str(t()->input);
 	ft_putstr_exit("exit\n", 1, ex()->exitcode);
 }
 

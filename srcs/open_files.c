@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:41:55 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/10/02 17:28:33 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:58:18 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	get_output(void)
 		if (fd == -1)
 		{
 			perror(out->data->str);
+			ex()->exitcode = 1;
 			close_all();
 			free_cmd();
 			return (false);
@@ -55,6 +56,7 @@ bool	get_input(void)
 		if (fd == -1)
 		{
 			perror(in->data->str);
+			ex()->exitcode = 1;
 			close_all();
 			free_cmd();
 			return (false);

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 23:42:05 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/10/02 17:51:55 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 18:28:41 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	free_cmd(void)
 {
 	if (access ("heredoc", F_OK) == 0)
 		unlink ("heredoc");
-	// ft_free_ar(t()->env_arr);
 	ft_free_ar(ex()->cmd);
 	ft_free_str(ex()->cmdpath);
 	ft_clearlst(&ex()->in);

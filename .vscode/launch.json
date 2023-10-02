@@ -8,9 +8,9 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
-			"program": "/Users/zvan-de-/42cursus/minishell/minishell",
+			"program": "/Users/olivierroy/Documents/ecole42/tronc_commun/Minishell/minishell",
 			"args": [],
-			"cwd": "/Users/zvan-de-/42cursus/minishell/"
+			"cwd": "/Users/olivierroy/Documents/ecole42/tronc_commun/Minishell"
 		}
 	]
 }

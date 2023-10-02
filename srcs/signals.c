@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 14:32:59 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 11:36:57 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:52:37 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	heredoc_signals(int signo)
 	write(1, "\n", 1);
 	free_cmd();
 	close_all();
-	exit(0);
+	exit(1);
 }
 
 void	silence_signal(void)

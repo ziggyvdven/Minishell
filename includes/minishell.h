@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 16:25:42 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:15:58 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_exec
 	char		*cmdpath;
 	int			fd[2];
 	int			pipes[2];
-	int			save;
+	int			saves[2];
 	int			exitcode;
 	int			signal;
 }	t_exec;
@@ -137,8 +137,8 @@ void		free_cmd(void);
 pid_t		fork_(void);
 void		get_cmdpath(void);
 char		*get_heredoc_input(char *delimiter);
-void		get_input(void);
-void		get_output(void);
+bool		get_input(void);
+bool		get_output(void);
 void		parent_process(t_tokens *token);
 void		pipe_(int fildes[2]);
 void		waitpid_(pid_t pid, int *status, int options);

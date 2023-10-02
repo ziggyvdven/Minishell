@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 15:32:46 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:11:30 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	get_cmdpath(void)
 	cmdpath = find_cmd_location(pathlist, path);
 	ft_free_ar(pathlist);
 	ft_free_str(path);
-	if (!cmdpath)
+	if (!cmdpath || ft_strlen(ex()->exec->data->str) == 0)
 		exit (exec_error(ex()->exec->data->str, 127));
 	ex()->cmdpath = cmdpath;
 }

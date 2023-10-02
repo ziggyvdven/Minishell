@@ -6,7 +6,7 @@
 #    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/10/02 13:31:50 by oroy             ###   ########.fr        #
+#    Updated: 2023/10/02 17:24:31 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -166,5 +166,5 @@ re: fclean all
 val: $(NAME)
 	valgrind --leak-check=full \
 	--show-leak-kinds=all \
-	--show-reachable=no \
+	--show-reachable=yes \
 	./$(NAME)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
+#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/10/04 15:46:08 by oroy             ###   ########.fr        #
+#    Updated: 2023/10/04 18:15:08 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,17 +55,11 @@ SRCS_BONUS		= $(addprefix $(BONUS_PATH), $(SRCS_B_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
-RLHEADER		= -I/Users/oroy/.brew/opt/readline/include
-# RLHEADER		= -I/Users/zvan-de-/.brew/opt/readline/include
-# RLHEADER		= -I/usr/local/opt/readline/include
-# RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
+RLHEADER		= -Iincludes
 
 # library and source files
 LIBFT			= ./libs/libft
-READLINE		= -L/Users/oroy/.brew/opt/readline/lib -lreadline
-# READLINE		= -L/Users/zvan-de-/.brew/opt/readline/lib -lreadline
-# READLINE		= -L/usr/local/opt/readline/lib -lreadline
-# READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
+READLINE		= -Llibs/readline -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 SRCS_B_FILES	= $(wildcard $(SRCS_B_PATH)*.c)
@@ -126,18 +120,21 @@ glfw: brew
 cmake : glfw
 	cmake --version | brew install cmake
 
-bonus: $(HEAD) libft $(NAME_BONUS) 
+readline :
+	brew install readline
 
-$(NAME_BONUS): $(OBJS_B_PATH) $(OBJS_BONUS) $(LIBFT)
-	@$(CC)  $(CFLAGS) -o $@ $(OBJS_BONUS) $(LIBS) $(HEADERS) $(READLINE)
-	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
+# bonus: $(HEAD) libft $(NAME_BONUS) 
 
-$(OBJS_B_PATH)%.o: $(SRCS_B_PATH)%.c 
-	@$(CC) $(RLHEADER) $(CFLAGS) -o $@ -c $< 
-	$(call update_progress)
+# $(NAME_BONUS): $(OBJS_B_PATH) $(OBJS_BONUS) $(LIBFT)
+# 	@$(CC)  $(CFLAGS) -o $@ $(OBJS_BONUS) $(LIBS) $(HEADERS) $(READLINE)
+# 	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
 
-$(OBJS_B_PATH):
-	@mkdir -p $(OBJS_B_PATH)
+# $(OBJS_B_PATH)%.o: $(SRCS_B_PATH)%.c 
+# 	@$(CC) $(RLHEADER) $(CFLAGS) -o $@ -c $< 
+# 	$(call update_progress)
+
+# $(OBJS_B_PATH):
+# 	@mkdir -p $(OBJS_B_PATH)
 
 clean:
 	@rm -rf $(OBJS) $(OBJS_PATH)
@@ -155,13 +152,6 @@ re: fclean all
 .PHONY:		all, clean, fclean, re, libmlx
 
 # VALGRIND #
-
-# val: $(NAME)
-# 	valgrind --show-reachable=no \
-# 	--leak-check=full \
-# 	--show-leak-kinds=all \
-# 	--track-origins=yes -s \
-# 	./$(NAME)
 
 val: $(NAME)
 	valgrind --leak-check=full \

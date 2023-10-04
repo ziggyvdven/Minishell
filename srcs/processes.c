@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:37:08 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 18:54:14 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 16:00:13 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	parent_process(t_tokens *token)
 		dup2_(ex()->fd[1], STDOUT_FILENO);
 	else if (!ex()->fd[1] && ex()->pipes[1])
 		dup2_(ex()->pipes[1], STDOUT_FILENO);
-	if (!is_builtin(ex()->exec->data->str))
+	if (ex()->exec && !is_builtin(ex()->exec->data->str))
 		child_process();
 	close_tab(ex()->fd);
 	if (token)

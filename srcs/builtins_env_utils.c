@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 10:49:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 18:34:33 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/04 16:06:19 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,4 +117,21 @@ int	unset(t_tokens	*env, t_tokens	*head, t_tokens	*args)
 		env = env->next;
 	}
 	return (0);
+}
+
+// Update PWD and OLDPWD after cd command
+
+void	change_pwd(char *s)
+{
+	char	*pwd;
+	char	*str;
+
+	pwd = getcwd (NULL, 0);
+	if (!ft_strncmp(s, "old", 3))
+		str = ft_strjoin("OLDPWD=", pwd);
+	else
+		str = ft_strjoin("PWD=", pwd);
+	ft_free_str(pwd);
+	ft_env_replace(t()->env, str);
+	ft_free_str(str);
 }

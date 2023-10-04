@@ -6,11 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/02 18:22:38 by oroy             ###   ########.fr       */
-=======
-/*   Updated: 2023/10/02 18:25:31 by zvan-de-         ###   ########.fr       */
->>>>>>> origin/Staging
+/*   Updated: 2023/10/04 16:06:12 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +60,11 @@ void	bt_cd(void)
 	}
 	else
 	{
+		change_pwd("old");
 		chdir (path);
 		closedir (dir);
 		ex()->exitcode = 0;
+		change_pwd("new");
 	}
 	ft_free_str(path);
 }

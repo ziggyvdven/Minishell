@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 17:51:55 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 16:06:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,20 @@ static char	*find_cmd_location(char **pathlist, char *cmd)
 	return (NULL);
 }
 
+static int	is_regular_file(const char *path)
+{
+	struct stat	path_stat;
+	int			rtn;
+
+	rtn = stat (path, &path_stat);
+	if (rtn == -1)
+		return (0);
+	return (S_ISREG(path_stat.st_mode));
+}
+
 static bool	check_initialpath(char *str)
 {
-	if (access (str, X_OK) == 0)
+	if (access (str, X_OK) == 0 && is_regular_file(str))
 	{
 		ex()->cmdpath = ft_strdup(str);
 		return (true);

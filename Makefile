@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
+#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/10/02 13:31:50 by oroy             ###   ########.fr        #
+#    Updated: 2023/10/02 18:28:04 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,15 +55,15 @@ SRCS_BONUS		= $(addprefix $(BONUS_PATH), $(SRCS_B_FILES))
 
 # Includes
 HEADERS			= -I $(LIBFT)/include 
-RLHEADER		= -I/Users/oroy/.brew/opt/readline/include
-# RLHEADER		= -I/Users/zvan-de-/.brew/opt/readline/include
+# RLHEADER		= -I/Users/oroy/.brew/opt/readline/include
+RLHEADER		= -I/Users/zvan-de-/.brew/opt/readline/include
 # RLHEADER		= -I/usr/local/opt/readline/include
 # RLHEADER		= -I/home/linuxbrew/.linuxbrew/opt/readline/include
 
 # library and source files
 LIBFT			= ./libs/libft
-READLINE		= -L/Users/oroy/.brew/opt/readline/lib -lreadline
-# READLINE		= -L/Users/zvan-de-/.brew/opt/readline/lib -lreadline
+# READLINE		= -L/Users/oroy/.brew/opt/readline/lib -lreadline
+READLINE		= -L/Users/zvan-de-/.brew/opt/readline/lib -lreadline
 # READLINE		= -L/usr/local/opt/readline/lib -lreadline
 # READLINE		= -L/home/linuxbrew/.linuxbrew/opt/readline/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
@@ -166,5 +166,6 @@ re: fclean all
 val: $(NAME)
 	valgrind --leak-check=full \
 	--show-leak-kinds=all \
-	--show-reachable=no \
+	--track-origins=yes -s \
+	--show-reachable=yes \
 	./$(NAME)

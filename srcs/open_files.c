@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:41:55 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/09/29 19:30:39 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 17:57:21 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	get_output(void)
+bool	get_output(void)
 {
 	t_tokens	*out;
 	int			fd;
@@ -29,16 +29,19 @@ void	get_output(void)
 			fd = open (out->data->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd == -1)
 		{
+			ex()->exitcode = 1;
 			perror(out->data->str);
 			close_all();
-			exit (EXIT_FAILURE);
+			free_cmd();
+			return (false);
 		}
 		ex()->fd[1] = fd;
 		out = out->next;
 	}
+	return (true);
 }
 
-void	get_input(void)
+bool	get_input(void)
 {
 	t_tokens	*in;
 	int			fd;
@@ -53,10 +56,13 @@ void	get_input(void)
 		if (fd == -1)
 		{
 			perror(in->data->str);
+			ex()->exitcode = 1;
 			close_all();
-			exit (EXIT_FAILURE);
+			free_cmd();
+			return (false);
 		}
 		ex()->fd[0] = fd;
 		in = in->next;
 	}
+	return (true);
 }

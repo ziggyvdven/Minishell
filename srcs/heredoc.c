@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 15:25:16 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 18:22:21 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	heredoc_child(size_t len, char *delimiter)
 	while (1)
 	{
 		gnl = readline("> ");
-		if (!gnl || ft_strncmp(gnl, delimiter, len) == 0)
+		if (!gnl || (ft_strncmp(gnl, delimiter, len) == 0
+				&& ft_strlen(delimiter) == ft_strlen(gnl)))
 		{
 			ft_free_str(gnl);
 			heredoc_exit(str);

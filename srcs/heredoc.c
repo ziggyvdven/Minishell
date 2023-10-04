@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 16:28:23 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:47:37 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	heredoc_exit(char *str)
 	{
 		perror ("heredoc");
 		ft_free_str(str);
+		exits();
 		exit (EXIT_FAILURE);
 	}
 	ft_putstr_fd(str, fd);
 	ft_free_str(str);
 	close_(fd);
+	exits();
 	exit (EXIT_SUCCESS);
 }
 

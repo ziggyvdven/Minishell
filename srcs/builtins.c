@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 17:40:45 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:25:31 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,18 +84,24 @@ void	bt_pwd(void)
 void	bt_exit(void)
 {
 	t_tokens	*bt;
+	int			i;
 
 	bt = ex()->exec->next;
-	ft_lstclear(&t()->env);
-	ft_lstclear(&t()->tokens);
-	free_cmd();
-	ft_free_str(t()->input);
 	if (bt)
 	{
+		i = ft_atoi(bt->data->str);
 		if (!ft_hasdigit(bt->data->str))
+		{
+			exits();
 			ft_putstr_exit("exit: numeric argument required\n", 1, 255);
+		}
 		else
-			ft_putstr_exit("exit\n", 1, ft_atoi(bt->data->str));	}
+		{
+			exits();
+			ft_putstr_exit("exit\n", 1, i);
+		}
+	}
+	exits();
 	ft_putstr_exit("exit\n", 1, ex()->exitcode);
 }
 

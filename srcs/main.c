@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 15:17:57 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 18:11:23 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(input);
 		tokens = parse_input(input);
+		t()->tokens = tokens;
 		if (tokens && pa()->parse_error == 0)
 			execute_cmds(tokens);
 		ft_lstclear(&tokens);

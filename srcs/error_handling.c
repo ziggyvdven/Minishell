@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 13:05:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 15:54:53 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 18:52:02 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	execve_(char *path, char **cmd, char **envp)
 	if (execve (path, cmd, envp) == -1)
 	{
 		perror ("Problem with execve() call");
-		free_cmd();
+		exits();
 		exit (EXIT_FAILURE);
 	}
 }

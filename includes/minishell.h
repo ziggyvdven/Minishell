@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 17:51:55 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/02 18:26:07 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ int			ft_putstr_excode(char *str, int fd, int exit_status);
 t_data		*get_data(char *ptr, int token_id);
 bool		is_meta(char c);
 void		pars_error_(char *str, int fd);
+void		exits(void);
 
 /*STRUCTS**********************************************************************/
 t_parsing	*pa(void);

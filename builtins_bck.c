@@ -6,11 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/10/02 18:22:38 by oroy             ###   ########.fr       */
-=======
-/*   Updated: 2023/10/02 18:25:31 by zvan-de-         ###   ########.fr       */
->>>>>>> origin/Staging
+/*   Updated: 2023/10/03 20:10:38 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +56,16 @@ void	bt_cd(void)
 	if (!dir)
 	{
 		perror (path);
+		ft_free_str(path);
 		ex()->exitcode = 1;
+		return ;
 	}
-	else
-	{
-		chdir (path);
-		closedir (dir);
-		ex()->exitcode = 0;
-	}
+	change_pwd("old");
+	chdir (path);
 	ft_free_str(path);
+	ex()->exitcode = 0;
+	closedir (dir);
+	change_pwd("new");
 }
 
 // Builtin version of pwd
@@ -88,24 +85,19 @@ void	bt_pwd(void)
 void	bt_exit(void)
 {
 	t_tokens	*bt;
-	int			i;
 
 	bt = ex()->exec->next;
+	ft_lstclear(&t()->env);
+	ft_lstclear(&t()->tokens);
+	free_cmd();
+	ft_free_str(t()->input);
 	if (bt)
 	{
-		i = ft_atoi(bt->data->str);
 		if (!ft_hasdigit(bt->data->str))
-		{
-			exits();
 			ft_putstr_exit("exit: numeric argument required\n", 1, 255);
-		}
 		else
-		{
-			exits();
-			ft_putstr_exit("exit\n", 1, i);
-		}
+			ft_putstr_exit("exit\n", 1, ft_atoi(bt->data->str));
 	}
-	exits();
 	ft_putstr_exit("exit\n", 1, ex()->exitcode);
 }
 

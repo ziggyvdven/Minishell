@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/30 23:42:05 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/10/02 18:28:41 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 15:25:16 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,12 @@ void	free_cmd(void)
 	ft_clearlst(&ex()->in);
 	ft_clearlst(&ex()->out);
 	ft_clearlst(&ex()->exec);
+}
+
+void	exits(void)
+{
+	ft_lstclear(&t()->env);
+	ft_lstclear(&t()->tokens);
+	free_cmd();
+	ft_free_str(t()->input);
 }

@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 18:50:17 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 15:25:16 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ void	heredoc_exit(char *str)
 	{
 		perror ("heredoc");
 		ft_free_str(str);
+		exits();
 		exit (EXIT_FAILURE);
 	}
 	ft_putstr_fd(str, fd);
 	ft_free_str(str);
 	close_(fd);
+	exits();
 	exit (EXIT_SUCCESS);
 }
 

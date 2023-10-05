@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:41:55 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/10/04 16:09:50 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:18:49 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ bool	get_input(void)
 		if (fd != STDIN_FILENO)
 			close_(fd);
 		fd = open (in->data->str, O_RDONLY);
+		if (in->data->token_id == 133)
+			unlink ("heredoc");
 		if (fd == -1)
 		{
 			perror(in->data->str);

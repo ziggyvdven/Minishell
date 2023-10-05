@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 18:22:21 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/05 14:24:42 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	heredoc_exit(char *str)
 	if (fd == -1)
 	{
 		perror ("heredoc");
+		if (access ("heredoc", F_OK) == 0)
+			unlink ("heredoc");
 		ft_free_str(str);
 		exits();
 		exit (EXIT_FAILURE);

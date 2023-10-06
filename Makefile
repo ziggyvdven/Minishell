@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/10/06 14:31:15 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/10/06 14:47:34 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,16 +52,15 @@ SRCS_PATH		= srcs/
 SRCS_B_PATH		= srcs_bonus/
 SRCS			= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
 SRCS_BONUS		= $(addprefix $(BONUS_PATH), $(SRCS_B_FILES))
+READLINEBREW	= $(shell brew --prefix readline)
 
 # Includes
 HEADERS			= -I $(LIBFT)/include
-RLHEADER		= -I/Users/$(USER)/.brew/opt/readline/include
-# RLHEADER		= -I/Users/$(USER)/homebrew/opt/readline/include
+RLHEADER		= -I/$(READLINEBREW)/include
 
 # library and source files
 LIBFT			= ./libs/libft
-READLINE		= -L/Users/$(USER)/.brew/opt/readline/lib -lreadline
-# READLINE		= -L/Users/$(USER)/homebrew/opt/readline/lib -lreadline
+READLINE		= -L/$(READLINEBREW)/lib -lreadline
 LIBS			= $(LIBFT)/libft.a
 SRCS_FILES		= $(wildcard $(SRCS_PATH)*.c)
 SRCS_B_FILES	= $(wildcard $(SRCS_B_PATH)*.c)
@@ -96,13 +95,13 @@ endef
 #                                 RULES                                        #
 #------------------------------------------------------------------------------#
 
-all: $(HEAD) libft $(NAME) 
+all: $(HEAD) readline libft $(NAME) 
 
 $(NAME): $(OBJS_PATH) $(OBJS) $(LIBFT)
 	@$(CC)  $(CFLAGS) -o $@ $(OBJS) $(LIBS) $(HEADERS) $(READLINE)
 	@echo "$(G)\n -- $(NAME) made 🐙 --$(RT)"
 
-$(OBJS_PATH)%.o: $(SRCS_PATH)%.c 
+$(OBJS_PATH)%.o: $(SRCS_PATH)%.c
 	@$(CC) $(RLHEADER) $(CFLAGS) -o $@ -c $< 
 	$(call update_progress)
 
@@ -123,8 +122,12 @@ cmake : glfw
 	cmake --version | brew install cmake
 
 readline :
-	brew install readline
-
+	@if [ -d $(READLINEBREW) ]; then \
+      echo "Readline already installed"; \
+    else \
+       brew install readline; \
+    fi
+	
 # bonus: $(HEAD) libft $(NAME_BONUS) 
 
 # $(NAME_BONUS): $(OBJS_B_PATH) $(OBJS_BONUS) $(LIBFT)

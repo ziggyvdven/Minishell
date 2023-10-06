@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/06 11:33:49 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:28:09 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,15 @@ char	*ft_get_env(char *str)
 
 // stores environement in linked list
 
-void	set_env(char **envp)
+void	set_env(int argc, char **argv, char **envp)
 {
 	t_tokens	*env;
 	size_t		i;
 	char		*str;
 	char		*new_num;
 
+	(void) argc;
+	(void) argv;
 	i = 0;
 	env = NULL;
 	while (envp[i])

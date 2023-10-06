@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling_custom.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:16:04 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 19:11:05 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:28:09 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	exec_error(char *s, int exitcode)
 			ft_putstr_fd("Parse error near ", 2);
 		ft_putendl_fd(s, 2);
 	}
-	exits();
+	free_cmd();
 	ex()->exitcode = exitcode;
 	return (exitcode);
 }

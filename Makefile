@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
+#    By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/10/04 18:15:08 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/10/06 12:05:38 by oroy             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ SRCS			= $(addprefix $(SRCS_PATH), $(SRCS_FILES))
 SRCS_BONUS		= $(addprefix $(BONUS_PATH), $(SRCS_B_FILES))
 
 # Includes
-HEADERS			= -I $(LIBFT)/include 
+HEADERS			= -I $(LIBFT)/include
 RLHEADER		= -Iincludes
 
 # library and source files

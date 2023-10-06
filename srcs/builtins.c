@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 16:06:12 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 10:59:28 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ void	bt_pwd(void)
 	char	*pwd;
 
 	pwd = getcwd (NULL, 0);
+	if (!pwd)
+		pwd = ft_get_env("PWD");
+	if (!pwd)
+		pwd = ft_get_env("OLDPWD");
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
 	ex()->exitcode = 0;

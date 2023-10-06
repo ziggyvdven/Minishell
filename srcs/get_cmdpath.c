@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmdpath.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 11:16:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 16:06:42 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 19:12:43 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,12 @@ void	get_cmdpath(void)
 	if (!path)
 		exit (exec_error("Malloc error", 1));
 	env = ft_get_env("PATH");
+	if (!env)
+		exit (exec_error_path(ex()->exec->data->str, 127, path));
 	pathlist = ft_split(env, ':');
 	ft_free_str(env);
 	if (!pathlist)
-	{
-		ft_free_str(path);
-		exit (exec_error("Malloc error", 1));
-	}
+		exit (exec_error_path("Malloc error", 1, path));
 	cmdpath = find_cmd_location(pathlist, path);
 	ft_free_ar(pathlist);
 	ft_free_str(path);

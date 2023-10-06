@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_env_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 10:49:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/04 16:06:19 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 11:01:17 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ int	ft_env_replace(t_tokens *env, char *str)
 	t_tokens	*ptr;
 	size_t		i;
 
-	i = 0;
-	while (str[i] && str[i] != '=')
+	i = -1;
+	if (!str || !env)
+		return (0);
+	while (str[++i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]))
 			return (ft_putstr_excode(
 					"Minishell: export: not a valid identifier\n", 2, 1));
-		i++;
 	}
 	if (str[i] != '=')
 		return (0);
@@ -127,6 +128,8 @@ void	change_pwd(char *s)
 	char	*str;
 
 	pwd = getcwd (NULL, 0);
+	if (!pwd && !ft_strncmp(s, "old", 3))
+		pwd = ft_get_env("PWD");
 	if (!ft_strncmp(s, "old", 3))
 		str = ft_strjoin("OLDPWD=", pwd);
 	else

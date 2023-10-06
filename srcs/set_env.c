@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 15:56:17 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 11:33:49 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ void	set_env(char **envp)
 {
 	t_tokens	*env;
 	size_t		i;
+	char		*str;
+	char		*new_num;
 
 	i = 0;
 	env = NULL;
@@ -77,4 +79,13 @@ void	set_env(char **envp)
 		i++;
 	}
 	t()->env = env;
+	str = ft_get_env("SHLVL");
+	i = ft_atoi(str);
+	i++;
+	ft_free_str(str);
+	new_num = ft_itoa(i);
+	str = ft_strjoin("SHLVL=", new_num);
+	ft_free_str(new_num);
+	ft_env_replace(t()->env, str);
+	ft_free_str(str);
 }

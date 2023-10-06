@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/04 15:32:38 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/04 19:11:55 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int			dup_(int fildes);
 int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
 int			exec_error(char *s, int exitcode);
+int			exec_error_path(char *s, int exitcode, char *path);
 void		execve_(char *path, char **cmd, char **envp);
 void		free_cmd(void);
 pid_t		fork_(void);

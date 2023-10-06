@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/05 14:24:42 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 12:13:52 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ void	heredoc_exit(char *str)
 {
 	int	fd;
 
-	fd = open ("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open ("heredocHeredocheredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror ("heredoc");
-		if (access ("heredoc", F_OK) == 0)
-			unlink ("heredoc");
+		perror ("heredocHeredocheredoc");
 		ft_free_str(str);
 		exits();
 		exit (EXIT_FAILURE);
@@ -81,5 +79,5 @@ char	*get_heredoc_input(char *delimiter)
 		ex()->exitcode = WEXITSTATUS(status);
 	ft_free_str(delimiter);
 	set_signals();
-	return (ft_strdup("heredoc"));
+	return (ft_strdup("heredocHeredocheredoc"));
 }

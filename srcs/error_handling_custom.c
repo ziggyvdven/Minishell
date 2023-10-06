@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 13:16:04 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/04 15:59:43 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 12:23:13 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	exec_error(char *s, int exitcode)
 			ft_putstr_fd("Parse error near ", 2);
 		ft_putendl_fd(s, 2);
 	}
-	exits();
+	free_cmd();
 	ex()->exitcode = exitcode;
 	return (exitcode);
 }

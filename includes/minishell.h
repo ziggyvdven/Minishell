@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/04 15:32:38 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 12:24:25 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int			bt_env(void);
 
 /*ENV**************************************************************************/
 void		change_pwd(char *s);
-void		set_env(char **envp);
+void		set_env(int argc, char **argv, char **envp);
 char		*ft_get_env(char *str);
 void		ft_print_env(t_tokens *env);
 int			ft_env_replace(t_tokens *env, char *str);

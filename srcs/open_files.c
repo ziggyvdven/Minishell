@@ -6,11 +6,19 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 14:41:55 by olivierroy        #+#    #+#             */
-/*   Updated: 2023/10/05 14:18:49 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 12:00:24 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static int	open_output(t_data *output)
+{
+	if (output->token_id == GREATGREAT)
+		return (open (output->str, O_WRONLY | O_CREAT | O_APPEND, 0644));
+	else
+		return (open (output->str, O_WRONLY | O_CREAT | O_TRUNC, 0644));
+}
 
 bool	get_output(void)
 {
@@ -23,12 +31,10 @@ bool	get_output(void)
 	{
 		if (fd != STDOUT_FILENO)
 			close_(fd);
-		if (out->data->token_id == GREATGREAT)
-			fd = open (out->data->str, O_WRONLY | O_CREAT | O_APPEND, 0644);
-		else
-			fd = open (out->data->str, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		fd = open_output(out->data);
 		if (fd == -1)
 		{
+			ex()->fd[1] = STDOUT_FILENO;
 			perror(out->data->str);
 			ex()->exitcode = 1;
 			close_all();
@@ -53,10 +59,9 @@ bool	get_input(void)
 		if (fd != STDIN_FILENO)
 			close_(fd);
 		fd = open (in->data->str, O_RDONLY);
-		if (in->data->token_id == 133)
-			unlink ("heredoc");
 		if (fd == -1)
 		{
+			ex()->fd[0] = STDIN_FILENO;
 			perror(in->data->str);
 			ex()->exitcode = 1;
 			close_all();

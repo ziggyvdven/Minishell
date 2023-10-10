@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 10:49:06 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 18:34:33 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 11:01:17 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ int	ft_env_replace(t_tokens *env, char *str)
 	t_tokens	*ptr;
 	size_t		i;
 
-	i = 0;
-	while (str[i] && str[i] != '=')
+	i = -1;
+	if (!str || !env)
+		return (0);
+	while (str[++i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]))
 			return (ft_putstr_excode(
 					"Minishell: export: not a valid identifier\n", 2, 1));
-		i++;
 	}
 	if (str[i] != '=')
 		return (0);
@@ -117,4 +118,23 @@ int	unset(t_tokens	*env, t_tokens	*head, t_tokens	*args)
 		env = env->next;
 	}
 	return (0);
+}
+
+// Update PWD and OLDPWD after cd command
+
+void	change_pwd(char *s)
+{
+	char	*pwd;
+	char	*str;
+
+	pwd = getcwd (NULL, 0);
+	if (!pwd && !ft_strncmp(s, "old", 3))
+		pwd = ft_get_env("PWD");
+	if (!ft_strncmp(s, "old", 3))
+		str = ft_strjoin("OLDPWD=", pwd);
+	else
+		str = ft_strjoin("PWD=", pwd);
+	ft_free_str(pwd);
+	ft_env_replace(t()->env, str);
+	ft_free_str(str);
 }

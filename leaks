@@ -1,5 +1,0 @@
-export
-export USER=ZIGGY
-echo $USER
-crtl-d
-

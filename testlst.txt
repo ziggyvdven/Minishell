@@ -1,1 +1,0 @@
-"l"s | grep "mini" | wc -l >> test

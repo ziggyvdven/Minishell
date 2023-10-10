@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 11:35:32 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 18:47:37 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:13:52 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	heredoc_exit(char *str)
 {
 	int	fd;
 
-	fd = open ("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open ("heredocHeredocheredoc", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 	{
-		perror ("heredoc");
+		perror ("heredocHeredocheredoc");
 		ft_free_str(str);
 		exits();
 		exit (EXIT_FAILURE);
@@ -41,7 +41,8 @@ void	heredoc_child(size_t len, char *delimiter)
 	while (1)
 	{
 		gnl = readline("> ");
-		if (!gnl || ft_strncmp(gnl, delimiter, len) == 0)
+		if (!gnl || (ft_strncmp(gnl, delimiter, len) == 0
+				&& ft_strlen(delimiter) == ft_strlen(gnl)))
 		{
 			ft_free_str(gnl);
 			heredoc_exit(str);
@@ -78,5 +79,5 @@ char	*get_heredoc_input(char *delimiter)
 		ex()->exitcode = WEXITSTATUS(status);
 	ft_free_str(delimiter);
 	set_signals();
-	return (ft_strdup("heredoc"));
+	return (ft_strdup("heredocHeredocheredoc"));
 }

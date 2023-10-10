@@ -6,7 +6,7 @@
 /*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 16:20:46 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/06 12:28:09 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ char	*ft_get_env(char *str)
 
 // stores environement in linked list
 
-void	set_env(char **envp)
+void	set_env(int argc, char **argv, char **envp)
 {
 	t_tokens	*env;
 	size_t		i;
+	char		*str;
+	char		*new_num;
 
+	(void) argc;
+	(void) argv;
 	i = 0;
 	env = NULL;
 	while (envp[i])
@@ -77,4 +81,13 @@ void	set_env(char **envp)
 		i++;
 	}
 	t()->env = env;
+	str = ft_get_env("SHLVL");
+	i = ft_atoi(str);
+	i++;
+	ft_free_str(str);
+	new_num = ft_itoa(i);
+	str = ft_strjoin("SHLVL=", new_num);
+	ft_free_str(new_num);
+	ft_env_replace(t()->env, str);
+	ft_free_str(str);
 }

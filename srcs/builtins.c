@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 11:17:27 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 18:25:31 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 10:59:28 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ void	bt_cd(void)
 	}
 	else
 	{
+		change_pwd("old");
 		chdir (path);
 		closedir (dir);
 		ex()->exitcode = 0;
+		change_pwd("new");
 	}
 	ft_free_str(path);
 }
@@ -74,6 +76,10 @@ void	bt_pwd(void)
 	char	*pwd;
 
 	pwd = getcwd (NULL, 0);
+	if (!pwd)
+		pwd = ft_get_env("PWD");
+	if (!pwd)
+		pwd = ft_get_env("OLDPWD");
 	printf ("%s\n", pwd);
 	ft_free_str(pwd);
 	ex()->exitcode = 0;

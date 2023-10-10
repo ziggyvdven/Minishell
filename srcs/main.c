@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:19:45 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 18:11:23 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:28:09 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tokens	*tokens;
 	char		*input;
 
-	(void) argc;
-	(void) argv;
-	set_env(envp);
+	set_env(argc, argv, envp);
 	set_signals();
 	printf("\x1b[31m🔥🔥🔥WELCOME TO MINIHELL🔥🔥🔥🔥\x1b[0m\n");
 	while (1)
@@ -35,6 +33,9 @@ int	main(int argc, char **argv, char **envp)
 			execute_cmds(tokens);
 		ft_lstclear(&tokens);
 		ft_free_str(input);
+		if (access ("heredocHeredocheredoc", F_OK) == 0)
+			unlink ("heredocHeredocheredoc");
 	}
+	printf("exit\n");
 	ft_lstclear(&t()->env);
 }

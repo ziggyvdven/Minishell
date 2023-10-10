@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:40:58 by zvan-de-          #+#    #+#             */
-/*   Updated: 2023/10/02 18:26:07 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:28:09 by oroy             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <dirent.h>
 # include <errno.h>
@@ -117,7 +118,8 @@ int			bt_unset(void);
 int			bt_env(void);
 
 /*ENV**************************************************************************/
-void		set_env(char **envp);
+void		change_pwd(char *s);
+void		set_env(int argc, char **argv, char **envp);
 char		*ft_get_env(char *str);
 void		ft_print_env(t_tokens *env);
 int			ft_env_replace(t_tokens *env, char *str);
@@ -134,6 +136,7 @@ int			dup_(int fildes);
 int			dup2_(int fildes, int fildes2);
 void		execute_cmds(t_tokens *tokens);
 int			exec_error(char *s, int exitcode);
+int			exec_error_path(char *s, int exitcode, char *path);
 void		execve_(char *path, char **cmd, char **envp);
 void		free_cmd(void);
 pid_t		fork_(void);

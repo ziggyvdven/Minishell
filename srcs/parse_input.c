@@ -6,7 +6,7 @@
 /*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 11:30:15 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/02 16:28:28 by zvan-de-         ###   ########.fr       */
+/*   Updated: 2023/10/11 14:23:43 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ t_tokens	*parse_input(char *input)
 		&& pa()->parse_error == 0)
 	{
 		temp = get_string(input, pa()->j);
+		if (!temp)
+			break ;
 		tokens = ft_lstadd_back(tokens,
 				ft_lstnew(get_data(temp, pa()->id)));
 		pa()->i = pa()->j;

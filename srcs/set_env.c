@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oroy <oroy@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/24 11:24:36 by oroy              #+#    #+#             */
-/*   Updated: 2023/10/06 12:28:09 by oroy             ###   ########.fr       */
+/*   Updated: 2023/10/16 11:55:39 by zvan-de-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,35 @@ char	*ft_get_env(char *str)
 	return (s);
 }
 
+t_tokens	*env_shlvl(t_tokens	*env)
+{
+	int			i;
+	char		*str;
+	char		*new_num;
+
+	str = ft_get_env("SHLVL");
+	if (!str)
+	{
+		env = ft_lstadd_back(env,
+				ft_lstnew(get_data(ft_strdup("SHLVL=1"), WORD)));
+		return (env);
+	}
+	i = ft_atoi(str) + 1;
+	ft_free_str(str);
+	new_num = ft_itoa(i);
+	str = ft_strjoin("SHLVL=", new_num);
+	ft_free_str(new_num);
+	ft_env_replace(t()->env, str);
+	ft_free_str(str);
+	return (env);
+}
+
 // stores environement in linked list
 
 void	set_env(int argc, char **argv, char **envp)
 {
 	t_tokens	*env;
 	size_t		i;
-	char		*str;
-	char		*new_num;
 
 	(void) argc;
 	(void) argv;
@@ -81,13 +102,5 @@ void	set_env(int argc, char **argv, char **envp)
 		i++;
 	}
 	t()->env = env;
-	str = ft_get_env("SHLVL");
-	i = ft_atoi(str);
-	i++;
-	ft_free_str(str);
-	new_num = ft_itoa(i);
-	str = ft_strjoin("SHLVL=", new_num);
-	ft_free_str(new_num);
-	ft_env_replace(t()->env, str);
-	ft_free_str(str);
+	env = env_shlvl(env);
 }

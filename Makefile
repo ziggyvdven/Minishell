@@ -6,7 +6,7 @@
 #    By: zvan-de- <zvan-de-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/14 13:45:36 by zvandeven         #+#    #+#              #
-#    Updated: 2023/10/06 14:47:34 by zvan-de-         ###   ########.fr        #
+#    Updated: 2023/10/16 12:10:15 by zvan-de-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -161,6 +161,6 @@ re: fclean all
 val: $(NAME)
 	valgrind --leak-check=full \
 	--show-leak-kinds=all \
-	--track-origins=yes -s \
 	--show-reachable=no \
+	--track-origins=yes -s \
 	./$(NAME)
